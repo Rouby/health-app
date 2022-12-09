@@ -85,23 +85,31 @@ export function OverviewPage() {
       acc.push({
         date: day,
         acts: sexActsOnDate,
+        daysOnPeriod: 0,
       });
     } else {
+      const onPeriod =
+        daysWithoutSex?.find((wo) => dayjs(wo.dateTime).isSame(day, "day"))
+          ?.onPeriod ?? false;
       if (acc.length === 0) {
         acc.push({
           date: day,
           acts: [],
+          daysOnPeriod: onPeriod ? 1 : 0,
         });
       } else if (acc.at(-1)!.acts.length > 0) {
         acc.push({
           date: day,
           acts: [],
+          daysOnPeriod: onPeriod ? 1 : 0,
         });
+      } else {
+        acc.at(-1)!.daysOnPeriod += onPeriod ? 1 : 0;
       }
     }
 
     return acc;
-  }, [] as { date: Dayjs; acts: ArrayElement<typeof sexActs>[] }[]);
+  }, [] as { date: Dayjs; acts: ArrayElement<typeof sexActs>[]; daysOnPeriod: number }[]);
 
   if (timelineEvents.at(-1)?.acts.length === 0) {
     timelineEvents.pop();
@@ -110,6 +118,7 @@ export function OverviewPage() {
     timelineEvents.push({
       date: dayjs().endOf("day"),
       acts: [],
+      daysOnPeriod: 0,
     });
   }
 
@@ -117,7 +126,7 @@ export function OverviewPage() {
     <>
       <Container>
         <Timeline>
-          {timelineEvents.map(({ date, acts }, idx, arr) =>
+          {timelineEvents.map(({ date, acts, daysOnPeriod }, idx, arr) =>
             acts.length > 0 ? (
               <Timeline.Item
                 key={date.toISOString()}
@@ -140,11 +149,24 @@ export function OverviewPage() {
             ) : (
               <Timeline.Item
                 key={date.toISOString()}
-                title={"No sex :("}
+                title={
+                  <FormattedMessage
+                    defaultMessage="No sex for {days, plural, =1 {1 day} other {# days}} :("
+                    values={{
+                      days: Math.round(
+                        dayjs(arr[idx + 1]?.date).diff(date, "days", true)
+                      ),
+                    }}
+                  />
+                }
                 lineVariant="dashed"
               >
                 <Text size="xs" mt={4}>
                   {dateTime.format(date.toDate())}
+                  <FormattedMessage
+                    defaultMessage="{daysOnPeriod, plural, =0 {} =1 {, # day 🩸} other {, # days 🩸}}"
+                    values={{ daysOnPeriod }}
+                  />
                 </Text>
               </Timeline.Item>
             )
@@ -213,9 +235,10 @@ export function OverviewPage() {
                 }
                 loading={isSavingDayWithoutSex}
                 error={errorSavingDayWithoutSex?.message}
-                onSubmit={({ dateTime }) =>
+                onSubmit={({ dateTime, onPeriod }) =>
                   addDayWithoutSex({
                     dateTime: dateTime.toISOString(),
+                    onPeriod,
                   })
                 }
               />

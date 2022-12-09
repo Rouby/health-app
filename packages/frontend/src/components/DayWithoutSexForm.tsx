@@ -12,7 +12,7 @@ export function DayWithoutSexForm({
 }: {
   initialDateTime?: Date;
   excludeDate?: (date: Date) => boolean;
-  onSubmit: (values: { dateTime: Date }) => void;
+  onSubmit: (values: { dateTime: Date; onPeriod: boolean }) => void;
   loading: boolean;
   error?: React.ReactNode;
 }) {
