@@ -1,0 +1,41 @@
+{
+  "name": "@rouby/sex-app-frontend",
+  "scripts": {
+    "dev": "vite",
+    "test": "vitest",
+    "build": "vite build",
+    "deploy": "rsync -avz --delete -e \"ssh -i ~/.ssh/id_ed25519\" ./dist/ pi@192.168.178.40:/home/pi/sex-app/frontend/"
+  },
+  "dependencies": {
+    "@emotion/react": "11.10.5",
+    "@mantine/core": "5.9.0",
+    "@mantine/dates": "5.9.0",
+    "@mantine/form": "5.9.0",
+    "@mantine/hooks": "5.9.0",
+    "@mantine/modals": "5.9.0",
+    "@mantine/spotlight": "5.9.0",
+    "@tabler/icons": "1.114.0",
+    "@tanstack/react-location": "3.7.4",
+    "@tanstack/react-query": "4.19.0",
+    "@trpc/client": "10.4.3",
+    "@trpc/react-query": "10.4.3",
+    "@trpc/server": "10.4.3",
+    "@vitejs/plugin-react": "2.2.0",
+    "babel-plugin-formatjs": "10.3.35",
+    "dayjs": "1.11.6",
+    "framer-motion": "7.6.18",
+    "jotai": "1.11.0",
+    "jwt-decode": "3.1.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-intl": "6.2.5",
+    "vite": "3.2.4",
+    "zipson": "0.2.12"
+  },
+  "devDependencies": {
+    "@rouby/sex-app-backend": "workspace:*",
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.9",
+    "typescript": "4.9.3"
+  }
+}

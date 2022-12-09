@@ -1,0 +1,25 @@
+{
+  "name": "sex-app",
+  "packageManager": "yarn@3.3.0",
+  "scripts": {
+    "dev": "nx run-many --target=dev",
+    "build": "nx run-many --target=build",
+    "deploy": "nx run-many --target=deploy"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@nrwl/nx-cloud": "latest",
+    "nx": "15.2.4",
+    "typescript": "4.9.3"
+  },
+  "dependenciesMeta": {
+    "@prisma/client@4.7.1": {
+      "unplugged": true
+    },
+    "prisma@4.7.1": {
+      "unplugged": true
+    }
+  }
+}
