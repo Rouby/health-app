@@ -111,14 +111,15 @@ export function OverviewPage() {
     return acc;
   }, [] as { date: Dayjs; acts: ArrayElement<typeof sexActs>[]; daysOnPeriod: number }[]);
 
+  let previousDaysOnPeriod = undefined;
   if (timelineEvents.at(-1)?.acts.length === 0) {
-    timelineEvents.pop();
+    previousDaysOnPeriod = timelineEvents.pop()?.daysOnPeriod;
   }
   if (!timelineEvents.at(-1)?.date.isSame(dayjs(), "day")) {
     timelineEvents.push({
       date: dayjs().endOf("day"),
       acts: [],
-      daysOnPeriod: 0,
+      daysOnPeriod: previousDaysOnPeriod ?? 0,
     });
   }
 
