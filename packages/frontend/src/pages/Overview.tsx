@@ -154,7 +154,11 @@ export function OverviewPage() {
                     defaultMessage="No sex for {days, plural, =1 {1 day} other {# days}} :("
                     values={{
                       days: Math.round(
-                        dayjs(arr[idx + 1]?.date).diff(date, "days", true)
+                        arr[idx + 1]
+                          ? dayjs(arr[idx + 1].date).diff(date, "days", true)
+                          : dayjs(date)
+                              .subtract(1, "day")
+                              .diff(arr[idx - 1]?.date, "days", true)
                       ),
                     }}
                   />
