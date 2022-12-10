@@ -272,14 +272,24 @@ export function OverviewPage() {
                     ...values,
                   });
                 }}
-                positions={sexActs?.flatMap((act) => act.position.split(","))}
-                locations={sexActs?.flatMap((act) => act.location ?? [])}
-                foreplaysOnUser={sexActs?.flatMap(
-                  (act) => act.foreplayOnUser ?? []
-                )}
-                foreplaysOnPartner={sexActs?.flatMap(
-                  (act) => act.foreplayOnPartner ?? []
-                )}
+                positions={[
+                  ...new Set(
+                    sexActs?.flatMap((act) => act.position.split(","))
+                  ),
+                ]}
+                locations={[
+                  ...new Set(sexActs?.flatMap((act) => act.location ?? [])),
+                ]}
+                foreplaysOnUser={[
+                  ...new Set(
+                    sexActs?.flatMap((act) => act.foreplayOnUser ?? [])
+                  ),
+                ]}
+                foreplaysOnPartner={[
+                  ...new Set(
+                    sexActs?.flatMap((act) => act.foreplayOnPartner ?? [])
+                  ),
+                ]}
               />
             )}
           </Paper>
