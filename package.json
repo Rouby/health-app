@@ -1,5 +1,6 @@
 {
   "name": "sex-app",
+  "version": "1.0.0",
   "packageManager": "yarn@3.3.0",
   "scripts": {
     "dev": "nx run-many --target=dev",
@@ -23,6 +24,5 @@
     "prisma@4.7.1": {
       "unplugged": true
     }
-  },
-  "version": "1.0.0"
+  }
 }
