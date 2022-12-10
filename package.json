@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "nx run-many --target=dev",
     "build": "nx run-many --target=build",
+    "release": "standard-version",
     "deploy": "nx run-many --target=deploy"
   },
   "workspaces": [
@@ -12,6 +13,7 @@
   "devDependencies": {
     "@nrwl/nx-cloud": "latest",
     "nx": "15.2.4",
+    "standard-version": "9.5.0",
     "typescript": "4.9.3"
   },
   "dependenciesMeta": {
@@ -21,5 +23,6 @@
     "prisma@4.7.1": {
       "unplugged": true
     }
-  }
+  },
+  "version": "1.0.0"
 }
