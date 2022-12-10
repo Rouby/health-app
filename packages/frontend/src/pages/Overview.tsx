@@ -132,7 +132,9 @@ export function OverviewPage() {
               <Timeline.Item
                 key={date.toISOString()}
                 bullet={<IconActivity />}
-                title={acts[0].position.split(",").join(", ")}
+                title={acts
+                  .map((act) => act.position.split(",").join(", "))
+                  .join(" + ")}
                 lineVariant={
                   arr[idx + 1]?.acts.length === 0 ? "dashed" : "solid"
                 }
