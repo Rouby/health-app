@@ -134,7 +134,7 @@ export function OverviewPage() {
                 bullet={<IconActivity />}
                 title={acts[0].position.split(",").join(", ")}
                 lineVariant={
-                  arr[idx + 1].acts.length === 0 ? "dashed" : "solid"
+                  arr[idx + 1]?.acts.length === 0 ? "dashed" : "solid"
                 }
               >
                 <Text size="xs" mt={4}>
