@@ -251,7 +251,7 @@ export function OverviewPage() {
               />
             ) : (
               <SexActForm
-                key={preselectedDate?.toISOString()}
+                key={`${preselectedDate?.toISOString()}-${sexActs?.length}`}
                 initialDateTime={preselectedDate ?? undefined}
                 loading={isSavingSexAct}
                 error={errorSavingSexAct?.message}
