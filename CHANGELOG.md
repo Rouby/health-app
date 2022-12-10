@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](///compare/v1.0.0...v1.1.0) (2022-12-10)
+
+
+### Features
+
+* **timeline:** show multiple sex acts on same date b243b03
+
+
+### Bug Fixes
+
+* **sex-act-form:** dont show duplicate options 92c22c8
+* **sex-act-form:** show previously entered data as options d9f75fa
+* **timeline:** dont break with sex on current date e9696ed
+
 ## 1.0.0 (2022-12-10)
 
 
