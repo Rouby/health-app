@@ -4,7 +4,7 @@ import jotaiDebugLabel from "jotai/babel/plugin-debug-label";
 import jotaiReactRefresh from "jotai/babel/plugin-react-refresh";
 import { defineConfig } from "vite";
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     react({
       babel: {
@@ -15,6 +15,7 @@ export default defineConfig({
             formatJs,
             {
               idInterpolationPattern: "[sha512:contenthash:base64:6]",
+              removeDefaultMessage: mode === "production",
               ast: true,
             },
           ],
@@ -22,6 +23,12 @@ export default defineConfig({
       },
     }),
   ],
+  resolve: {
+    alias: {
+      "@formatjs/icu-messageformat-parser":
+        "@formatjs/icu-messageformat-parser/no-parser",
+    },
+  },
   server: {
     proxy: {
       "/trpc": {
@@ -30,4 +37,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));

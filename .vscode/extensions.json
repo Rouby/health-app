@@ -1,5 +1,6 @@
 {
   "recommendations": [
-    "arcanis.vscode-zipfs"
+    "arcanis.vscode-zipfs",
+    "thibault-vanderseypen.i18n-json-editor"
   ]
 }

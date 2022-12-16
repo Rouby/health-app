@@ -1,0 +1,80 @@
+{
+  "+POXw0": {
+    "defaultMessage": "Erfasse Tag ohne Sex"
+  },
+  "1jYIty": {
+    "defaultMessage": "Partner ist gekommen"
+  },
+  "2k04al": {
+    "defaultMessage": "Ich bin gekommen"
+  },
+  "5h6Hwv": {
+    "defaultMessage": "Oral, fingern, etc."
+  },
+  "7tedI4": {
+    "defaultMessage": "Erfasse Sex"
+  },
+  "8Yse7I": {
+    "defaultMessage": "Schlafzimmer, Küche, Wohnzimmer, etc."
+  },
+  "APHJN1": {
+    "defaultMessage": "{daysOnPeriod,plural,=0{} =1{, # Tag 🩸} other{, # Tage 🩸}}"
+  },
+  "ByuOj8": {
+    "defaultMessage": "Ungültige Email"
+  },
+  "ByvzQI": {
+    "defaultMessage": "Hat Tage?"
+  },
+  "HLsE4w": {
+    "defaultMessage": "Missionar, Doggy, Cowgirl, Reverse Cowgirl, 69, Spooning, etc."
+  },
+  "IeBLo1": {
+    "defaultMessage": "{days,plural,=1{Einen Tag kein :(} other{Kein Sex für # Tage :(}}"
+  },
+  "MToUjW": {
+    "defaultMessage": "Partner"
+  },
+  "P7PLVj": {
+    "defaultMessage": "Datum"
+  },
+  "PNxfCU": {
+    "defaultMessage": "{days,plural,=1{Du hast einen Tag nicht erfasst:} other{Du hast # Tage noch nicht erfasst:}}"
+  },
+  "QOyfuR": {
+    "defaultMessage": "Initiiert von"
+  },
+  "TdbPNK": {
+    "defaultMessage": "Ich"
+  },
+  "dj8DSo": {
+    "defaultMessage": "{minutes} Minuten"
+  },
+  "frTbrP": {
+    "defaultMessage": "Wähle mindestens eins"
+  },
+  "hVxfnN": {
+    "defaultMessage": "Positionen"
+  },
+  "i+okg1": {
+    "defaultMessage": "Name muss mindestens 3 Zeichen lang sein"
+  },
+  "jvo0vs": {
+    "defaultMessage": "Speichern"
+  },
+  "rSjYyx": {
+    "defaultMessage": "Vorspiel für Partner"
+  },
+  "rvirM2": {
+    "defaultMessage": "Ort"
+  },
+  "ug01Mk": {
+    "defaultMessage": "Zeit"
+  },
+  "vrFBka": {
+    "defaultMessage": "Dauer (in Minuten)"
+  },
+  "wE3GPF": {
+    "defaultMessage": "Vorspiel für mich"
+  }
+}

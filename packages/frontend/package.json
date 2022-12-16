@@ -4,7 +4,9 @@
     "dev": "vite",
     "test": "vitest",
     "build": "vite build",
-    "deploy": "rsync -avz --delete -e \"ssh -i ~/.ssh/id_ed25519\" ./dist/ pi@192.168.178.40:/home/pi/sex-app/frontend/"
+    "deploy": "rsync -avz --delete -e \"ssh -i ~/.ssh/id_ed25519\" ./dist/ pi@192.168.178.40:/home/pi/sex-app/frontend/",
+    "i18n:extract": "formatjs extract \"src/**/*.{ts,tsx}\" --ignore \"**/*.d.ts\" --flatten --out-file i18n/en.json",
+    "i18n:compile": "formatjs compile-folder i18n --ast public/lang"
   },
   "dependencies": {
     "@emotion/react": "11.10.5",
@@ -33,6 +35,7 @@
     "zipson": "0.2.12"
   },
   "devDependencies": {
+    "@formatjs/cli": "5.1.10",
     "@rouby/sex-app-backend": "workspace:*",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",

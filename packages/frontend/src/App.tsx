@@ -1,10 +1,14 @@
 import {
   AppShell,
+  Button,
   Container,
   Divider,
+  Group,
+  LoadingOverlay,
   MantineProvider,
   Paper,
   Text,
+  Title,
 } from "@mantine/core";
 import {
   Outlet,
@@ -13,14 +17,18 @@ import {
   Router,
   stringifySearchWith,
 } from "@tanstack/react-location";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 import { useMemo, useState } from "react";
 import { IntlProvider } from "react-intl";
 import { parse, stringify } from "zipson";
 import { LoginForm } from "./components";
 import { OverviewPage } from "./pages";
-import { useAuth, useIsAuthenticated } from "./state";
+import { useAuth, useIsAuthenticated, useLanguage } from "./state";
 import { trpc } from "./utils";
 
 const reactLocation = new ReactLocation({
@@ -53,36 +61,128 @@ export function App() {
   );
 
   return (
-    <IntlProvider locale="de" onError={() => {}}>
-      <trpc.Provider client={trpcClient} queryClient={queryClient}>
-        <QueryClientProvider client={queryClient}>
-          <Router
-            location={reactLocation}
-            routes={[
-              {
-                path: "/",
-                element: <Auth />,
-                pendingElement: "loading...",
-                children: [
-                  {
-                    element: <OverviewPage />,
-                  },
-                ],
-              },
-            ]}
-          >
-            <MantineProvider
-              withGlobalStyles
-              withNormalizeCSS
-              theme={{ colorScheme: "dark" }}
+    <MantineProvider
+      withGlobalStyles
+      withNormalizeCSS
+      theme={{ colorScheme: "dark" }}
+    >
+      <QueryClientProvider client={queryClient}>
+        <Intl>
+          <trpc.Provider client={trpcClient} queryClient={queryClient}>
+            <Router
+              location={reactLocation}
+              routes={[
+                {
+                  path: "/",
+                  element: <Auth />,
+                  pendingElement: "loading...",
+                  children: [
+                    {
+                      element: <OverviewPage />,
+                    },
+                  ],
+                },
+              ]}
             >
               <AppShell>
                 <Outlet />
               </AppShell>
-            </MantineProvider>
-          </Router>
-        </QueryClientProvider>
-      </trpc.Provider>
+            </Router>
+          </trpc.Provider>
+        </Intl>
+      </QueryClientProvider>
+    </MantineProvider>
+  );
+}
+
+function Intl({ children }: { children: React.ReactNode }) {
+  const [locale, setLocale] = useLanguage();
+
+  const messages = useQuery(
+    ["locale", locale],
+    ({ queryKey: [_, locale] }) =>
+      fetch(`lang/${locale}.json`).then((res) => {
+        if (!res.ok) {
+          if (import.meta.env.DEV) return {};
+
+          throw new Error("Failed to fetch locale");
+        }
+        return res.json();
+      }),
+    {
+      staleTime: Infinity,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      retry: false,
+    }
+  );
+
+  if (messages.isLoading) {
+    return (
+      <LoadingOverlay
+        visible
+        loaderProps={{ variant: "dots" }}
+        overlayBlur={0}
+      />
+    );
+  }
+
+  if (messages.isError) {
+    return (
+      <Container pt="xl">
+        <Title
+          sx={(theme) => ({
+            fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+            textAlign: "center",
+            fontWeight: 900,
+            fontSize: 38,
+            color: theme.white,
+
+            [theme.fn.smallerThan("sm")]: {
+              fontSize: 32,
+            },
+          })}
+        >
+          Could not load locale
+        </Title>
+        <Text
+          size="lg"
+          align="center"
+          sx={(theme) => ({
+            maxWidth: 540,
+            margin: "auto",
+            marginTop: theme.spacing.xl,
+            marginBottom: theme.spacing.xl * 1.5,
+            color: theme.colors[theme.primaryColor][1],
+          })}
+        >
+          There was a problem loading the locale messages for your language (
+          {locale}). Try refreshing the page or continue with the default
+          language (en).
+        </Text>
+        <Group position="center">
+          <Button
+            variant="light"
+            size="md"
+            onClick={() => window.location.reload()}
+          >
+            Refresh the page
+          </Button>
+          <Button variant="light" size="md" onClick={() => setLocale("en")}>
+            Continue with english
+          </Button>
+        </Group>
+      </Container>
+    );
+  }
+
+  return (
+    <IntlProvider
+      locale={locale}
+      messages={messages.data ?? {}}
+      defaultLocale="en"
+    >
+      {children}
     </IntlProvider>
   );
 }

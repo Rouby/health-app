@@ -759,6 +759,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formatjs/cli@npm:5.1.10":
+  version: 5.1.10
+  resolution: "@formatjs/cli@npm:5.1.10"
+  peerDependencies:
+    "@vue/compiler-sfc": ^3.2.34
+  peerDependenciesMeta:
+    "@vue/compiler-sfc":
+      optional: true
+  bin:
+    formatjs: bin/formatjs
+  checksum: c5e5ea69305151160daea86300a5e8ef36751dadd6d6ff0320b70429911f99b1ab4d9bb203d1b22f7b9e3f4cf94ae6993cf88f774e16ec568421fccd639150d0
+  languageName: node
+  linkType: hard
+
 "@formatjs/ecma402-abstract@npm:1.14.3":
   version: 1.14.3
   resolution: "@formatjs/ecma402-abstract@npm:1.14.3"
@@ -1390,6 +1404,7 @@ __metadata:
   resolution: "@rouby/sex-app-frontend@workspace:packages/frontend"
   dependencies:
     "@emotion/react": 11.10.5
+    "@formatjs/cli": 5.1.10
     "@mantine/core": 5.9.0
     "@mantine/dates": 5.9.0
     "@mantine/form": 5.9.0

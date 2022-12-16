@@ -6,7 +6,8 @@
     "dev": "nx run-many --target=dev",
     "build": "nx run-many --target=build",
     "release": "standard-version",
-    "deploy": "nx run-many --target=deploy"
+    "deploy": "nx run-many --target=deploy",
+    "i18n": "nx run-many --target=i18n:compile"
   },
   "workspaces": [
     "packages/*"

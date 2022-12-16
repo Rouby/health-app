@@ -342,6 +342,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "virtual:43fa4fcc1beacd3bb6996d250ad74b8ef226d75ea3d09ef964ad89ce0220e01b226eee0262034ea9c5bd9a938c75a6c711f2976deeada0371052ac5fbdd2350d#npm:0.10.3"\
       ],\
       [\
+        "@formatjs/cli",\
+        "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:5.1.10"\
+      ],\
+      [\
         "@formatjs/ecma402-abstract",\
         "npm:1.14.3"\
       ],\
@@ -3704,6 +3708,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@formatjs/cli", [\
+        ["npm:5.1.10", {\
+          "packageLocation": "./.yarn/cache/@formatjs-cli-npm-5.1.10-c022caf3a6-c5e5ea6930.zip/node_modules/@formatjs/cli/",\
+          "packageDependencies": [\
+            ["@formatjs/cli", "npm:5.1.10"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:5.1.10", {\
+          "packageLocation": "./.yarn/__virtual__/@formatjs-cli-virtual-ec4af71d51/0/cache/@formatjs-cli-npm-5.1.10-c022caf3a6-c5e5ea6930.zip/node_modules/@formatjs/cli/",\
+          "packageDependencies": [\
+            ["@formatjs/cli", "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:5.1.10"],\
+            ["@types/vue__compiler-sfc", null],\
+            ["@vue/compiler-sfc", null]\
+          ],\
+          "packagePeers": [\
+            "@types/vue__compiler-sfc",\
+            "@vue/compiler-sfc"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@formatjs/ecma402-abstract", [\
         ["npm:1.14.3", {\
           "packageLocation": "./.yarn/cache/@formatjs-ecma402-abstract-npm-1.14.3-0c3d1a26d2-504ae97750.zip/node_modules/@formatjs/ecma402-abstract/",\
@@ -4659,6 +4685,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@rouby/sex-app-frontend", "workspace:packages/frontend"],\
             ["@emotion/react", "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:11.10.5"],\
+            ["@formatjs/cli", "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:5.1.10"],\
             ["@mantine/core", "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:5.9.0"],\
             ["@mantine/dates", "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:5.9.0"],\
             ["@mantine/form", "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:5.9.0"],\
