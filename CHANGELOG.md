@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](///compare/v1.3.2...v1.4.0) (2022-12-17)
+
+
+### Features
+
+* implement editing of previous sex acts b8d1dea
+* **timeline:** only show expired days as not-tracked 7dcc072
+* **timeline:** show finishing of acts 37bc341
+
+
+### Bug Fixes
+
+* **timeline:** include current day, but show it not for missing track-days 305ae29
+
 ### [1.3.2](///compare/v1.3.1...v1.3.2) (2022-12-17)
 
 
