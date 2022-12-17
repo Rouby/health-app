@@ -26,7 +26,7 @@ import { httpBatchLink } from "@trpc/client";
 import { useMemo, useState } from "react";
 import { IntlProvider } from "react-intl";
 import { parse, stringify } from "zipson";
-import { LoginForm } from "./components";
+import { LoginForm, Navigation } from "./components";
 import { OverviewPage } from "./pages";
 import { useAuth, useIsAuthenticated, useLanguage } from "./state";
 import { trpc } from "./utils";
@@ -73,9 +73,7 @@ export function App() {
               location={reactLocation}
               routes={[
                 {
-                  path: "/",
                   element: <Auth />,
-                  pendingElement: "loading...",
                   children: [
                     {
                       element: <OverviewPage />,
@@ -84,7 +82,7 @@ export function App() {
                 },
               ]}
             >
-              <AppShell>
+              <AppShell navbar={<Navigation />}>
                 <Outlet />
               </AppShell>
             </Router>
