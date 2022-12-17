@@ -6,9 +6,13 @@ import React, { useEffect, useRef } from "react";
 import { FormattedMessage } from "react-intl";
 
 export function Navigation() {
-  const isTouchBased = useMediaQuery("(hover: none)", undefined, {
-    getInitialValueInEffect: false,
-  });
+  const isTouchBased = useMediaQuery(
+    "(pointer: none) or (hover: none)",
+    undefined,
+    {
+      getInitialValueInEffect: false,
+    }
+  );
 
   const showNav = useScrollDisclosure();
 
