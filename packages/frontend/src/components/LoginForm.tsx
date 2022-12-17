@@ -8,7 +8,7 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 export function LoginForm({
   onSubmit,
@@ -61,7 +61,7 @@ export function LoginForm({
           required
           name="login"
           autoComplete="username"
-          label="Email"
+          label={<FormattedMessage defaultMessage="Email" />}
           placeholder="your@email.com"
           {...form.getInputProps("email")}
         />
@@ -72,14 +72,14 @@ export function LoginForm({
           autoComplete={
             form.values.mode === "login" ? "current-password" : "new-password"
           }
-          label="Password"
+          label={<FormattedMessage defaultMessage="Password" />}
           {...form.getInputProps("password")}
         />
 
         {form.values.mode === "login" && (
           <Checkbox
             mt="md"
-            label="Remember me"
+            label={<FormattedMessage defaultMessage="Remember me" />}
             {...form.getInputProps("rememberMe", { type: "checkbox" })}
           />
         )}
@@ -89,8 +89,8 @@ export function LoginForm({
             required
             minLength={3}
             name="name"
-            label="Name"
-            placeholder="Your name"
+            label={<FormattedMessage defaultMessage="Name" />}
+            placeholder={<FormattedMessage defaultMessage="Your name" />}
             {...form.getInputProps("name")}
           />
         )}
@@ -109,10 +109,18 @@ export function LoginForm({
               )
             }
           >
-            {form.values.mode === "register" ? "Login" : "Create Account"}
+            {form.values.mode === "register" ? (
+              <FormattedMessage defaultMessage="Login" />
+            ) : (
+              <FormattedMessage defaultMessage="Create Account" />
+            )}
           </Button>
           <Button type="submit" loading={loading}>
-            {form.values.mode === "login" ? "Login" : "Register"}
+            {form.values.mode === "login" ? (
+              <FormattedMessage defaultMessage="Login" />
+            ) : (
+              <FormattedMessage defaultMessage="Register" />
+            )}
           </Button>
         </Group>
       </Group>

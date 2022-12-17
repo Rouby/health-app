@@ -8,8 +8,14 @@
   "2k04al": {
     "defaultMessage": "I came"
   },
+  "5JcXdV": {
+    "defaultMessage": "Create Account"
+  },
   "5h6Hwv": {
     "defaultMessage": "Oral, fingering, etc."
+  },
+  "5sg7KC": {
+    "defaultMessage": "Password"
   },
   "7tedI4": {
     "defaultMessage": "Track sex act"
@@ -17,8 +23,14 @@
   "8Yse7I": {
     "defaultMessage": "Bedroom, Kitchen, Living room, etc."
   },
+  "A6sL8J": {
+    "defaultMessage": "Remember me"
+  },
   "APHJN1": {
     "defaultMessage": "{daysOnPeriod,plural,=0{} =1{, # day 🩸} other{, # days 🩸}}"
+  },
+  "AyGauy": {
+    "defaultMessage": "Login"
   },
   "ByuOj8": {
     "defaultMessage": "Invalid email"
@@ -29,11 +41,20 @@
   "D+v5e+": {
     "defaultMessage": "Tracking"
   },
+  "EwRIOm": {
+    "defaultMessage": "User"
+  },
+  "HAlOn1": {
+    "defaultMessage": "Name"
+  },
   "HLsE4w": {
     "defaultMessage": "Missionary, Doggy, Cowgirl, Reverse Cowgirl, 69, Spooning, etc."
   },
   "IeBLo1": {
     "defaultMessage": "{days,plural,=1{No sex for 1 day :(} other{No sex for # days :(}}"
+  },
+  "MD5B2N": {
+    "defaultMessage": "No user found"
   },
   "MToUjW": {
     "defaultMessage": "Partner"
@@ -49,6 +70,9 @@
   },
   "TdbPNK": {
     "defaultMessage": "Me"
+  },
+  "deEeEI": {
+    "defaultMessage": "Register"
   },
   "dj8DSo": {
     "defaultMessage": "{minutes} minutes"
@@ -71,8 +95,14 @@
   "rvirM2": {
     "defaultMessage": "Location"
   },
+  "sy+pv5": {
+    "defaultMessage": "Email"
+  },
   "ug01Mk": {
     "defaultMessage": "Time"
+  },
+  "vlKhIl": {
+    "defaultMessage": "Your name"
   },
   "vrFBka": {
     "defaultMessage": "Duration (minutes)"
