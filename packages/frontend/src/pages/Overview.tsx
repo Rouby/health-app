@@ -64,7 +64,10 @@ export function OverviewPage() {
   const days = Array.from(
     {
       length: Math.ceil(
-        dayjs().endOf("day").diff(firstTrackedDay, "day", true)
+        dayjs()
+          .endOf("day")
+          .subtract(1, "day")
+          .diff(firstTrackedDay, "day", true)
       ),
     },
     (_, idx) => firstTrackedDay.add(idx, "day")
