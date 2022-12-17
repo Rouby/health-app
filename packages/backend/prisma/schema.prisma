@@ -26,6 +26,10 @@ model User {
 
   sexActs        SexAct[]
   daysWithoutSex DayWithoutSex[]
+
+  partner         User?   @relation("Partner", fields: [partnerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  partnerId       String? @unique
+  partnerProposer User?   @relation("Partner") // This is the user that proposed the current user as a partner
 }
 
 model Password {

@@ -20,6 +20,7 @@ export async function createAbility(user: User | null) {
   );
 
   if (user) {
+    can("manage", "User", { id: user.id });
     can("manage", "SexAct", { userId: user.id });
     can("manage", "DayWithoutSex", { userId: user.id });
   }

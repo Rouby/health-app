@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import fastify from "fastify";
 import { createContext } from "./context";
-import { authRouter, trackerRouter } from "./routers";
+import { accountRouter, authRouter, trackerRouter } from "./routers";
 
 dayjs.extend(duration);
 
@@ -12,6 +12,7 @@ const t = initTRPC.create();
 
 const appRouter = t.router({
   auth: authRouter,
+  account: accountRouter,
   tracker: trackerRouter,
 });
 

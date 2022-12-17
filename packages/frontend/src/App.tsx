@@ -76,6 +76,10 @@ export function App() {
                   element: <Auth />,
                   children: [
                     {
+                      path: "account",
+                      element: <AccountPage />,
+                    },
+                    {
                       element: <OverviewPage />,
                     },
                   ],

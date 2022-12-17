@@ -7,7 +7,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useDisclosure, useMediaQuery, useWindowScroll } from "@mantine/hooks";
-import { IconHome } from "@tabler/icons";
+import { IconHome, IconUser } from "@tabler/icons";
 import { Link, LinkProps } from "@tanstack/react-location";
 import React, { useEffect, useRef } from "react";
 import { FormattedMessage } from "react-intl";
@@ -53,8 +53,12 @@ export function Navigation() {
         >
           <Group position="center" m="xs" spacing={36}>
             <NavButton to="/">
-              <IconHome size={36} />
+              <IconHome size={36} stroke={1.5} />
               <FormattedMessage defaultMessage="Tracking" />
+            </NavButton>
+            <NavButton to="/account">
+              <IconUser size={36} stroke={1.5} />
+              <FormattedMessage defaultMessage="User" />
             </NavButton>
           </Group>
         </Box>

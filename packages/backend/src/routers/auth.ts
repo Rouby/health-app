@@ -52,9 +52,9 @@ export const authRouter = router({
   register: publicProcedure
     .input(
       z.object({
-        email: z.string(),
+        email: z.string().email(),
         password: z.string(),
-        name: z.string(),
+        name: z.string().min(3),
       })
     )
     .mutation(async (req) => {
