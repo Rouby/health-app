@@ -1,4 +1,4 @@
-import { ForbiddenError } from "@casl/ability";
+import { ForbiddenError, subject } from "@casl/ability";
 import { accessibleBy } from "@casl/prisma";
 import dayjs from "dayjs";
 import { z } from "zod";
@@ -67,6 +67,49 @@ export const trackerRouter = router({
           onPeriod: req.input.onPeriod,
           user: { connect: { id: req.ctx.user.id } },
         },
+      });
+    }),
+
+  update: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        dateTime: z.string().datetime(),
+        duration: z
+          .string()
+          .regex(
+            // ISO Duration regex
+            /^P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+(?:\.\d+)?)S)?)?$/
+          )
+          .nullish(),
+        location: z.string().nullish(),
+        initiator: z.enum(["USER", "PARTNER"]),
+        foreplayOnUser: z.string().nullish(),
+        foreplayOnPartner: z.string().nullish(),
+        position: z.string(),
+        userFinished: z.boolean(),
+        partnerFinished: z.boolean(),
+      })
+    )
+    .mutation(async (req) => {
+      const act = await prisma.sexAct.findUnique({
+        where: { id: req.input.id },
+      });
+
+      if (!act) {
+        throw new Error("Act not found.");
+      }
+
+      ForbiddenError.from(req.ctx.ability).throwUnlessCan(
+        "update",
+        subject("SexAct", act)
+      );
+
+      const { id, ...data } = req.input;
+
+      return prisma.sexAct.update({
+        where: { id },
+        data,
       });
     }),
 });

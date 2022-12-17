@@ -1,23 +1,10 @@
-import {
-  Button,
-  Collapse,
-  Container,
-  Group,
-  Paper,
-  Text,
-  Timeline,
-} from "@mantine/core";
+import { Button, Collapse, Container, Group, Paper, Text } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
-import { IconActivity } from "@tabler/icons";
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
-import { DayWithoutSexForm, SexActForm } from "../components";
-import { trpc } from "../utils";
-
-type ArrayElement<ArrayType> = ArrayType extends readonly (infer ElementType)[]
-  ? ElementType
-  : never;
+import { DayWithoutSexForm, SexActForm, SexTimeline } from "../components";
+import { ArrayElement, trpc } from "../utils";
 
 export function OverviewPage() {
   const utils = trpc.useContext();
@@ -28,6 +15,15 @@ export function OverviewPage() {
     isLoading: isSavingSexAct,
     error: errorSavingSexAct,
   } = trpc.tracker.add.useMutation({
+    onSuccess: () => {
+      utils.tracker.sexActs.invalidate();
+    },
+  });
+  const {
+    mutate: updateSexAct,
+    isLoading: isUpdatingSexAct,
+    error: errorUpdatingSexAct,
+  } = trpc.tracker.update.useMutation({
     onSuccess: () => {
       utils.tracker.sexActs.invalidate();
     },
@@ -44,14 +40,8 @@ export function OverviewPage() {
     },
   });
 
-  const dateTime = new Intl.DateTimeFormat(undefined, {
-    dateStyle: "long",
-  });
-  const relativeTime = new Intl.RelativeTimeFormat(undefined, {
-    style: "long",
-  });
-
-  const [preselectedDate, setPreselectedDate] = useState<Date | null>(null);
+  const [initialFormValues, setInitialFormValues] =
+    useState<Partial<ArrayElement<typeof sexActs>>>();
   const [showSexActForm, toggleShowSexActForm] = useToggle();
   const [showNoSexForm, toggleShowNoSexForm] = useToggle();
 
@@ -126,66 +116,13 @@ export function OverviewPage() {
   return (
     <>
       <Container>
-        <Timeline>
-          {timelineEvents.map(({ date, acts, daysOnPeriod }, idx, arr) =>
-            acts.length > 0 ? (
-              <Timeline.Item
-                key={date.toISOString()}
-                bullet={<IconActivity />}
-                title={acts
-                  .map(
-                    (act) =>
-                      act.position.split(",").join(", ") +
-                      [act.userFinished, act.partnerFinished]
-                        .filter(Boolean)
-                        .map(() => "💦")
-                        .join("")
-                  )
-                  .join(" + ")}
-                lineVariant={
-                  arr[idx + 1]?.acts.length === 0 ? "dashed" : "solid"
-                }
-              >
-                <Text size="xs" mt={4}>
-                  {dateTime.format(date.toDate())},{" "}
-                  {relativeTime.format(
-                    Math.round(
-                      dayjs(acts[0].dateTime).diff(undefined, "days", true)
-                    ),
-                    "days"
-                  )}
-                </Text>
-              </Timeline.Item>
-            ) : (
-              <Timeline.Item
-                key={date.toISOString()}
-                title={
-                  <FormattedMessage
-                    defaultMessage="No sex for {days, plural, =1 {1 day} other {# days}} :("
-                    values={{
-                      days: Math.round(
-                        arr[idx + 1]
-                          ? dayjs(arr[idx + 1].date).diff(date, "days", true)
-                          : dayjs(date)
-                              .subtract(1, "day")
-                              .diff(arr[idx - 1]?.date, "days", true)
-                      ),
-                    }}
-                  />
-                }
-                lineVariant="dashed"
-              >
-                <Text size="xs" mt={4}>
-                  {dateTime.format(date.toDate())}
-                  <FormattedMessage
-                    defaultMessage="{daysOnPeriod, plural, =0 {} =1 {, # day 🩸} other {, # days 🩸}}"
-                    values={{ daysOnPeriod }}
-                  />
-                </Text>
-              </Timeline.Item>
-            )
-          )}
-        </Timeline>
+        <SexTimeline
+          items={timelineEvents}
+          onEditAct={(act) => {
+            setInitialFormValues(act);
+            toggleShowSexActForm(true);
+          }}
+        />
 
         {daysWithoutTracking.filter((day) => !day.isSame(dayjs(), "day"))
           .length > 0 && (
@@ -204,7 +141,7 @@ export function OverviewPage() {
                   marginRight: 8,
                 }}
                 onClick={() => {
-                  setPreselectedDate(day.toDate());
+                  setInitialFormValues({ dateTime: day.toISOString() });
                   if (!showNoSexForm && !showSexActForm) {
                     toggleShowSexActForm(true);
                   }
@@ -241,8 +178,12 @@ export function OverviewPage() {
           <Paper radius="md" p="xl" withBorder>
             {showNoSexForm ? (
               <DayWithoutSexForm
-                key={preselectedDate?.toISOString()}
-                initialDateTime={preselectedDate ?? undefined}
+                key={JSON.stringify(initialFormValues ?? {})}
+                initialDateTime={
+                  initialFormValues?.dateTime
+                    ? dayjs(initialFormValues.dateTime).toDate()
+                    : undefined
+                }
                 excludeDate={(date) =>
                   [...(sexActs ?? []), ...(daysWithoutSex ?? [])]?.some((act) =>
                     dayjs(act.dateTime).isSame(date, "day")
@@ -259,26 +200,57 @@ export function OverviewPage() {
               />
             ) : (
               <SexActForm
-                key={`${preselectedDate?.toISOString()}-${sexActs?.length}`}
-                initialDateTime={preselectedDate ?? undefined}
-                loading={isSavingSexAct}
-                error={errorSavingSexAct?.message}
+                key={`${JSON.stringify(initialFormValues ?? {})}-${
+                  sexActs?.length
+                }`}
+                initialValues={{
+                  ...initialFormValues,
+                  positions: initialFormValues?.position?.split(","),
+                  duration: initialFormValues?.duration
+                    ? dayjs.duration(initialFormValues.duration).minutes()
+                    : null,
+                  dateTime: initialFormValues?.dateTime
+                    ? dayjs(initialFormValues.dateTime).toDate()
+                    : undefined,
+                  initiator: initialFormValues?.initiator
+                    ? initialFormValues?.initiator === "USER"
+                      ? "me"
+                      : "partner"
+                    : undefined,
+                }}
+                loading={isSavingSexAct || isUpdatingSexAct}
+                error={
+                  errorSavingSexAct?.message ?? errorUpdatingSexAct?.message
+                }
                 onSubmit={({
+                  id,
                   positions,
                   duration,
                   initiator,
                   dateTime,
                   ...values
                 }) => {
-                  addSexAct({
+                  const data = {
                     position: positions.join(","),
                     duration: duration
-                      ? dayjs.duration(duration).toISOString()
+                      ? dayjs.duration(duration, "minutes").toISOString()
                       : null,
-                    initiator: initiator === "me" ? "USER" : "PARTNER",
+                    initiator:
+                      initiator === "me"
+                        ? ("USER" as const)
+                        : ("PARTNER" as const),
                     dateTime: dateTime.toISOString(),
                     ...values,
-                  });
+                  };
+
+                  if (id) {
+                    updateSexAct({
+                      id,
+                      ...data,
+                    });
+                  } else {
+                    addSexAct(data);
+                  }
                 }}
                 positions={[
                   ...new Set(

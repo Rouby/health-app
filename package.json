@@ -7,7 +7,8 @@
     "build": "nx run-many --target=build",
     "release": "standard-version",
     "deploy": "nx run-many --target=deploy",
-    "i18n": "nx run-many --target=i18n:compile"
+    "i18n": "nx run-many --target=i18n:compile",
+    "prisma:studio": "yarn workspace @rouby/sex-app-backend pnpify prisma studio"
   },
   "workspaces": [
     "packages/*"

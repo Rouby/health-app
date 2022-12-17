@@ -16,8 +16,21 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+type FormData = {
+  id?: string;
+  positions: string[];
+  dateTime: Date;
+  initiator: "me" | "partner";
+  duration: number | null;
+  location: string | null;
+  foreplayOnUser: string | null;
+  foreplayOnPartner: string | null;
+  userFinished: boolean;
+  partnerFinished: boolean;
+};
+
 export function SexActForm({
-  initialDateTime = new Date(),
+  initialValues,
   positions = [],
   locations = [],
   foreplaysOnUser = [],
@@ -26,22 +39,12 @@ export function SexActForm({
   loading,
   error,
 }: {
-  initialDateTime?: Date;
+  initialValues?: Partial<FormData>;
   positions?: string[];
   locations?: string[];
   foreplaysOnUser?: string[];
   foreplaysOnPartner?: string[];
-  onSubmit: (values: {
-    positions: string[];
-    dateTime: Date;
-    initiator: "me" | "partner";
-    duration: number | null;
-    location: string | null;
-    foreplayOnUser: string | null;
-    foreplayOnPartner: string | null;
-    userFinished: boolean;
-    partnerFinished: boolean;
-  }) => void;
+  onSubmit: (values: FormData) => void;
   loading: boolean;
   error?: React.ReactNode;
 }) {
@@ -54,17 +57,19 @@ export function SexActForm({
 
   const { formatMessage } = useIntl();
 
-  const form = useForm({
+  const form = useForm<FormData>({
     initialValues: {
-      positions: [] as string[],
-      dateTime: initialDateTime,
-      initiator: "me" as "me" | "partner",
-      duration: null as number | null,
-      location: null as string | null,
-      foreplayOnUser: null as string | null,
-      foreplayOnPartner: null as string | null,
+      positions: [],
+      dateTime: new Date(),
+      initiator: "me",
+      duration: null,
+      location: null,
+      foreplayOnUser: null,
+      foreplayOnPartner: null,
       userFinished: true,
       partnerFinished: true,
+
+      ...initialValues,
     },
 
     validate: {
