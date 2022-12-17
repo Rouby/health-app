@@ -1,4 +1,11 @@
-import { Box, Group, Stack, Transition, UnstyledButton } from "@mantine/core";
+import {
+  Box,
+  Group,
+  Stack,
+  Transition,
+  UnstyledButton,
+  useMantineTheme,
+} from "@mantine/core";
 import { useDisclosure, useMediaQuery, useWindowScroll } from "@mantine/hooks";
 import { IconHome } from "@tabler/icons";
 import { Link, LinkProps } from "@tanstack/react-location";
@@ -6,8 +13,9 @@ import React, { useEffect, useRef } from "react";
 import { FormattedMessage } from "react-intl";
 
 export function Navigation() {
+  const theme = useMantineTheme();
   const isTouchBased = useMediaQuery(
-    "(pointer: none) or (hover: none)",
+    `(max-width: ${theme.breakpoints.md}px)`,
     undefined,
     {
       getInitialValueInEffect: false,
