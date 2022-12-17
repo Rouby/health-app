@@ -59,6 +59,17 @@ export function App() {
       }),
     [auth]
   );
+  const [reactLocation] = useState(
+    () =>
+      new ReactLocation({
+        parseSearch: parseSearchWith((value) =>
+          parse(decodeURIComponent(atob(value)))
+        ),
+        stringifySearch: stringifySearchWith((value) =>
+          btoa(encodeURIComponent(stringify(value)))
+        ),
+      })
+  );
 
   return (
     <MantineProvider
