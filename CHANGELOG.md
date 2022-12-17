@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.2](///compare/v1.3.1...v1.3.2) (2022-12-17)
+
+
+### Bug Fixes
+
+* **nav:** show on small devices (<=tablets) 7f7a851
+
 ### [1.3.1](///compare/v1.3.0...v1.3.1) (2022-12-17)
 
 
