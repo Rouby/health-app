@@ -133,7 +133,14 @@ export function OverviewPage() {
                 key={date.toISOString()}
                 bullet={<IconActivity />}
                 title={acts
-                  .map((act) => act.position.split(",").join(", "))
+                  .map(
+                    (act) =>
+                      act.position.split(",").join(", ") +
+                      [act.userFinished, act.partnerFinished]
+                        .filter(Boolean)
+                        .map(() => "💦")
+                        .join("")
+                  )
                   .join(" + ")}
                 lineVariant={
                   arr[idx + 1]?.acts.length === 0 ? "dashed" : "solid"
