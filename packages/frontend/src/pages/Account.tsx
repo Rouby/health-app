@@ -94,12 +94,15 @@ export function AccountPage() {
               searchable
               searchValue={search}
               onSearchChange={setSearch}
-              data={
-                searchResults?.map(({ id, name }) => ({
+              data={[
+                ...(searchResults?.map(({ id, name }) => ({
                   value: id,
                   label: name,
-                })) ?? []
-              }
+                })) ?? []),
+                ...(data?.partner
+                  ? [{ value: data.partner.id, label: data.partner.name }]
+                  : []),
+              ]}
               nothingFound={<FormattedMessage defaultMessage="No user found" />}
               icon={
                 data?.partner ? (
@@ -111,6 +114,21 @@ export function AccountPage() {
                 ) : null
               }
               rightSection={isSearching ? <Loader size={16} /> : null}
+              description={
+                data?.partnerProposer && !data.partner ? (
+                  <Text
+                    variant="link"
+                    onClick={() =>
+                      mutate({ partnerId: data.partnerProposer?.id })
+                    }
+                  >
+                    <FormattedMessage
+                      defaultMessage="Accept request from {proposer}"
+                      values={{ proposer: data.partnerProposer.name }}
+                    />
+                  </Text>
+                ) : null
+              }
               {...form.getInputProps("partnerId")}
             />
           </Stack>

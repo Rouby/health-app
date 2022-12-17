@@ -77,7 +77,7 @@ export const accountRouter = router({
           where: { id: req.input.partnerId },
         });
 
-        if (partner?.partnerId) {
+        if (partner?.partnerId !== req.ctx.user.id) {
           throw new Error("User already has a partner");
         }
       }
