@@ -64,10 +64,7 @@ export function OverviewPage() {
   const days = Array.from(
     {
       length: Math.ceil(
-        dayjs()
-          .endOf("day")
-          .subtract(1, "day")
-          .diff(firstTrackedDay, "day", true)
+        dayjs().endOf("day").diff(firstTrackedDay, "day", true)
       ),
     },
     (_, idx) => firstTrackedDay.add(idx, "day")
@@ -183,7 +180,8 @@ export function OverviewPage() {
           )}
         </Timeline>
 
-        {daysWithoutTracking.length > 0 && (
+        {daysWithoutTracking.filter((day) => !day.isSame(dayjs(), "day"))
+          .length > 0 && (
           <Text>
             <FormattedMessage
               defaultMessage="You have {days, plural, =1 {one day} other {# days}} without tracking:"
