@@ -1,3 +1,5 @@
+/// <reference lib="webworker" />
+
 import * as webpush from "web-push";
 import { prisma } from "./prisma";
 
@@ -7,7 +9,7 @@ export async function sendNotification(
     keys: { p256dh: string; auth: string };
   },
   subject: string,
-  payload: {}
+  payload?: { title: string; data: NotificationOptions }
 ) {
   const result = await webpush.sendNotification(
     {

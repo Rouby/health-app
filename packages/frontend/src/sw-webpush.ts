@@ -38,7 +38,7 @@ sw.addEventListener("pushsubscriptionchange", (event: any) => {
 });
 
 sw.addEventListener("push", (event) => {
-  console.log("[Service Worker]: 'push' event fired.");
+  console.log("[Service Worker]: 'push' event fired.", event);
 
   if (event.data) {
     try {
@@ -50,5 +50,17 @@ sw.addEventListener("push", (event) => {
         event.data.text()
       );
     }
+  }
+});
+
+sw.addEventListener("notificationclick", (event) => {
+  const clickedNotification = event.notification;
+  clickedNotification.close();
+
+  if (event.action) {
+    // event.reply;
+    // Do something as the result of the notification click
+    // const promiseChain = doSomething();
+    // event.waitUntil(promiseChain);
   }
 });
