@@ -2,6 +2,9 @@
   "+POXw0": {
     "defaultMessage": "Erfasse Tag ohne Sex"
   },
+  "+d8P0y": {
+    "defaultMessage": "Ihr seid beide in Stimmung!"
+  },
   "1jYIty": {
     "defaultMessage": "Partner ist gekommen"
   },
@@ -22,6 +25,9 @@
   },
   "8Yse7I": {
     "defaultMessage": "Schlafzimmer, Küche, Wohnzimmer, etc."
+  },
+  "9DSiOY": {
+    "defaultMessage": "Ich bin in Stimmung"
   },
   "A6sL8J": {
     "defaultMessage": "Login merken"
@@ -59,6 +65,9 @@
   "MToUjW": {
     "defaultMessage": "Partner"
   },
+  "NTofsU": {
+    "defaultMessage": "Verlinke dich mit deinem Partner in <a>den Account-Einstellungen</a>."
+  },
   "P7PLVj": {
     "defaultMessage": "Datum"
   },
@@ -70,6 +79,9 @@
   },
   "TdbPNK": {
     "defaultMessage": "Ich"
+  },
+  "c94OjO": {
+    "defaultMessage": "Du hast keinen verlinkten Partner"
   },
   "deEeEI": {
     "defaultMessage": "Anmelden"
@@ -88,6 +100,9 @@
   },
   "jvo0vs": {
     "defaultMessage": "Speichern"
+  },
+  "mlPnNK": {
+    "defaultMessage": "Stimmung"
   },
   "rSjYyx": {
     "defaultMessage": "Vorspiel für Partner"
@@ -109,5 +124,8 @@
   },
   "wE3GPF": {
     "defaultMessage": "Vorspiel für mich"
+  },
+  "zqGnuI": {
+    "defaultMessage": "Anfrage von {proposer} annehmen"
   }
 }
