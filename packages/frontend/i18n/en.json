@@ -32,6 +32,9 @@
   "9DSiOY": {
     "defaultMessage": "I am in the mood"
   },
+  "9uOFF3": {
+    "defaultMessage": "Overview"
+  },
   "A6sL8J": {
     "defaultMessage": "Remember me"
   },
@@ -106,6 +109,9 @@
   },
   "mlPnNK": {
     "defaultMessage": "Mood"
+  },
+  "r5QLh3": {
+    "defaultMessage": "{days,plural,=1{You have one day <a>without tracking</a>.} other{You have # days <a>without tracking</a>.}}"
   },
   "rSjYyx": {
     "defaultMessage": "Received foreplay by partner"

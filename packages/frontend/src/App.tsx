@@ -27,7 +27,7 @@ import { useMemo, useState } from "react";
 import { IntlProvider } from "react-intl";
 import { parse, stringify } from "zipson";
 import { LoginForm, Navigation, ServiceWorker } from "./components";
-import { AccountPage, MoodPage, OverviewPage } from "./pages";
+import { AccountPage, MoodPage, OverviewPage, TrackingPage } from "./pages";
 import { useAuth, useIsAuthenticated, useLanguage } from "./state";
 import { trpc } from "./utils";
 
@@ -84,6 +84,10 @@ export function App() {
                     {
                       path: "mood",
                       element: <MoodPage />,
+                    },
+                    {
+                      path: "tracking",
+                      element: <TrackingPage />,
                     },
                     {
                       element: <OverviewPage />,

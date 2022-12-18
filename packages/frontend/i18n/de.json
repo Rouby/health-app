@@ -32,6 +32,9 @@
   "9DSiOY": {
     "defaultMessage": "Ich bin in Stimmung"
   },
+  "9uOFF3": {
+    "defaultMessage": "Übersicht"
+  },
   "A6sL8J": {
     "defaultMessage": "Login merken"
   },
@@ -106,6 +109,9 @@
   },
   "mlPnNK": {
     "defaultMessage": "Stimmung"
+  },
+  "r5QLh3": {
+    "defaultMessage": "{days,plural,=1{Du hast einen Tag <a>nicht erfasst</a>} other{Du hast # Tage <a>noch nicht erfasst</a>.}}"
   },
   "rSjYyx": {
     "defaultMessage": "Vorspiel für Partner"
