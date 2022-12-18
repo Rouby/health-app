@@ -8,8 +8,8 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import { useEffect, useState } from "react";
-import { FormattedMessage } from "react-intl";
+import { useEffect } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useRegisterSW } from "virtual:pwa-register/react";
 import { trpc } from "../utils";
 
@@ -18,11 +18,12 @@ export function ServiceWorker() {
     needRefresh: [needRefresh, setNeedRefresh],
     updateServiceWorker,
   } = useRegisterSW({
-    onRegistered(r) {
-      r &&
+    onRegistered(registration) {
+      if (registration) {
         setInterval(() => {
-          r.update();
+          registration.update();
         }, 60 * 60 * 1000);
+      }
     },
   });
 
@@ -78,12 +79,6 @@ export function ServiceWorker() {
 }
 
 function useNotifications() {
-  const [registration, setRegistration] =
-    useState<ServiceWorkerRegistration | null>(null);
-  const [subscription, setPushSubscription] = useState<PushSubscription | null>(
-    null
-  );
-
   const { mutateAsync } = trpc.notification.register.useMutation();
 
   useEffect(() => {
@@ -100,9 +95,6 @@ function useNotifications() {
       const subscription = await registration.pushManager?.getSubscription();
 
       if (mounted) {
-        setRegistration(registration);
-        setPushSubscription(subscription);
-
         if (state === "prompt") {
           registration.pushManager
             ?.subscribe({
@@ -121,7 +113,6 @@ function useNotifications() {
               }).then(() => subscription);
             })
             .then((subscription) => {
-              setPushSubscription(subscription);
               return "subscribed" as const;
             })
             .catch((err) => {
@@ -138,5 +129,30 @@ function useNotifications() {
     return () => {
       mounted = false;
     };
+  }, []);
+
+  const { formatMessage: fmt } = useIntl();
+  useEffect(() => {
+    navigator.serviceWorker.addEventListener("message", handler);
+
+    return () =>
+      navigator.serviceWorker.removeEventListener("message", handler);
+
+    function handler(event: MessageEvent) {
+      if (event.data.type === "translate") {
+        navigator.serviceWorker.ready.then((registration) =>
+          registration.active?.postMessage({
+            type: "translate",
+            translation: fmt(
+              {
+                id: event.data.id,
+                defaultMessage: event.data.defaultMessage,
+              },
+              event.data.values
+            ),
+          })
+        );
+      }
+    }
   }, []);
 }

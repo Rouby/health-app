@@ -1,6 +1,7 @@
 /// <reference lib="webworker" />
 
 import * as webpush from "web-push";
+import { MessageDescriptor } from "./i18n";
 import { prisma } from "./prisma";
 
 export async function sendNotification(
@@ -9,7 +10,7 @@ export async function sendNotification(
     keys: { p256dh: string; auth: string };
   },
   subject: string,
-  payload?: { title: string; data: NotificationOptions }
+  payload?: { title: MessageDescriptor; data: NotificationOptions }
 ) {
   const result = await webpush.sendNotification(
     {

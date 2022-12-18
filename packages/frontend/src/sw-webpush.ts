@@ -43,7 +43,12 @@ sw.addEventListener("push", (event) => {
   if (event.data) {
     try {
       const { title, ...options } = event.data.json();
-      sw.registration.showNotification(title, options);
+
+      event.waitUntil(
+        translateDescriptor(title).then((translation) => {
+          sw.registration.showNotification(translation, options);
+        })
+      );
     } catch (err) {
       console.log(
         "[Service Worker]: malformed push data '%s'.",
@@ -64,3 +69,41 @@ sw.addEventListener("notificationclick", (event) => {
     // event.waitUntil(promiseChain);
   }
 });
+
+const translationQueue = new Map<
+  string,
+  { resolve: (translation: string) => void }
+>();
+sw.addEventListener("message", (event) => {
+  if (event.data.type === "translate") {
+    translationQueue.get(event.data.id)?.resolve(event.data.translation);
+    translationQueue.delete(event.data.id);
+  }
+});
+
+async function translateDescriptor({
+  id,
+  defaultMessage,
+  values,
+}: {
+  id: string;
+  defaultMessage: string;
+  values?: any;
+}) {
+  const [client] = await sw.clients.matchAll();
+
+  if (client) {
+    return Promise.race([
+      new Promise<string>((resolve) => {
+        translationQueue.set(id, { resolve });
+        client.postMessage({ type: "translate", id, values });
+      }),
+      new Promise<string>((resolve) => {
+        // todo use formatjs to format it?
+        setTimeout(() => resolve(defaultMessage), 1000);
+      }),
+    ]);
+  }
+
+  return defaultMessage;
+}

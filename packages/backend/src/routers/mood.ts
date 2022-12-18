@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { z } from "zod";
+import { defineMessage } from "../i18n";
 import { prisma } from "../prisma";
 import { protectedProcedure, router } from "../trpc";
 import { sendNotification } from "../webPush";
@@ -58,7 +59,9 @@ export const moodRouter = router({
 
             notifications.forEach((notification) => {
               sendNotification(notification as any, "https://sexy.aiacta.com", {
-                title: "Your partner is in the mood",
+                title: defineMessage({
+                  defaultMessage: "Your partner is in the mood",
+                }),
                 data: {},
               });
             });
