@@ -30,6 +30,19 @@ model User {
   partner         User?   @relation("Partner", fields: [partnerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   partnerId       String? @unique
   partnerProposer User?   @relation("Partner") // This is the user that proposed the current user as a partner
+
+  mood Mood?
+}
+
+model Mood {
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String @unique
+
+  validUntil DateTime?
+
+  inMoodFor String?
+
+  @@id([userId])
 }
 
 model Password {

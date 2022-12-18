@@ -2,11 +2,18 @@ import { initTRPC } from "@trpc/server";
 import { fastifyTRPCPlugin } from "@trpc/server/adapters/fastify";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
+import minMax from "dayjs/plugin/minMax";
 import fastify from "fastify";
 import { createContext } from "./context";
-import { accountRouter, authRouter, trackerRouter } from "./routers";
+import {
+  accountRouter,
+  authRouter,
+  moodRouter,
+  trackerRouter,
+} from "./routers";
 
 dayjs.extend(duration);
+dayjs.extend(minMax);
 
 const t = initTRPC.create();
 
@@ -14,6 +21,7 @@ const appRouter = t.router({
   auth: authRouter,
   account: accountRouter,
   tracker: trackerRouter,
+  mood: moodRouter,
 });
 
 const server = fastify({

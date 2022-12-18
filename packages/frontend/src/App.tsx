@@ -27,18 +27,9 @@ import { useMemo, useState } from "react";
 import { IntlProvider } from "react-intl";
 import { parse, stringify } from "zipson";
 import { LoginForm, Navigation } from "./components";
-import { OverviewPage } from "./pages";
+import { AccountPage, MoodPage, OverviewPage } from "./pages";
 import { useAuth, useIsAuthenticated, useLanguage } from "./state";
 import { trpc } from "./utils";
-
-const reactLocation = new ReactLocation({
-  parseSearch: parseSearchWith((value) =>
-    parse(decodeURIComponent(atob(value)))
-  ),
-  stringifySearch: stringifySearchWith((value) =>
-    btoa(encodeURIComponent(stringify(value)))
-  ),
-});
 
 export function App() {
   const [queryClient] = useState(() => new QueryClient());
@@ -89,6 +80,10 @@ export function App() {
                     {
                       path: "account",
                       element: <AccountPage />,
+                    },
+                    {
+                      path: "mood",
+                      element: <MoodPage />,
                     },
                     {
                       element: <OverviewPage />,
