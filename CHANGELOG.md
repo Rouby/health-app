@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](///compare/v1.4.0...v1.5.0) (2022-12-18)
+
+
+### Features
+
+* add app icon and manifest 8b08fdb
+* implement basic mood tracking edebefb
+* implement linking partner accounts 80b2478
+
+
+### Bug Fixes
+
+* allow to accept partner requests 754c95d
+
 ## [1.4.0](///compare/v1.3.2...v1.4.0) (2022-12-17)
 
 
