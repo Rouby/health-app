@@ -39,6 +39,8 @@
     "@rouby/sex-app-backend": "workspace:*",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
-    "typescript": "4.9.3"
+    "esbuild": "0.16.8",
+    "typescript": "4.9.3",
+    "workbox-window": "6.5.4"
   }
 }

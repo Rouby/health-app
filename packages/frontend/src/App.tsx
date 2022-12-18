@@ -26,7 +26,7 @@ import { httpBatchLink } from "@trpc/client";
 import { useMemo, useState } from "react";
 import { IntlProvider } from "react-intl";
 import { parse, stringify } from "zipson";
-import { LoginForm, Navigation } from "./components";
+import { LoginForm, Navigation, ServiceWorker } from "./components";
 import { AccountPage, MoodPage, OverviewPage } from "./pages";
 import { useAuth, useIsAuthenticated, useLanguage } from "./state";
 import { trpc } from "./utils";
@@ -94,6 +94,7 @@ export function App() {
             >
               <AppShell navbar={<Navigation />}>
                 <Outlet />
+                <ServiceWorker />
               </AppShell>
             </Router>
           </trpc.Provider>

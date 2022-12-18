@@ -9,6 +9,7 @@ import {
   accountRouter,
   authRouter,
   moodRouter,
+  notificationRouter,
   trackerRouter,
 } from "./routers";
 
@@ -22,6 +23,7 @@ const appRouter = t.router({
   account: accountRouter,
   tracker: trackerRouter,
   mood: moodRouter,
+  notification: notificationRouter,
 });
 
 const server = fastify({

@@ -32,6 +32,8 @@ model User {
   partnerProposer User?   @relation("Partner") // This is the user that proposed the current user as a partner
 
   mood Mood?
+
+  pushNotifications PushNotification[]
 }
 
 model Mood {
@@ -85,5 +87,16 @@ model DayWithoutSex {
   onPeriod Boolean @default(false)
 
   @@id([dateTime, userId])
+  @@index([userId])
+}
+
+model PushNotification {
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  endpoint String @unique
+  keys     Json
+
+  @@id([endpoint, userId])
   @@index([userId])
 }
