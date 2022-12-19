@@ -12,29 +12,33 @@ export async function sendNotification(
   subject: string,
   payload?: { title: MessageDescriptor; data: NotificationOptions }
 ) {
-  const result = await webpush.sendNotification(
-    {
-      endpoint: subscription.endpoint,
-      keys: subscription.keys,
-    },
-    JSON.stringify(payload),
-    {
-      gcmAPIKey: process.env.GCM_KEY,
-      vapidDetails: {
-        publicKey: process.env.VAPID_PUBLIC_KEY!,
-        privateKey: process.env.VAPID_PRIVATE_KEY!,
-        subject,
-      },
-    }
-  );
-
-  if (result.statusCode === 410) {
-    await prisma.pushNotification.delete({
-      where: {
+  try {
+    await webpush.sendNotification(
+      {
         endpoint: subscription.endpoint,
+        keys: subscription.keys,
       },
-    });
+      JSON.stringify(payload),
+      {
+        gcmAPIKey: process.env.GCM_KEY,
+        vapidDetails: {
+          publicKey: process.env.VAPID_PUBLIC_KEY!,
+          privateKey: process.env.VAPID_PRIVATE_KEY!,
+          subject,
+        },
+      }
+    );
+  } catch (error) {
+    if (error instanceof webpush.WebPushError) {
+      if (error.statusCode === 410) {
+        await prisma.pushNotification.delete({
+          where: {
+            endpoint: subscription.endpoint,
+          },
+        });
 
-    throw new Error("Subscription has expired or is no longer valid.");
+        console.log("Deleted stale subscription", subscription.endpoint);
+      }
+    }
   }
 }
