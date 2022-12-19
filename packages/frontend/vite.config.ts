@@ -70,6 +70,14 @@ export default defineConfig(({ mode }) => ({
       workbox: {
         clientsClaim: true,
         importScripts: ["sw-webpush.js"],
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) =>
+              url.origin === self.location.origin &&
+              url.pathname.includes("lang/"),
+            handler: "CacheFirst",
+          },
+        ],
       },
     }),
     (function CompileTsServiceWorker() {
