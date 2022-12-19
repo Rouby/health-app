@@ -1118,6 +1118,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:1.3.3"\
       ],\
       [\
+        "@unleash/proxy-client-react",\
+        "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:3.5.0"\
+      ],\
+      [\
         "@vitejs/plugin-react",\
         "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:2.2.0"\
       ],\
@@ -3170,6 +3174,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:4.0.2"\
       ],\
       [\
+        "tiny-emitter",\
+        "npm:2.1.0"\
+      ],\
+      [\
         "tiny-lru",\
         "npm:10.0.1"\
       ],\
@@ -3270,6 +3278,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:2.0.0"\
       ],\
       [\
+        "unleash-proxy-client",\
+        "npm:2.4.0"\
+      ],\
+      [\
         "upath",\
         "npm:1.2.0"\
       ],\
@@ -3304,6 +3316,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       [\
         "util-deprecate",\
         "npm:1.0.2"\
+      ],\
+      [\
+        "uuid",\
+        "npm:8.3.2"\
       ],\
       [\
         "v8-compile-cache",\
@@ -7686,6 +7702,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@trpc/server", "npm:10.4.3"],\
             ["@types/react", "npm:18.0.25"],\
             ["@types/react-dom", "npm:18.0.9"],\
+            ["@unleash/proxy-client-react", "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:3.5.0"],\
             ["@vitejs/plugin-react", "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:2.2.0"],\
             ["babel-plugin-formatjs", "npm:10.3.35"],\
             ["dayjs", "npm:1.11.6"],\
@@ -7697,6 +7714,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:18.2.0"],\
             ["react-intl", "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:6.2.5"],\
             ["typescript", "patch:typescript@npm%3A4.9.3#~builtin<compat/typescript>::version=4.9.3&hash=d73830"],\
+            ["unleash-proxy-client", "npm:2.4.0"],\
             ["vite", "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:3.2.4"],\
             ["workbox-window", "npm:6.5.4"],\
             ["zipson", "npm:0.2.12"]\
@@ -8355,6 +8373,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@ucast/core", "npm:1.10.1"],\
             ["@ucast/js", "npm:3.0.2"],\
             ["@ucast/mongo", "npm:2.4.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@unleash/proxy-client-react", [\
+        ["npm:3.5.0", {\
+          "packageLocation": "./.yarn/cache/@unleash-proxy-client-react-npm-3.5.0-8aef84d247-c0ff7ff030.zip/node_modules/@unleash/proxy-client-react/",\
+          "packageDependencies": [\
+            ["@unleash/proxy-client-react", "npm:3.5.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:3.5.0", {\
+          "packageLocation": "./.yarn/__virtual__/@unleash-proxy-client-react-virtual-cd957a01fa/0/cache/@unleash-proxy-client-react-npm-3.5.0-8aef84d247-c0ff7ff030.zip/node_modules/@unleash/proxy-client-react/",\
+          "packageDependencies": [\
+            ["@unleash/proxy-client-react", "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:3.5.0"],\
+            ["@types/unleash-proxy-client", null],\
+            ["unleash-proxy-client", "npm:2.4.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/unleash-proxy-client",\
+            "unleash-proxy-client"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -14858,6 +14898,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["tiny-emitter", [\
+        ["npm:2.1.0", {\
+          "packageLocation": "./.yarn/cache/tiny-emitter-npm-2.1.0-2a4d94f487-fbcfb51457.zip/node_modules/tiny-emitter/",\
+          "packageDependencies": [\
+            ["tiny-emitter", "npm:2.1.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["tiny-lru", [\
         ["npm:10.0.1", {\
           "packageLocation": "./.yarn/cache/tiny-lru-npm-10.0.1-a2c23f17a4-58b5f17a35.zip/node_modules/tiny-lru/",\
@@ -15127,6 +15176,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["unleash-proxy-client", [\
+        ["npm:2.4.0", {\
+          "packageLocation": "./.yarn/cache/unleash-proxy-client-npm-2.4.0-95a809a826-d72ecade74.zip/node_modules/unleash-proxy-client/",\
+          "packageDependencies": [\
+            ["unleash-proxy-client", "npm:2.4.0"],\
+            ["tiny-emitter", "npm:2.1.0"],\
+            ["uuid", "npm:8.3.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["upath", [\
         ["npm:1.2.0", {\
           "packageLocation": "./.yarn/cache/upath-npm-1.2.0-ca00ec3398-4c05c09479.zip/node_modules/upath/",\
@@ -15273,6 +15333,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/util-deprecate-npm-1.0.2-e3fe1a219c-474acf1146.zip/node_modules/util-deprecate/",\
           "packageDependencies": [\
             ["util-deprecate", "npm:1.0.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["uuid", [\
+        ["npm:8.3.2", {\
+          "packageLocation": "./.yarn/cache/uuid-npm-8.3.2-eca0baba53-5575a8a75c.zip/node_modules/uuid/",\
+          "packageDependencies": [\
+            ["uuid", "npm:8.3.2"]\
           ],\
           "linkType": "HARD"\
         }]\

@@ -37,6 +37,7 @@ export const authRouter = router({
         {
           user: {
             id: userWithPassword.id,
+            email: userWithPassword.email,
             name: userWithPassword.name,
           },
         },
@@ -76,6 +77,7 @@ export const authRouter = router({
         {
           user: {
             id: user.id,
+            email: user.email,
             name: user.name,
           },
         },

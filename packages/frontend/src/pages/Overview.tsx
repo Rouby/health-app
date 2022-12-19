@@ -1,10 +1,21 @@
 import { Container, Text } from "@mantine/core";
 import { Link } from "@tanstack/react-location";
+import { useFlag } from "@unleash/proxy-client-react";
 import dayjs from "dayjs";
 import { FormattedMessage } from "react-intl";
 import { trpc } from "../utils";
 
 export function OverviewPage() {
+  const isTrackingEnabled = useFlag("Tracking");
+
+  return (
+    <>
+      <Container>{isTrackingEnabled && <TrackingSection />}</Container>
+    </>
+  );
+}
+
+function TrackingSection() {
   const { data: sexActs } = trpc.tracker.sexActs.useQuery({});
   const { data: daysWithoutSex } = trpc.tracker.daysWithoutSex.useQuery({});
 
@@ -31,24 +42,22 @@ export function OverviewPage() {
 
   return (
     <>
-      <Container>
-        {daysWithoutTracking.filter((day) => !day.isSame(dayjs(), "day"))
-          .length > 0 && (
-          <Text>
-            <FormattedMessage
-              defaultMessage="You have {days, plural, =1 {one day} other {# days}} <a>without tracking</a>."
-              values={{
-                days: daysWithoutTracking.length,
-                a: (chunks) => (
-                  <Text variant="link" component={Link} to="/tracking">
-                    {chunks}
-                  </Text>
-                ),
-              }}
-            />
-          </Text>
-        )}
-      </Container>
+      {daysWithoutTracking.filter((day) => !day.isSame(dayjs(), "day")).length >
+        0 && (
+        <Text>
+          <FormattedMessage
+            defaultMessage="You have {days, plural, =1 {one day} other {# days}} <a>without tracking</a>."
+            values={{
+              days: daysWithoutTracking.length,
+              a: (chunks) => (
+                <Text variant="link" component={Link} to="/tracking">
+                  {chunks}
+                </Text>
+              ),
+            }}
+          />
+        </Text>
+      )}
     </>
   );
 }

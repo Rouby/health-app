@@ -22,6 +22,7 @@
     "@trpc/client": "10.4.3",
     "@trpc/react-query": "10.4.3",
     "@trpc/server": "10.4.3",
+    "@unleash/proxy-client-react": "3.5.0",
     "@vitejs/plugin-react": "2.2.0",
     "babel-plugin-formatjs": "10.3.35",
     "dayjs": "1.11.6",
@@ -31,6 +32,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-intl": "6.2.5",
+    "unleash-proxy-client": "2.4.0",
     "vite": "3.2.4",
     "zipson": "0.2.12"
   },

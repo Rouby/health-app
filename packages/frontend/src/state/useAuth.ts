@@ -37,6 +37,7 @@ export function useIsAuthenticated() {
     onError(error) {
       if (error?.data?.code === "UNAUTHORIZED") {
         setAuth({ token: null, persist: true });
+        setAuth({ token: null, persist: false });
       }
     },
   });

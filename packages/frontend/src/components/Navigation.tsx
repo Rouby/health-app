@@ -9,8 +9,10 @@ import {
 import { useDisclosure, useMediaQuery, useWindowScroll } from "@mantine/hooks";
 import { IconHeart, IconHome, IconTimeline, IconUser } from "@tabler/icons";
 import { Link, LinkProps } from "@tanstack/react-location";
+import { useFlag } from "@unleash/proxy-client-react";
 import React, { useEffect, useRef } from "react";
 import { FormattedMessage } from "react-intl";
+import { useIsAuthenticated } from "../state";
 
 export function Navigation() {
   const theme = useMantineTheme();
@@ -25,6 +27,8 @@ export function Navigation() {
   const showNav = useScrollDisclosure();
 
   const isAuthed = useIsAuthenticated();
+
+  const isTrackingEnabled = useFlag("Tracking");
 
   if (!isTouchBased) {
     return null;
@@ -58,10 +62,12 @@ export function Navigation() {
               <IconHome size={36} stroke={1.5} />
               <FormattedMessage defaultMessage="Overview" />
             </NavButton>
-            <NavButton to="/tracking">
-              <IconTimeline size={36} stroke={1.5} />
-              <FormattedMessage defaultMessage="Tracking" />
-            </NavButton>
+            {isTrackingEnabled && (
+              <NavButton to="/tracking">
+                <IconTimeline size={36} stroke={1.5} />
+                <FormattedMessage defaultMessage="Tracking" />
+              </NavButton>
+            )}
             <NavButton to="/mood">
               <IconHeart size={36} stroke={1.5} />
               <FormattedMessage defaultMessage="Mood" />

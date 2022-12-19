@@ -23,7 +23,9 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
-import { useMemo, useState } from "react";
+import { FlagProvider, useUnleashContext } from "@unleash/proxy-client-react";
+import jwtDecode from "jwt-decode";
+import { useEffect, useMemo, useState } from "react";
 import { IntlProvider } from "react-intl";
 import { parse, stringify } from "zipson";
 import { LoginForm, Navigation, ServiceWorker } from "./components";
@@ -63,48 +65,60 @@ export function App() {
   );
 
   return (
-    <MantineProvider
-      withGlobalStyles
-      withNormalizeCSS
-      theme={{ colorScheme: "dark" }}
+    <FlagProvider
+      config={{
+        url: import.meta.env.VITE_UNLEASH_URL,
+        clientKey: import.meta.env.VITE_UNLEASH_CLIENT_KEY,
+        refreshInterval: 15,
+        appName: "sex-app",
+        environment: import.meta.env.PROD ? "production" : "development",
+        context: getUnleashContext(auth),
+      }}
     >
-      <QueryClientProvider client={queryClient}>
-        <Intl>
-          <trpc.Provider client={trpcClient} queryClient={queryClient}>
-            <Router
-              location={reactLocation}
-              routes={[
-                {
-                  element: <Auth />,
-                  children: [
-                    {
-                      path: "account",
-                      element: <AccountPage />,
-                    },
-                    {
-                      path: "mood",
-                      element: <MoodPage />,
-                    },
-                    {
-                      path: "tracking",
-                      element: <TrackingPage />,
-                    },
-                    {
-                      element: <OverviewPage />,
-                    },
-                  ],
-                },
-              ]}
-            >
-              <AppShell navbar={<Navigation />}>
-                <Outlet />
-                <ServiceWorker />
-              </AppShell>
-            </Router>
-          </trpc.Provider>
-        </Intl>
-      </QueryClientProvider>
-    </MantineProvider>
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{ colorScheme: "dark" }}
+      >
+        <QueryClientProvider client={queryClient}>
+          <Intl>
+            <trpc.Provider client={trpcClient} queryClient={queryClient}>
+              <Router
+                location={reactLocation}
+                routes={[
+                  {
+                    element: <Auth />,
+                    children: [
+                      {
+                        path: "account",
+                        element: <AccountPage />,
+                      },
+                      {
+                        path: "mood",
+                        element: <MoodPage />,
+                      },
+                      {
+                        path: "tracking",
+                        element: <TrackingPage />,
+                      },
+                      {
+                        element: <OverviewPage />,
+                      },
+                    ],
+                  },
+                ]}
+              >
+                <AppShell navbar={<Navigation />}>
+                  <Outlet />
+                  <ServiceWorker />
+                  <FeatureFlagContext />
+                </AppShell>
+              </Router>
+            </trpc.Provider>
+          </Intl>
+        </QueryClientProvider>
+      </MantineProvider>
+    </FlagProvider>
   );
 }
 
@@ -253,4 +267,25 @@ function Auth() {
       </Container>
     </>
   );
+}
+
+function FeatureFlagContext() {
+  const [auth] = useAuth();
+  const updateContext = useUnleashContext();
+
+  useEffect(() => {
+    updateContext(getUnleashContext(auth));
+  }, [auth]);
+
+  return null;
+}
+
+function getUnleashContext(token: string | null) {
+  if (token) {
+    const { user } = jwtDecode(token) as {
+      user: { id: string; email: string };
+    };
+    return { userId: user.id, userEmail: user.email };
+  }
+  return { userId: undefined, userEmail: undefined };
 }
