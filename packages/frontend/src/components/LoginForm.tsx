@@ -31,7 +31,7 @@ export function LoginForm({
     initialValues: {
       email: "",
       password: "",
-      rememberMe: false,
+      rememberMe: true,
 
       name: "",
 
