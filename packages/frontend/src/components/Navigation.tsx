@@ -24,13 +24,15 @@ export function Navigation() {
 
   const showNav = useScrollDisclosure();
 
+  const isAuthed = useIsAuthenticated();
+
   if (!isTouchBased) {
     return null;
   }
 
   return (
     <Transition
-      mounted={showNav}
+      mounted={showNav && isAuthed}
       transition="slide-up"
       duration={400}
       timingFunction="ease"
@@ -51,7 +53,7 @@ export function Navigation() {
                 : theme.colors.gray[0],
           })}
         >
-          <Group position="center" m="xs" spacing={36}>
+          <Group position="center" m="xs" spacing={28} noWrap>
             <NavButton to="/">
               <IconHome size={36} stroke={1.5} />
               <FormattedMessage defaultMessage="Overview" />
