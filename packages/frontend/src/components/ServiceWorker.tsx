@@ -95,7 +95,7 @@ function useNotifications() {
       const subscription = await registration.pushManager?.getSubscription();
 
       if (mounted) {
-        if (state === "prompt") {
+        if (state === "prompt" || (state === "granted" && !subscription)) {
           registration.pushManager
             ?.subscribe({
               userVisibleOnly: true,
@@ -120,6 +120,9 @@ function useNotifications() {
                 return "denied" as const;
               } else {
                 console.error("Unable to subscribe to push.", err);
+                registration.pushManager
+                  .getSubscription()
+                  .then((sub) => sub?.unsubscribe());
                 return "failed" as const;
               }
             });
