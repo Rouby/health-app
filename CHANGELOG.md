@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](///compare/v1.7.0...v1.8.0) (2022-12-19)
+
+
+### Features
+
+* try out icons and badges in notifications b995a98
+
+
+### Bug Fixes
+
+* allow resubscription for push notifications 72c31ca
+* handle stale push connections correctly 5881bd9
+
 ## [1.7.0](///compare/v1.6.1...v1.7.0) (2022-12-19)
 
 
