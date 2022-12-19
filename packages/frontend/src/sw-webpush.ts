@@ -42,7 +42,7 @@ sw.addEventListener("push", (event) => {
 
   if (event.data) {
     try {
-      const { title, ...options } = event.data.json();
+      const { title, data: options } = event.data.json();
 
       event.waitUntil(
         translateDescriptor(title).then((translation) => {
