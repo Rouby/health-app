@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import minMax from "dayjs/plugin/minMax";
 import fastify from "fastify";
+import "newrelic";
 import { createContext } from "./context";
 import {
   accountRouter,
