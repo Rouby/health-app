@@ -108,7 +108,7 @@ export default defineConfig(({ mode }) => ({
           await build({
             entryPoints: ["src/sw-webpush.ts"],
             bundle: true,
-            minify: false,
+            minify: true,
             outfile: "dist/sw-webpush.js",
           });
         },
