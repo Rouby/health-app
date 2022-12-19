@@ -62,7 +62,10 @@ export const moodRouter = router({
                 title: defineMessage({
                   defaultMessage: "Your partner is in the mood",
                 }),
-                data: {},
+                data: {
+                  icon: "/icon-192x192.png",
+                  badge: "/badges/heart.png",
+                },
               });
             });
           }
