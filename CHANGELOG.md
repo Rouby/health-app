@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](///compare/v1.5.0...v1.6.0) (2022-12-19)
+
+
+### Features
+
+* implement feature-gates f43b708
+* implement serviceWorker and notification basics 6f677e0
+* implement translations for push notifications 915b4d4
+* move tracking onto own page 7a115f2
+* send notification if both partners are in the mood 2d6cb65
+
+
+### Bug Fixes
+
+* only show navigation once logged in 3e66e3f
+
 ## [1.5.0](///compare/v1.4.0...v1.5.0) (2022-12-18)
 
 
