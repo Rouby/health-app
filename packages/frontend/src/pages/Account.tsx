@@ -11,8 +11,10 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconChecks, IconQuestionMark } from "@tabler/icons";
-import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-location";
+import { useEffect, useState, useTransition } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { useAuth } from "../state";
 import { trpc } from "../utils";
 
 export function AccountPage() {
@@ -42,6 +44,10 @@ export function AccountPage() {
         refetchOnWindowFocus: false,
       }
     );
+
+  const [, setAuth] = useAuth();
+
+  const [, startTransition] = useTransition();
 
   const { formatMessage } = useIntl();
 
@@ -136,6 +142,19 @@ export function AccountPage() {
           <Group position="apart" mt="md" noWrap>
             <Text color="red">{error?.message}</Text>
             <Group position="right" noWrap>
+              <Button
+                variant="outline"
+                component={Link}
+                to="/"
+                onClick={() => {
+                  startTransition(() => {
+                    setAuth({ token: null, persist: true });
+                    setAuth({ token: null, persist: false });
+                  });
+                }}
+              >
+                <FormattedMessage defaultMessage="Logout" />
+              </Button>
               <Button type="submit" loading={isSaving}>
                 <FormattedMessage defaultMessage="Save" />
               </Button>

@@ -75,7 +75,7 @@ export default defineConfig(({ mode }) => ({
             urlPattern: ({ url }) =>
               url.origin === self.location.origin &&
               url.pathname.includes("lang/"),
-            handler: "CacheFirst",
+            handler: "StaleWhileRevalidate",
           },
         ],
       },
