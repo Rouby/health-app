@@ -2,6 +2,7 @@
 
 import * as webpush from "web-push";
 import { MessageDescriptor } from "./i18n";
+import { logger } from "./logger";
 import { prisma } from "./prisma";
 
 export async function sendNotification(
@@ -37,7 +38,7 @@ export async function sendNotification(
           },
         });
 
-        console.log("Deleted stale subscription", subscription.endpoint);
+        logger.info(subscription, "Deleted stale subscription");
       }
     }
   }

@@ -1360,6 +1360,42 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@chialab/esbuild-plugin-require-resolve@npm:0.17.1":
+  version: 0.17.1
+  resolution: "@chialab/esbuild-plugin-require-resolve@npm:0.17.1"
+  dependencies:
+    "@chialab/esbuild-rna": ^0.17.0
+    "@chialab/estransform": ^0.17.1
+  checksum: fcd2808d8eb23f5aaa495a3e4d5312e2558e33a42c3f1b7a4c5de3e4f4049eefb8ae7ba5b4f20abb31c14046ddc6439d7c48b45b42ccbe256d5de1a715b459e5
+  languageName: node
+  linkType: hard
+
+"@chialab/esbuild-rna@npm:^0.17.0":
+  version: 0.17.3
+  resolution: "@chialab/esbuild-rna@npm:0.17.3"
+  dependencies:
+    "@chialab/estransform": ^0.17.2
+    "@chialab/node-resolve": ^0.17.0
+  checksum: 2c6d8d36f449f8e62b3da04fb7ec3bd7ee7f2ec36d6420200b4693ac3d52884baf65daa3323a7e913bc9aaf6482f163209c59931e2db4cd8fedc18b3bc5ba306
+  languageName: node
+  linkType: hard
+
+"@chialab/estransform@npm:^0.17.1, @chialab/estransform@npm:^0.17.2":
+  version: 0.17.3
+  resolution: "@chialab/estransform@npm:0.17.3"
+  dependencies:
+    "@parcel/source-map": ^2.0.0
+  checksum: cd3ea46104c3aa16cd4cc3a6bdbc09b6a30c49bb333f28050a1193053b4de1da77f05be3a6d6ccf2f0905a3dd44699730d46ba2f8d13fb5d8c5a82922c45b1da
+  languageName: node
+  linkType: hard
+
+"@chialab/node-resolve@npm:^0.17.0":
+  version: 0.17.0
+  resolution: "@chialab/node-resolve@npm:0.17.0"
+  checksum: fdd959588647bb37817d08e55bd5c4ca49a13a09fb4964fe3ffc85e786bc01d7cd7c0cef8fc950b63b34d22db18750358f92c08e848858124c72dfe440a25071
+  languageName: node
+  linkType: hard
+
 "@colors/colors@npm:1.5.0":
   version: 1.5.0
   resolution: "@colors/colors@npm:1.5.0"
@@ -2354,6 +2390,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@newrelic/pino-enricher@npm:1.1.1":
+  version: 1.1.1
+  resolution: "@newrelic/pino-enricher@npm:1.1.1"
+  peerDependencies:
+    newrelic: ">=8.13.0"
+  checksum: 7ebf8f0d4bba121c90a219d87f4cb7716ade8ece934062ecf70651ee26a0668262da30e3922184442236a22671a8486a62aecab16a151cc0573fd3193d47b38a
+  languageName: node
+  linkType: hard
+
 "@newrelic/superagent@npm:^6.0.0":
   version: 6.0.0
   resolution: "@newrelic/superagent@npm:6.0.0"
@@ -2445,6 +2490,15 @@ __metadata:
   bin:
     tao: index.js
   checksum: 11adf56cf102f11379223e2260320ea46a1a3fda8995ac81b78b368c3f7577bfdf164091befce90ce02809a62768226c17f330a42ef886e87c5eabe3009d3868
+  languageName: node
+  linkType: hard
+
+"@parcel/source-map@npm:^2.0.0":
+  version: 2.1.1
+  resolution: "@parcel/source-map@npm:2.1.1"
+  dependencies:
+    detect-libc: ^1.0.3
+  checksum: 1fa27a7047ec08faf7fe1dd0e2ae95a27b84697ecfaed029d0b7d06e46d84ed8f98a9dc9d308fe623655f3c985052dcf7622de479bfa6103c44884fb7f6c810a
   languageName: node
   linkType: hard
 
@@ -2788,7 +2842,9 @@ __metadata:
   dependencies:
     "@casl/ability": 6.3.2
     "@casl/prisma": 1.3.3
+    "@chialab/esbuild-plugin-require-resolve": 0.17.1
     "@formatjs/ts-transformer": 3.11.5
+    "@newrelic/pino-enricher": 1.1.1
     "@prisma/client": 4.7.1
     "@trpc/server": 10.4.3
     "@types/bcryptjs": 2.4.2
@@ -2803,6 +2859,7 @@ __metadata:
     jsonwebtoken: 8.5.1
     newrelic: 9.7.4
     pino: 8.8.0
+    pino-pretty: 9.1.1
     prisma: 4.7.1
     typescript: 4.9.3
     vite-plugin-pwa: 0.14.0
@@ -4336,6 +4393,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"colorette@npm:^2.0.7":
+  version: 2.0.19
+  resolution: "colorette@npm:2.0.19"
+  checksum: 888cf5493f781e5fcf54ce4d49e9d7d698f96ea2b2ef67906834bb319a392c667f9ec69f4a10e268d2946d13a9503d2d19b3abaaaf174e3451bfe91fb9d82427
+  languageName: node
+  linkType: hard
+
 "combined-stream@npm:^1.0.8":
   version: 1.0.8
   resolution: "combined-stream@npm:1.0.8"
@@ -4694,6 +4758,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dateformat@npm:^4.6.3":
+  version: 4.6.3
+  resolution: "dateformat@npm:4.6.3"
+  checksum: c3aa0617c0a5b30595122bc8d1bee6276a9221e4d392087b41cbbdf175d9662ae0e50d0d6dcdf45caeac5153c4b5b0844265f8cd2b2245451e3da19e39e3b65d
+  languageName: node
+  linkType: hard
+
 "dayjs@npm:1.11.6":
   version: 1.11.6
   resolution: "dayjs@npm:1.11.6"
@@ -4795,6 +4866,15 @@ __metadata:
   version: 6.1.0
   resolution: "detect-indent@npm:6.1.0"
   checksum: ab953a73c72dbd4e8fc68e4ed4bfd92c97eb6c43734af3900add963fd3a9316f3bc0578b018b24198d4c31a358571eff5f0656e81a1f3b9ad5c547d58b2d093d
+  languageName: node
+  linkType: hard
+
+"detect-libc@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "detect-libc@npm:1.0.3"
+  bin:
+    detect-libc: ./bin/detect-libc.js
+  checksum: daaaed925ffa7889bd91d56e9624e6c8033911bb60f3a50a74a87500680652969dbaab9526d1e200a4c94acf80fc862a22131841145a0a8482d60a99c24f4a3e
   languageName: node
   linkType: hard
 
@@ -5600,6 +5680,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fast-copy@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "fast-copy@npm:3.0.0"
+  checksum: 58edbc2dcc10e948f5a67fb278dc3d696a65ac68036c3f872fc6c839522b071d3151c7bcea779946f96e01f9a1fdd9b76621532ee32f51000b1403ee673e14ba
+  languageName: node
+  linkType: hard
+
 "fast-decode-uri-component@npm:^1.0.1":
   version: 1.0.1
   resolution: "fast-decode-uri-component@npm:1.0.1"
@@ -5674,6 +5761,13 @@ __metadata:
   version: 3.1.2
   resolution: "fast-redact@npm:3.1.2"
   checksum: a30eb6b6830333ab213e0def55f46453ca777544dbd3a883016cb590a0eeb95e6fdf546553c1a13d509896bfba889b789991160a6d0996ceb19fce0a02e8b753
+  languageName: node
+  linkType: hard
+
+"fast-safe-stringify@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "fast-safe-stringify@npm:2.1.1"
+  checksum: a851cbddc451745662f8f00ddb622d6766f9bd97642dabfd9a405fb0d646d69fc0b9a1243cbf67f5f18a39f40f6fa821737651ff1bceeba06c9992ca2dc5bd3d
   languageName: node
   linkType: hard
 
@@ -6136,7 +6230,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^8.0.1":
+"glob@npm:^8.0.0, glob@npm:^8.0.1":
   version: 8.0.3
   resolution: "glob@npm:8.0.3"
   dependencies:
@@ -6296,6 +6390,16 @@ __metadata:
   dependencies:
     function-bind: ^1.1.1
   checksum: b9ad53d53be4af90ce5d1c38331e712522417d017d5ef1ebd0507e07c2fbad8686fffb8e12ddecd4c39ca9b9b47431afbb975b8abf7f3c3b82c98e9aad052792
+  languageName: node
+  linkType: hard
+
+"help-me@npm:^4.0.1":
+  version: 4.2.0
+  resolution: "help-me@npm:4.2.0"
+  dependencies:
+    glob: ^8.0.0
+    readable-stream: ^3.6.0
+  checksum: 6548acba10dd79ebfc93f0d739c4cb2f32f7932c8d87b091992f3a0f844706263415eab81be015aed4ab874154232beb666920d7e280502c6bba29a40cde343e
   languageName: node
   linkType: hard
 
@@ -6822,6 +6926,13 @@ __metadata:
     jotai-zustand:
       optional: true
   checksum: 9cac4074d8eded12bfcbb20bf9d3038c69060e4a56db398954351e41fb49a5ceb5fd178fb8f29d23a58d4e49ccc592bd7fc82dcce3387618b196ff32bb937634
+  languageName: node
+  linkType: hard
+
+"joycon@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "joycon@npm:3.1.1"
+  checksum: 8003c9c3fc79c5c7602b1c7e9f7a2df2e9916f046b0dbad862aa589be78c15734d11beb9fe846f5e06138df22cb2ad29961b6a986ba81c4920ce2b15a7f11067
   languageName: node
   linkType: hard
 
@@ -8111,13 +8222,37 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pino-abstract-transport@npm:v1.0.0":
+"pino-abstract-transport@npm:^1.0.0, pino-abstract-transport@npm:v1.0.0":
   version: 1.0.0
   resolution: "pino-abstract-transport@npm:1.0.0"
   dependencies:
     readable-stream: ^4.0.0
     split2: ^4.0.0
   checksum: 05dd0eda52dd99fd204b39fe7b62656744b63e863bc052cdd5105d25f226a236966d0a46e39a1ace4838f6e988c608837ff946d2d0bc92835ca7baa0a3bff8d8
+  languageName: node
+  linkType: hard
+
+"pino-pretty@npm:9.1.1":
+  version: 9.1.1
+  resolution: "pino-pretty@npm:9.1.1"
+  dependencies:
+    colorette: ^2.0.7
+    dateformat: ^4.6.3
+    fast-copy: ^3.0.0
+    fast-safe-stringify: ^2.1.1
+    help-me: ^4.0.1
+    joycon: ^3.1.1
+    minimist: ^1.2.6
+    on-exit-leak-free: ^2.1.0
+    pino-abstract-transport: ^1.0.0
+    pump: ^3.0.0
+    readable-stream: ^4.0.0
+    secure-json-parse: ^2.4.0
+    sonic-boom: ^3.0.0
+    strip-json-comments: ^3.1.1
+  bin:
+    pino-pretty: bin.js
+  checksum: c1d148aa0c5f2d1034cf76c0b397cf9725923d16343e9dff78d56b564090c1c86208aae94f1208f0fb936f456eece7eab6264095337540f42d91aaa13e5b8935
   languageName: node
   linkType: hard
 
@@ -8827,6 +8962,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"secure-json-parse@npm:^2.4.0":
+  version: 2.6.0
+  resolution: "secure-json-parse@npm:2.6.0"
+  checksum: 6a10529b095cd2d4b7f3ae0a7f9877b67f6a206ffda01ba6fd29012c94b77197d6be3aea21f950120d3ac69b98b1251870554a504d47ab0e32f45531ebe92a2c
+  languageName: node
+  linkType: hard
+
 "secure-json-parse@npm:^2.5.0":
   version: 2.5.0
   resolution: "secure-json-parse@npm:2.5.0"
@@ -8979,6 +9121,15 @@ __metadata:
     ip: ^2.0.0
     smart-buffer: ^4.2.0
   checksum: 259d9e3e8e1c9809a7f5c32238c3d4d2a36b39b83851d0f573bfde5f21c4b1288417ce1af06af1452569cd1eb0841169afd4998f0e04ba04656f6b7f0e46d748
+  languageName: node
+  linkType: hard
+
+"sonic-boom@npm:^3.0.0":
+  version: 3.2.1
+  resolution: "sonic-boom@npm:3.2.1"
+  dependencies:
+    atomic-sleep: ^1.0.0
+  checksum: 674d0af31c67818c99a0956482720b853bdaa6e46a63814db9fd28024580836a4cfdafa2c2ba6b0ec08449e9a92a5e7959530689b2c1fb5c83f786708cd7a7da
   languageName: node
   linkType: hard
 

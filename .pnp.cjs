@@ -478,6 +478,22 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "virtual:a25082ae04d3845aadef42450863459e93a372e99634d68ab96996e90be4305ce3539bb00a7eb2867ee0f55d9a997de2d21e54f2122ee66d6da356edb798f18b#npm:1.3.3"\
       ],\
       [\
+        "@chialab/esbuild-plugin-require-resolve",\
+        "npm:0.17.1"\
+      ],\
+      [\
+        "@chialab/esbuild-rna",\
+        "npm:0.17.3"\
+      ],\
+      [\
+        "@chialab/estransform",\
+        "npm:0.17.3"\
+      ],\
+      [\
+        "@chialab/node-resolve",\
+        "npm:0.17.0"\
+      ],\
+      [\
         "@colors/colors",\
         "npm:1.5.0"\
       ],\
@@ -810,6 +826,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:9.0.0"\
       ],\
       [\
+        "@newrelic/pino-enricher",\
+        "virtual:a25082ae04d3845aadef42450863459e93a372e99634d68ab96996e90be4305ce3539bb00a7eb2867ee0f55d9a997de2d21e54f2122ee66d6da356edb798f18b#npm:1.1.1"\
+      ],\
+      [\
         "@newrelic/superagent",\
         "virtual:56b8d125dd7ea467dbcf97093d5b85f56e8b6206fb418a1733e7abd877509163a5a7f7581d1c688628e072edebb9774f6eafd24ec3f835c8ee1e99c54a3c1f42#npm:6.0.0"\
       ],\
@@ -844,6 +864,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       [\
         "@nrwl/tao",\
         "npm:15.2.4"\
+      ],\
+      [\
+        "@parcel/source-map",\
+        "npm:2.1.1"\
       ],\
       [\
         "@parcel/watcher",\
@@ -1526,6 +1550,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:1.1.3"\
       ],\
       [\
+        "colorette",\
+        "npm:2.0.19"\
+      ],\
+      [\
         "combined-stream",\
         "npm:1.0.8"\
       ],\
@@ -1718,6 +1746,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:6.1.0"\
       ],\
       [\
+        "detect-libc",\
+        "npm:1.0.3"\
+      ],\
+      [\
         "detect-newline",\
         "npm:3.1.0"\
       ],\
@@ -1906,6 +1938,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:3.3.0"\
       ],\
       [\
+        "fast-copy",\
+        "npm:3.0.0"\
+      ],\
+      [\
         "fast-decode-uri-component",\
         "npm:1.0.1"\
       ],\
@@ -1932,6 +1968,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       [\
         "fast-redact",\
         "npm:3.1.2"\
+      ],\
+      [\
+        "fast-safe-stringify",\
+        "npm:2.1.1"\
       ],\
       [\
         "fast-uri",\
@@ -2148,6 +2188,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       [\
         "has-unicode",\
         "npm:2.0.1"\
+      ],\
+      [\
+        "help-me",\
+        "npm:4.2.0"\
       ],\
       [\
         "hey-listen",\
@@ -2376,6 +2420,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       [\
         "jotai",\
         "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:1.11.0"\
+      ],\
+      [\
+        "joycon",\
+        "npm:3.1.1"\
       ],\
       [\
         "js-tokens",\
@@ -2824,6 +2872,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       [\
         "pino-abstract-transport",\
         "npm:1.0.0"\
+      ],\
+      [\
+        "pino-pretty",\
+        "npm:9.1.1"\
       ],\
       [\
         "pino-std-serializers",\
@@ -5972,6 +6024,47 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@chialab/esbuild-plugin-require-resolve", [\
+        ["npm:0.17.1", {\
+          "packageLocation": "./.yarn/cache/@chialab-esbuild-plugin-require-resolve-npm-0.17.1-9775ff10c1-fcd2808d8e.zip/node_modules/@chialab/esbuild-plugin-require-resolve/",\
+          "packageDependencies": [\
+            ["@chialab/esbuild-plugin-require-resolve", "npm:0.17.1"],\
+            ["@chialab/esbuild-rna", "npm:0.17.3"],\
+            ["@chialab/estransform", "npm:0.17.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@chialab/esbuild-rna", [\
+        ["npm:0.17.3", {\
+          "packageLocation": "./.yarn/cache/@chialab-esbuild-rna-npm-0.17.3-60cc27f34e-2c6d8d36f4.zip/node_modules/@chialab/esbuild-rna/",\
+          "packageDependencies": [\
+            ["@chialab/esbuild-rna", "npm:0.17.3"],\
+            ["@chialab/estransform", "npm:0.17.3"],\
+            ["@chialab/node-resolve", "npm:0.17.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@chialab/estransform", [\
+        ["npm:0.17.3", {\
+          "packageLocation": "./.yarn/cache/@chialab-estransform-npm-0.17.3-4245b0dfeb-cd3ea46104.zip/node_modules/@chialab/estransform/",\
+          "packageDependencies": [\
+            ["@chialab/estransform", "npm:0.17.3"],\
+            ["@parcel/source-map", "npm:2.1.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@chialab/node-resolve", [\
+        ["npm:0.17.0", {\
+          "packageLocation": "./.yarn/cache/@chialab-node-resolve-npm-0.17.0-1b7130b71b-fdd9595886.zip/node_modules/@chialab/node-resolve/",\
+          "packageDependencies": [\
+            ["@chialab/node-resolve", "npm:0.17.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@colors/colors", [\
         ["npm:1.5.0", {\
           "packageLocation": "./.yarn/cache/@colors-colors-npm-1.5.0-875af3a8b4-d64d5260be.zip/node_modules/@colors/colors/",\
@@ -7323,6 +7416,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@newrelic/pino-enricher", [\
+        ["npm:1.1.1", {\
+          "packageLocation": "./.yarn/cache/@newrelic-pino-enricher-npm-1.1.1-66ed609cc4-7ebf8f0d4b.zip/node_modules/@newrelic/pino-enricher/",\
+          "packageDependencies": [\
+            ["@newrelic/pino-enricher", "npm:1.1.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:a25082ae04d3845aadef42450863459e93a372e99634d68ab96996e90be4305ce3539bb00a7eb2867ee0f55d9a997de2d21e54f2122ee66d6da356edb798f18b#npm:1.1.1", {\
+          "packageLocation": "./.yarn/__virtual__/@newrelic-pino-enricher-virtual-8c9992e401/0/cache/@newrelic-pino-enricher-npm-1.1.1-66ed609cc4-7ebf8f0d4b.zip/node_modules/@newrelic/pino-enricher/",\
+          "packageDependencies": [\
+            ["@newrelic/pino-enricher", "virtual:a25082ae04d3845aadef42450863459e93a372e99634d68ab96996e90be4305ce3539bb00a7eb2867ee0f55d9a997de2d21e54f2122ee66d6da356edb798f18b#npm:1.1.1"],\
+            ["@types/newrelic", null],\
+            ["newrelic", "npm:9.7.4"]\
+          ],\
+          "packagePeers": [\
+            "@types/newrelic",\
+            "newrelic"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@newrelic/superagent", [\
         ["npm:6.0.0", {\
           "packageLocation": "./.yarn/cache/@newrelic-superagent-npm-6.0.0-db8b77d0f3-d9e9b20d75.zip/node_modules/@newrelic/superagent/",\
@@ -7431,6 +7546,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@nrwl/tao", "npm:15.2.4"],\
             ["nx", "virtual:3e4d59b4f569048d89ca2f8a3ea790106a43ba981af0733dde7b871e97b12d56da0cff0050d0da78ae5c595fc736903dfac466eae27795ea92f801ac4b2aa3bd#npm:15.2.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@parcel/source-map", [\
+        ["npm:2.1.1", {\
+          "packageLocation": "./.yarn/unplugged/@parcel-source-map-npm-2.1.1-09e4d79db4/node_modules/@parcel/source-map/",\
+          "packageDependencies": [\
+            ["@parcel/source-map", "npm:2.1.1"],\
+            ["detect-libc", "npm:1.0.3"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -7990,7 +8115,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@rouby/sex-app-backend", "workspace:packages/backend"],\
             ["@casl/ability", "npm:6.3.2"],\
             ["@casl/prisma", "virtual:a25082ae04d3845aadef42450863459e93a372e99634d68ab96996e90be4305ce3539bb00a7eb2867ee0f55d9a997de2d21e54f2122ee66d6da356edb798f18b#npm:1.3.3"],\
+            ["@chialab/esbuild-plugin-require-resolve", "npm:0.17.1"],\
             ["@formatjs/ts-transformer", "virtual:a25082ae04d3845aadef42450863459e93a372e99634d68ab96996e90be4305ce3539bb00a7eb2867ee0f55d9a997de2d21e54f2122ee66d6da356edb798f18b#npm:3.11.5"],\
+            ["@newrelic/pino-enricher", "virtual:a25082ae04d3845aadef42450863459e93a372e99634d68ab96996e90be4305ce3539bb00a7eb2867ee0f55d9a997de2d21e54f2122ee66d6da356edb798f18b#npm:1.1.1"],\
             ["@prisma/client", "virtual:a25082ae04d3845aadef42450863459e93a372e99634d68ab96996e90be4305ce3539bb00a7eb2867ee0f55d9a997de2d21e54f2122ee66d6da356edb798f18b#npm:4.7.1"],\
             ["@trpc/server", "npm:10.4.3"],\
             ["@types/bcryptjs", "npm:2.4.2"],\
@@ -8005,6 +8132,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jsonwebtoken", "npm:8.5.1"],\
             ["newrelic", "npm:9.7.4"],\
             ["pino", "npm:8.8.0"],\
+            ["pino-pretty", "npm:9.1.1"],\
             ["prisma", "npm:4.7.1"],\
             ["typescript", "patch:typescript@npm%3A4.9.3#~builtin<compat/typescript>::version=4.9.3&hash=d73830"],\
             ["vite-plugin-pwa", "virtual:a25082ae04d3845aadef42450863459e93a372e99634d68ab96996e90be4305ce3539bb00a7eb2867ee0f55d9a997de2d21e54f2122ee66d6da356edb798f18b#npm:0.14.0"],\
@@ -9848,6 +9976,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["colorette", [\
+        ["npm:2.0.19", {\
+          "packageLocation": "./.yarn/cache/colorette-npm-2.0.19-f73dfe6a4e-888cf5493f.zip/node_modules/colorette/",\
+          "packageDependencies": [\
+            ["colorette", "npm:2.0.19"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["combined-stream", [\
         ["npm:1.0.8", {\
           "packageLocation": "./.yarn/cache/combined-stream-npm-1.0.8-dc14d4a63a-49fa4aeb49.zip/node_modules/combined-stream/",\
@@ -10247,6 +10384,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["dateformat", "npm:3.0.3"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:4.6.3", {\
+          "packageLocation": "./.yarn/cache/dateformat-npm-4.6.3-aa1a4cb7f9-c3aa0617c0.zip/node_modules/dateformat/",\
+          "packageDependencies": [\
+            ["dateformat", "npm:4.6.3"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["dayjs", [\
@@ -10380,6 +10524,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/detect-indent-npm-6.1.0-d8c441ff7a-ab953a73c7.zip/node_modules/detect-indent/",\
           "packageDependencies": [\
             ["detect-indent", "npm:6.1.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["detect-libc", [\
+        ["npm:1.0.3", {\
+          "packageLocation": "./.yarn/cache/detect-libc-npm-1.0.3-c30ac344d4-daaaed925f.zip/node_modules/detect-libc/",\
+          "packageDependencies": [\
+            ["detect-libc", "npm:1.0.3"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -11082,6 +11235,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["fast-copy", [\
+        ["npm:3.0.0", {\
+          "packageLocation": "./.yarn/cache/fast-copy-npm-3.0.0-6372c904be-58edbc2dcc.zip/node_modules/fast-copy/",\
+          "packageDependencies": [\
+            ["fast-copy", "npm:3.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["fast-decode-uri-component", [\
         ["npm:1.0.1", {\
           "packageLocation": "./.yarn/cache/fast-decode-uri-component-npm-1.0.1-578ba9fecf-427a48fe09.zip/node_modules/fast-decode-uri-component/",\
@@ -11165,6 +11327,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/fast-redact-npm-3.1.2-e090ce0184-a30eb6b683.zip/node_modules/fast-redact/",\
           "packageDependencies": [\
             ["fast-redact", "npm:3.1.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["fast-safe-stringify", [\
+        ["npm:2.1.1", {\
+          "packageLocation": "./.yarn/cache/fast-safe-stringify-npm-2.1.1-7ce89033ca-a851cbddc4.zip/node_modules/fast-safe-stringify/",\
+          "packageDependencies": [\
+            ["fast-safe-stringify", "npm:2.1.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -11857,6 +12028,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["help-me", [\
+        ["npm:4.2.0", {\
+          "packageLocation": "./.yarn/cache/help-me-npm-4.2.0-ce33864a5a-6548acba10.zip/node_modules/help-me/",\
+          "packageDependencies": [\
+            ["help-me", "npm:4.2.0"],\
+            ["glob", "npm:8.0.3"],\
+            ["readable-stream", "npm:3.6.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["hey-listen", [\
         ["npm:1.0.8", {\
           "packageLocation": "./.yarn/cache/hey-listen-npm-1.0.8-adb7dae9da-6bad60b367.zip/node_modules/hey-listen/",\
@@ -12480,6 +12662,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "jotai-xstate",\
             "jotai-zustand",\
             "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["joycon", [\
+        ["npm:3.1.1", {\
+          "packageLocation": "./.yarn/cache/joycon-npm-3.1.1-3033e0e5f4-8003c9c3fc.zip/node_modules/joycon/",\
+          "packageDependencies": [\
+            ["joycon", "npm:3.1.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -13941,6 +14132,29 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["pino-pretty", [\
+        ["npm:9.1.1", {\
+          "packageLocation": "./.yarn/cache/pino-pretty-npm-9.1.1-24631ec9d7-c1d148aa0c.zip/node_modules/pino-pretty/",\
+          "packageDependencies": [\
+            ["pino-pretty", "npm:9.1.1"],\
+            ["colorette", "npm:2.0.19"],\
+            ["dateformat", "npm:4.6.3"],\
+            ["fast-copy", "npm:3.0.0"],\
+            ["fast-safe-stringify", "npm:2.1.1"],\
+            ["help-me", "npm:4.2.0"],\
+            ["joycon", "npm:3.1.1"],\
+            ["minimist", "npm:1.2.7"],\
+            ["on-exit-leak-free", "npm:2.1.0"],\
+            ["pino-abstract-transport", "npm:1.0.0"],\
+            ["pump", "npm:3.0.0"],\
+            ["readable-stream", "npm:4.2.0"],\
+            ["secure-json-parse", "npm:2.6.0"],\
+            ["sonic-boom", "npm:3.2.1"],\
+            ["strip-json-comments", "npm:3.1.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["pino-std-serializers", [\
         ["npm:6.0.0", {\
           "packageLocation": "./.yarn/cache/pino-std-serializers-npm-6.0.0-c73a1b0dfd-d9dc1779b3.zip/node_modules/pino-std-serializers/",\
@@ -14721,6 +14935,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["secure-json-parse", "npm:2.5.0"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:2.6.0", {\
+          "packageLocation": "./.yarn/cache/secure-json-parse-npm-2.6.0-58f1c4aba4-6a10529b09.zip/node_modules/secure-json-parse/",\
+          "packageDependencies": [\
+            ["secure-json-parse", "npm:2.6.0"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["semver", [\
@@ -14882,6 +15103,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/sonic-boom-npm-3.2.0-5dbe3c3b0b-526669b78e.zip/node_modules/sonic-boom/",\
           "packageDependencies": [\
             ["sonic-boom", "npm:3.2.0"],\
+            ["atomic-sleep", "npm:1.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:3.2.1", {\
+          "packageLocation": "./.yarn/cache/sonic-boom-npm-3.2.1-ddac56c4bc-674d0af31c.zip/node_modules/sonic-boom/",\
+          "packageDependencies": [\
+            ["sonic-boom", "npm:3.2.1"],\
             ["atomic-sleep", "npm:1.0.0"]\
           ],\
           "linkType": "HARD"\

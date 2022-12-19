@@ -1,10 +1,10 @@
 {
   "name": "@rouby/sex-app-backend",
   "scripts": {
-    "dev": "wds --watch --esbuild ./src/main.ts",
+    "dev": "wds --watch --esbuild ./src/main.ts | pino-pretty",
     "test": "echo noop",
-    "build": "esbuild src/main.ts --bundle --platform=node --target=node18 --outdir=dist --sourcemap && cp prisma/schema.prisma dist/schema.prisma && cp ../../.yarn/unplugged/prisma-npm-4.7.1-37e177dd48/node_modules/prisma/libquery_engine-linux-arm64-openssl-1.1.x.so.node dist/libquery_engine-linux-arm64-openssl-1.1.x.so.node",
-    "deploy": "rsync -avz --delete -e \"ssh -i ~/.ssh/id_ed25519\" ./dist/ pi@192.168.178.40:/home/pi/sex-app/backend/",
+    "build": "node ./build.mjs",
+    "deploy": "rsync -avz -e \"ssh -i ~/.ssh/id_ed25519\" ./dist/ pi@192.168.178.40:/home/pi/sex-app/backend/",
     "db:reset": "pnpify prisma migrate reset",
     "db:push": "pnpify prisma db push"
   },
@@ -12,6 +12,7 @@
     "@casl/ability": "6.3.2",
     "@casl/prisma": "1.3.3",
     "@formatjs/ts-transformer": "3.11.5",
+    "@newrelic/pino-enricher": "1.1.1",
     "@prisma/client": "4.7.1",
     "@trpc/server": "10.4.3",
     "bcryptjs": "2.4.3",
@@ -24,12 +25,14 @@
     "zod": "3.20.0-beta.0"
   },
   "devDependencies": {
+    "@chialab/esbuild-plugin-require-resolve": "0.17.1",
     "@types/bcryptjs": "2.4.2",
     "@types/jsonwebtoken": "8.5.9",
     "@types/node": "18.11.10",
     "@types/web-push": "3.3.2",
     "@yarnpkg/pnpify": "4.0.0-rc.32",
     "esbuild": "0.16.1",
+    "pino-pretty": "9.1.1",
     "prisma": "4.7.1",
     "typescript": "4.9.3",
     "vite-plugin-pwa": "0.14.0",

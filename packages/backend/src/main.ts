@@ -6,6 +6,7 @@ import minMax from "dayjs/plugin/minMax";
 import fastify from "fastify";
 import "newrelic";
 import { createContext } from "./context";
+import { logger } from "./logger";
 import {
   accountRouter,
   authRouter,
@@ -38,7 +39,7 @@ server.register(fastifyTRPCPlugin, {
 server
   .listen({ port: +(process.env.PORT || 5000) })
   .then(() =>
-    console.log(`Server listening on port ${process.env.PORT || 5000}`)
+    logger.info(`Server listening on port ${process.env.PORT || 5000}`)
   );
 
 process.once("SIGINT", gracefulShutdown);
