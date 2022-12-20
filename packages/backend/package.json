@@ -28,6 +28,7 @@
     "@chialab/esbuild-plugin-require-resolve": "0.17.1",
     "@types/bcryptjs": "2.4.2",
     "@types/jsonwebtoken": "8.5.9",
+    "@types/newrelic": "9.4.0",
     "@types/node": "18.11.10",
     "@types/web-push": "3.3.2",
     "@yarnpkg/pnpify": "4.0.0-rc.32",

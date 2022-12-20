@@ -1,10 +1,11 @@
+import * as newrelic from "newrelic";
+
 import { initTRPC } from "@trpc/server";
 import { fastifyTRPCPlugin } from "@trpc/server/adapters/fastify";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import minMax from "dayjs/plugin/minMax";
 import fastify from "fastify";
-import "newrelic";
 import { createContext } from "./context";
 import { logger } from "./logger";
 import {
@@ -30,17 +31,19 @@ const appRouter = t.router({
 
 const server = fastify({
   maxParamLength: 5000,
+  logger,
+  disableRequestLogging: true,
 });
 server.register(fastifyTRPCPlugin, {
   prefix: "/trpc",
   trpcOptions: { router: appRouter, createContext },
 });
+server.addHook("onRequest", (request, reply, next) => {
+  newrelic.setTransactionName(`${request.method} ${request.url}`);
+  next();
+});
 
-server
-  .listen({ port: +(process.env.PORT || 5000) })
-  .then(() =>
-    logger.info(`Server listening on port ${process.env.PORT || 5000}`)
-  );
+server.listen({ port: +(process.env.PORT || 5000) });
 
 process.once("SIGINT", gracefulShutdown);
 process.once("SIGTERM", gracefulShutdown);

@@ -2859,6 +2859,7 @@ __metadata:
     "@trpc/server": 10.4.3
     "@types/bcryptjs": 2.4.2
     "@types/jsonwebtoken": 8.5.9
+    "@types/newrelic": 9.4.0
     "@types/node": 18.11.10
     "@types/web-push": 3.3.2
     "@yarnpkg/pnpify": 4.0.0-rc.32
@@ -3318,6 +3319,13 @@ __metadata:
   version: 1.2.2
   resolution: "@types/minimist@npm:1.2.2"
   checksum: b8da83c66eb4aac0440e64674b19564d9d86c80ae273144db9681e5eeff66f238ade9515f5006ffbfa955ceff8b89ad2bd8ec577d7caee74ba101431fb07045d
+  languageName: node
+  linkType: hard
+
+"@types/newrelic@npm:9.4.0":
+  version: 9.4.0
+  resolution: "@types/newrelic@npm:9.4.0"
+  checksum: 04f3e1f3725847b9c4225aca9677f22aab19d1c25c38bf9f30f5efa10a08465cf17244f9ff3e5d7facd5509163e01d8574c722461e1927e3c7fdf5edca8105db
   languageName: node
   linkType: hard
 

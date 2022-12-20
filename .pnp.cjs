@@ -1162,6 +1162,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:1.2.2"\
       ],\
       [\
+        "@types/newrelic",\
+        "npm:9.4.0"\
+      ],\
+      [\
         "@types/node",\
         "npm:18.11.10"\
       ],\
@@ -7600,7 +7604,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@newrelic-pino-enricher-virtual-8c9992e401/0/cache/@newrelic-pino-enricher-npm-1.1.1-66ed609cc4-7ebf8f0d4b.zip/node_modules/@newrelic/pino-enricher/",\
           "packageDependencies": [\
             ["@newrelic/pino-enricher", "virtual:a25082ae04d3845aadef42450863459e93a372e99634d68ab96996e90be4305ce3539bb00a7eb2867ee0f55d9a997de2d21e54f2122ee66d6da356edb798f18b#npm:1.1.1"],\
-            ["@types/newrelic", null],\
+            ["@types/newrelic", "npm:9.4.0"],\
             ["newrelic", "npm:9.7.4"]\
           ],\
           "packagePeers": [\
@@ -8303,6 +8307,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@trpc/server", "npm:10.4.3"],\
             ["@types/bcryptjs", "npm:2.4.2"],\
             ["@types/jsonwebtoken", "npm:8.5.9"],\
+            ["@types/newrelic", "npm:9.4.0"],\
             ["@types/node", "npm:18.11.10"],\
             ["@types/web-push", "npm:3.3.2"],\
             ["@yarnpkg/pnpify", "npm:4.0.0-rc.32"],\
@@ -8877,6 +8882,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-minimist-npm-1.2.2-a445de65da-b8da83c66e.zip/node_modules/@types/minimist/",\
           "packageDependencies": [\
             ["@types/minimist", "npm:1.2.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/newrelic", [\
+        ["npm:9.4.0", {\
+          "packageLocation": "./.yarn/cache/@types-newrelic-npm-9.4.0-72a77bd5e6-04f3e1f372.zip/node_modules/@types/newrelic/",\
+          "packageDependencies": [\
+            ["@types/newrelic", "npm:9.4.0"]\
           ],\
           "linkType": "HARD"\
         }]\
