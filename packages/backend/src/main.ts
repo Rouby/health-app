@@ -7,6 +7,7 @@ import duration from "dayjs/plugin/duration";
 import minMax from "dayjs/plugin/minMax";
 import fastify from "fastify";
 import { createContext } from "./context";
+import { upsertInterests } from "./data";
 import { logger } from "./logger";
 import {
   accountRouter,
@@ -45,7 +46,9 @@ server.addHook("onRequest", (request, reply, next) => {
   next();
 });
 
-server.listen({ port: +(process.env.PORT || 5000) });
+upsertInterests().then(() =>
+  server.listen({ port: +(process.env.PORT || 5000) })
+);
 
 process.once("SIGINT", gracefulShutdown);
 process.once("SIGTERM", gracefulShutdown);
