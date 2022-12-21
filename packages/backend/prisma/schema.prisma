@@ -91,7 +91,7 @@ model DayWithoutSex {
 }
 
 model PushNotification {
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId String
 
   endpoint String @unique
