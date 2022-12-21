@@ -10,6 +10,7 @@ import {
 } from "@mantine/core";
 import { useDisclosure, useMediaQuery, useWindowScroll } from "@mantine/hooks";
 import {
+  IconBucket,
   IconHeart,
   IconHome,
   IconLogout,
@@ -62,6 +63,12 @@ export function Navigation() {
       to="/mood"
       icon={IconHeart}
       label={<FormattedMessage defaultMessage="Mood" />}
+    />,
+    <NavbarLink
+      key="/explore"
+      to="/explore"
+      icon={IconBucket}
+      label={<FormattedMessage defaultMessage="Explore" />}
     />,
     <NavbarLink
       key="/account"

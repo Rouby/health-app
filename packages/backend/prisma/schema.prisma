@@ -34,6 +34,8 @@ model User {
   mood Mood?
 
   pushNotifications PushNotification[]
+
+  sexInterests SexInterestUserIntent[]
 }
 
 model Mood {
@@ -99,4 +101,47 @@ model PushNotification {
 
   @@id([endpoint, userId])
   @@index([userId])
+}
+
+model SexInterest {
+  id String @id @default(cuid())
+
+  translationKey String @unique
+  defaultMessage String
+  imagePath      String
+
+  descriptionTranslationKey String @unique
+  descriptionDefaultMessage String @db.Text
+
+  tags Tag[]
+
+  userIntents SexInterestUserIntent[]
+}
+
+model SexInterestUserIntent {
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String
+
+  sexInterest   SexInterest @relation(fields: [sexInterestId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  sexInterestId String
+
+  interested       Boolean
+  noticedByPartner Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([userId, sexInterestId])
+  @@unique([userId, sexInterestId])
+  @@index([userId])
+  @@index([sexInterestId])
+}
+
+model Tag {
+  id String @id @default(cuid())
+
+  translationKey String @unique
+  defaultMessage String
+
+  sexInterests SexInterest[]
 }

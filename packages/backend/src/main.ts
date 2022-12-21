@@ -11,6 +11,7 @@ import { logger } from "./logger";
 import {
   accountRouter,
   authRouter,
+  interestRouter,
   moodRouter,
   notificationRouter,
   trackerRouter,
@@ -27,6 +28,7 @@ const appRouter = t.router({
   tracker: trackerRouter,
   mood: moodRouter,
   notification: notificationRouter,
+  interest: interestRouter,
 });
 
 const server = fastify({

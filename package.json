@@ -8,6 +8,7 @@
     "release": "standard-version",
     "deploy": "nx run-many --target=deploy",
     "i18n": "nx run-many --target=i18n:compile",
+    "prisma:push": "yarn workspace @rouby/sex-app-backend pnpify prisma db push",
     "prisma:studio": "yarn workspace @rouby/sex-app-backend pnpify prisma studio"
   },
   "workspaces": [

@@ -29,7 +29,14 @@ import { useEffect, useMemo, useState } from "react";
 import { IntlProvider } from "react-intl";
 import { parse, stringify } from "zipson";
 import { LoginForm, Navigation, ServiceWorker } from "./components";
-import { AccountPage, MoodPage, OverviewPage, TrackingPage } from "./pages";
+import {
+  AccountPage,
+  ExplorePage,
+  InterestsPage,
+  MoodPage,
+  OverviewPage,
+  TrackingPage,
+} from "./pages";
 import { useAuth, useIsAuthenticated, useLanguage } from "./state";
 import { trpc } from "./utils";
 
@@ -90,16 +97,24 @@ export function App() {
                     element: <Auth />,
                     children: [
                       {
-                        path: "account",
-                        element: <AccountPage />,
+                        path: "tracking",
+                        element: <TrackingPage />,
                       },
                       {
                         path: "mood",
                         element: <MoodPage />,
                       },
                       {
-                        path: "tracking",
-                        element: <TrackingPage />,
+                        path: "explore/interests",
+                        element: <InterestsPage />,
+                      },
+                      {
+                        path: "explore",
+                        element: <ExplorePage />,
+                      },
+                      {
+                        path: "account",
+                        element: <AccountPage />,
                       },
                       {
                         element: <OverviewPage />,
