@@ -110,10 +110,10 @@ export async function upsertInterests() {
       imagePath: "/interests/deepthroating.svg",
       descriptionTranslationKey: defineMessage({
         defaultMessage:
-          "Deepthroating is a sexual practice in which a person takes a penis or other object into their mouth and throat, often to the point of gagging or choking.",
+          "Deepthroating is a sexual practice in which a person takes a penis or other object into their mouth and throat.",
       }).id,
       descriptionDefaultMessage:
-        "Deepthroating is a sexual practice in which a person takes a penis or other object into their mouth and throat, often to the point of gagging or choking.",
+        "Deepthroating is a sexual practice in which a person takes a penis or other object into their mouth and throat.",
 
       tags: {
         connectOrCreate: [
