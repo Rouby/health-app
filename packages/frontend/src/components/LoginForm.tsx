@@ -90,7 +90,7 @@ export function LoginForm({
             minLength={3}
             name="name"
             label={<FormattedMessage defaultMessage="Name" />}
-            placeholder={<FormattedMessage defaultMessage="Your name" />}
+            placeholder={formatMessage({ defaultMessage: "Your name" })}
             {...form.getInputProps("name")}
           />
         )}
