@@ -1,7 +1,6 @@
 import {
   Box,
   Center,
-  Group,
   Navbar,
   Stack,
   Tooltip,
@@ -43,6 +42,35 @@ export function Navigation() {
 
   const [, startTransition] = useTransition();
 
+  const links = [
+    <NavbarLink
+      key="/"
+      to="/"
+      icon={IconHome}
+      label={<FormattedMessage defaultMessage="Overview" />}
+    />,
+    isTrackingEnabled && (
+      <NavbarLink
+        key="/tracking"
+        to="/tracking"
+        icon={IconTimeline}
+        label={<FormattedMessage defaultMessage="Tracking" />}
+      />
+    ),
+    <NavbarLink
+      key="/mood"
+      to="/mood"
+      icon={IconHeart}
+      label={<FormattedMessage defaultMessage="Mood" />}
+    />,
+    <NavbarLink
+      key="/account"
+      to="/account"
+      icon={IconUser}
+      label={<FormattedMessage defaultMessage="User" />}
+    />,
+  ].filter(Boolean);
+
   if (!isTouchBased) {
     return (
       <Transition
@@ -58,28 +86,7 @@ export function Navigation() {
             </Center>
             <Navbar.Section grow mt={50}>
               <Stack justify="center" spacing={0}>
-                <NavbarLink
-                  to="/"
-                  icon={IconHome}
-                  label={<FormattedMessage defaultMessage="Overview" />}
-                />
-                {isTrackingEnabled && (
-                  <NavbarLink
-                    to="/tracking"
-                    icon={IconTimeline}
-                    label={<FormattedMessage defaultMessage="Tracking" />}
-                  />
-                )}
-                <NavbarLink
-                  to="/mood"
-                  icon={IconHeart}
-                  label={<FormattedMessage defaultMessage="Mood" />}
-                />
-                <NavbarLink
-                  to="/account"
-                  icon={IconUser}
-                  label={<FormattedMessage defaultMessage="User" />}
-                />
+                {links}
               </Stack>
             </Navbar.Section>
             <Navbar.Section>
@@ -118,38 +125,30 @@ export function Navigation() {
             position: "fixed",
             bottom: 0,
             width: "100vw",
-            boxShadow: theme.shadows.lg,
             zIndex: 100,
             background:
               theme.colorScheme === "dark"
                 ? theme.colors.dark[6]
                 : theme.colors.gray[0],
+            overflowX: "auto",
           })}
         >
-          <Group position="center" m="xs" spacing={28} noWrap>
-            <NavbarLink
-              to="/"
-              icon={IconHome}
-              label={<FormattedMessage defaultMessage="Overview" />}
-            />
-            {isTrackingEnabled && (
-              <NavbarLink
-                to="/tracking"
-                icon={IconTimeline}
-                label={<FormattedMessage defaultMessage="Tracking" />}
-              />
-            )}
-            <NavbarLink
-              to="/mood"
-              icon={IconHeart}
-              label={<FormattedMessage defaultMessage="Mood" />}
-            />
-            <NavbarLink
-              to="/account"
-              icon={IconUser}
-              label={<FormattedMessage defaultMessage="User" />}
-            />
-          </Group>
+          <Box
+            sx={{
+              display: "grid",
+              gridAutoFlow: "column",
+              gridTemplateColumns: `1fr repeat(${links.length}, fit-content(70px)) 1fr`,
+              gap: theme.spacing.xs,
+              padding: `${theme.spacing.xs}px 0`,
+
+              "&:before, &:after": {
+                content: '""',
+                width: "10px",
+              },
+            }}
+          >
+            {links}
+          </Box>
         </Box>
       )}
     </Transition>
@@ -227,12 +226,7 @@ function NavbarLink({
   }
 
   return (
-    <UnstyledButton
-      component={Link}
-      to={to}
-      onClick={onClick}
-      sx={{ width: 60 }}
-    >
+    <UnstyledButton component={Link} to={to} onClick={onClick}>
       <Stack spacing={0} align="center">
         <Icon size={30} stroke={1.5} />
         {label}
