@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.0](///compare/v1.11.0...v1.12.0) (2022-12-21)
+
+
+### Features
+
+* implement interest exploring / voting 58efdd8
+
+
+### Bug Fixes
+
+* **ui:** show nav links centered on mobile with correct scrolling 44874d9
+* **ui:** use string-translation for placeholder 56048b7
+
 ## [1.11.0](///compare/v1.10.1...v1.11.0) (2022-12-20)
 
 
