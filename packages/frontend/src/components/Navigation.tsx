@@ -1,6 +1,7 @@
 import {
   Box,
   Center,
+  Global,
   Navbar,
   Stack,
   Tooltip,
@@ -118,47 +119,50 @@ export function Navigation() {
   }
 
   return (
-    <Transition
-      mounted={showNav && isAuthed}
-      transition="slide-up"
-      duration={400}
-      timingFunction="ease"
-    >
-      {(style) => (
-        <Box
-          component="nav"
-          style={style}
-          sx={(theme) => ({
-            position: "fixed",
-            bottom: 0,
-            width: "100vw",
-            zIndex: 100,
-            background:
-              theme.colorScheme === "dark"
-                ? theme.colors.dark[6]
-                : theme.colors.gray[0],
-            overflowX: "auto",
-          })}
-        >
+    <>
+      <Global styles={{ ":root": { "--mantine-footer-height": "75px" } }} />
+      <Transition
+        mounted={showNav && isAuthed}
+        transition="slide-up"
+        duration={400}
+        timingFunction="ease"
+      >
+        {(style) => (
           <Box
-            sx={{
-              display: "grid",
-              gridAutoFlow: "column",
-              gridTemplateColumns: `1fr repeat(${links.length}, fit-content(70px)) 1fr`,
-              gap: theme.spacing.xs,
-              padding: `${theme.spacing.xs}px 0`,
-
-              "&:before, &:after": {
-                content: '""',
-                width: "10px",
-              },
-            }}
+            component="nav"
+            style={style}
+            sx={(theme) => ({
+              position: "fixed",
+              bottom: 0,
+              width: "100vw",
+              zIndex: 100,
+              background:
+                theme.colorScheme === "dark"
+                  ? theme.colors.dark[6]
+                  : theme.colors.gray[0],
+              overflowX: "auto",
+            })}
           >
-            {links}
+            <Box
+              sx={{
+                display: "grid",
+                gridAutoFlow: "column",
+                gridTemplateColumns: `1fr repeat(${links.length}, fit-content(70px)) 1fr`,
+                gap: theme.spacing.xs,
+                padding: `${theme.spacing.xs}px 0`,
+
+                "&:before, &:after": {
+                  content: '""',
+                  width: "10px",
+                },
+              }}
+            >
+              {links}
+            </Box>
           </Box>
-        </Box>
-      )}
-    </Transition>
+        )}
+      </Transition>
+    </>
   );
 }
 
