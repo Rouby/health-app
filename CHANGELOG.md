@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.13.1](///compare/v1.13.0...v1.13.1) (2022-12-24)
+
+
+### Bug Fixes
+
+* add padding for footer 3947989
+
 ## [1.13.0](///compare/v1.12.0...v1.13.0) (2022-12-24)
 
 
