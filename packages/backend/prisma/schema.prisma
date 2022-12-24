@@ -110,7 +110,7 @@ model SexInterest {
   defaultMessage String
   imagePath      String
 
-  descriptionTranslationKey String @unique
+  descriptionTranslationKey String
   descriptionDefaultMessage String @db.Text
 
   tags Tag[]
@@ -127,6 +127,7 @@ model SexInterestUserIntent {
 
   interested       Boolean
   noticedByPartner Boolean @default(false)
+  done             Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

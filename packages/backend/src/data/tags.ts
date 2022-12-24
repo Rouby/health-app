@@ -5,4 +5,8 @@ export const tags = {
     translationKey: defineMessage({ defaultMessage: "Practice" }).id,
     defaultMessage: "Practice",
   },
+  position: {
+    translationKey: defineMessage({ defaultMessage: "Position" }).id,
+    defaultMessage: "Position",
+  },
 };

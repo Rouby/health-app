@@ -9,6 +9,9 @@ export function ExplorePage() {
         <Button component={Link} to="interests">
           <FormattedMessage defaultMessage="Discover common interests" />
         </Button>
+        <Button component={Link} to="positions">
+          <FormattedMessage defaultMessage="Discover new and old positions" />
+        </Button>
       </Stack>
     </Container>
   );

@@ -35,6 +35,7 @@ import {
   InterestsPage,
   MoodPage,
   OverviewPage,
+  PositionsPage,
   TrackingPage,
 } from "./pages";
 import { useAuth, useIsAuthenticated, useLanguage } from "./state";
@@ -107,6 +108,10 @@ export function App() {
                       {
                         path: "explore/interests",
                         element: <InterestsPage />,
+                      },
+                      {
+                        path: "explore/positions",
+                        element: <PositionsPage />,
                       },
                       {
                         path: "explore",

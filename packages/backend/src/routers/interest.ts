@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { tags } from "../data/tags";
 import { prisma } from "../prisma";
 import { protectedProcedure, router } from "../trpc";
 7;
@@ -12,6 +13,7 @@ export const interestRouter = router({
             none: { userId: req.ctx.user.id },
             some: { userId: req.ctx.user.partnerId },
           },
+          tags: { some: { translationKey: tags.practice.translationKey } },
         },
         include: { tags: true },
       }));
@@ -21,6 +23,7 @@ export const interestRouter = router({
         userIntents: {
           none: { userId: req.ctx.user.id },
         },
+        tags: { some: { translationKey: tags.practice.translationKey } },
       },
     });
 
@@ -31,6 +34,7 @@ export const interestRouter = router({
           userIntents: {
             none: { userId: req.ctx.user.id },
           },
+          tags: { some: { translationKey: tags.practice.translationKey } },
         },
         skip: Math.floor(Math.random() * count),
         include: { tags: true },
@@ -66,6 +70,18 @@ export const interestRouter = router({
           userId: req.ctx.user.id,
           sexInterestId: req.input,
         },
+      },
+    });
+  }),
+
+  positions: protectedProcedure.query(async (req) => {
+    return await prisma.sexInterest.findMany({
+      where: {
+        tags: { some: { translationKey: tags.position.translationKey } },
+      },
+      include: {
+        tags: true,
+        userIntents: { where: { userId: req.ctx.user.id } },
       },
     });
   }),
