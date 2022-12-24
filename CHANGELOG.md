@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.0](///compare/v1.12.0...v1.13.0) (2022-12-24)
+
+
+### Features
+
+* add basic position-interests and exploring 892671a
+
+
+### Bug Fixes
+
+* make interest messages parsable again f9d5a83
+
 ## [1.12.0](///compare/v1.11.0...v1.12.0) (2022-12-21)
 
 
