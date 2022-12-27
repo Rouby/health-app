@@ -31,6 +31,7 @@ import { parse, stringify } from "zipson";
 import { LoginForm, Navigation, ServiceWorker } from "./components";
 import {
   AccountPage,
+  CommonInterestsWithPartnerPage,
   ExplorePage,
   InterestsPage,
   MoodPage,
@@ -104,6 +105,10 @@ export function App() {
                       {
                         path: "mood",
                         element: <MoodPage />,
+                      },
+                      {
+                        path: "explore/interests/common",
+                        element: <CommonInterestsWithPartnerPage />,
                       },
                       {
                         path: "explore/interests",

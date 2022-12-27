@@ -74,6 +74,43 @@ export const interestRouter = router({
     });
   }),
 
+  commonInterests: protectedProcedure.query(async (req) => {
+    if (!req.ctx.user.partnerId) {
+      return [];
+    }
+
+    return await prisma.sexInterest.findMany({
+      where: {
+        AND: [
+          {
+            userIntents: {
+              some: { userId: req.ctx.user.id, interested: true },
+            },
+          },
+          {
+            userIntents: {
+              some: { userId: req.ctx.user.partnerId, interested: true },
+            },
+          },
+        ],
+        tags: { some: { translationKey: tags.practice.translationKey } },
+      },
+      include: { tags: true },
+    });
+  }),
+
+  myInterests: protectedProcedure.query(async (req) => {
+    return await prisma.sexInterest.findMany({
+      where: {
+        userIntents: {
+          some: { userId: req.ctx.user.id },
+        },
+        tags: { some: { translationKey: tags.practice.translationKey } },
+      },
+      include: { tags: true },
+    });
+  }),
+
   positions: protectedProcedure.query(async (req) => {
     return await prisma.sexInterest.findMany({
       where: {

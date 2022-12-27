@@ -1,14 +1,17 @@
 import {
   Alert,
   Badge,
+  Button,
   Card,
   Container,
   Group,
   Image,
+  Stack,
   Text,
   ThemeIcon,
 } from "@mantine/core";
 import { IconThumbDown, IconThumbUp } from "@tabler/icons";
+import { Link } from "@tanstack/react-location";
 import {
   motion,
   useAnimationControls,
@@ -64,6 +67,14 @@ export function InterestsPage() {
         }
         onNext={() => requestInterest()}
       />
+      <Stack mt="md">
+        <Button component={Link} to="common">
+          <FormattedMessage defaultMessage="Common interests with partner" />
+        </Button>
+        <Button component={Link} to="mine">
+          <FormattedMessage defaultMessage="Review your interest-settings" />
+        </Button>
+      </Stack>
     </Container>
   );
 }
