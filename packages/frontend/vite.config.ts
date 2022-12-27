@@ -33,7 +33,7 @@ export default defineConfig(({ mode }) => ({
       registerType: "prompt",
       manifest: {
         theme_color: "#693396",
-        background_color: "#6c6c6c",
+        background_color: "#1a1b1e",
         display: "standalone",
         scope: "/",
         start_url: "/",
