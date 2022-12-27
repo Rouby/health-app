@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.14.0](///compare/v1.13.1...v1.14.0) (2022-12-27)
+
+
+### Features
+
+* change background_color to match app-background 4fa19ae
+
 ### [1.13.1](///compare/v1.13.0...v1.13.1) (2022-12-24)
 
 
