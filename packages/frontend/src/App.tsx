@@ -24,11 +24,13 @@ import {
 } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 import { FlagProvider, useUnleashContext } from "@unleash/proxy-client-react";
+import dayjs from "dayjs";
 import jwtDecode from "jwt-decode";
 import { useEffect, useMemo, useState } from "react";
 import { IntlProvider } from "react-intl";
 import { parse, stringify } from "zipson";
 import { LoginForm, Navigation, ServiceWorker } from "./components";
+import { locales } from "./locales";
 import {
   AccountPage,
   CommonInterestsWithPartnerPage,
@@ -168,6 +170,21 @@ function Intl({ children }: { children: React.ReactNode }) {
       retry: false,
     }
   );
+
+  const [token] = useAuth();
+
+  useEffect(() => {
+    const data = locales[locale as keyof typeof locales];
+
+    if (token) {
+      const { user } = jwtDecode(token) as {
+        user: { firstDayOfWeek: number };
+      };
+      dayjs.locale({ ...data, weekStart: user.firstDayOfWeek ?? 1 });
+    } else {
+      dayjs.locale({ ...data, weekStart: 1 });
+    }
+  }, [locale]);
 
   if (messages.isLoading) {
     return (
