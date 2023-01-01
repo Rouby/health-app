@@ -20,6 +20,52 @@ export const trackerRouter = router({
     });
   }),
 
+  sexStats: protectedProcedure.query(async (req) => {
+    const firstDayOfWeek = req.ctx.user.firstDayOfWeek;
+
+    const sexActs = await prisma.sexAct.findMany({
+      where: accessibleBy(req.ctx.ability).SexAct,
+    });
+
+    // group sexActs by week
+    const groupedByWeek = sexActs.reduce((acc, act) => {
+      const week = dayjs(act.dateTime)
+        .startOf("week")
+        .add(firstDayOfWeek, "days")
+        .toISOString();
+
+      if (!acc.has(week)) {
+        acc.set(week, []);
+      }
+
+      acc.get(week)?.push(act);
+
+      return acc;
+    }, new Map<string, typeof sexActs>());
+
+    const weeklyStats = Array.from(groupedByWeek.entries())
+      .map(([week, acts]) => {
+        return {
+          week: dayjs(week).toDate(),
+          averageDuration: calculateAverageDuration(acts),
+          totalActs: acts.length,
+        };
+      })
+      .sort((a, b) => {
+        return dayjs(a.week).isBefore(b.week) ? -1 : 1;
+      });
+
+    return {
+      weeklyStats,
+      totalActs: sexActs.length,
+      averageDuration: calculateAverageDuration(sexActs),
+      averageActsPerWeek:
+        weeklyStats.reduce((acc, stat) => {
+          return acc + stat.totalActs;
+        }, 0) / weeklyStats.length,
+    };
+  }),
+
   add: protectedProcedure
     .input(
       z.object({
@@ -113,3 +159,16 @@ export const trackerRouter = router({
       });
     }),
 });
+
+function calculateAverageDuration(acts: { duration?: string | null }[]) {
+  const actsWithDuration = acts.filter(
+    (act): act is { duration: string } => !!act.duration
+  );
+  const totalDuration = actsWithDuration.reduce(
+    (acc, act) => acc + dayjs.duration(act.duration).asMinutes(),
+    0
+  );
+  return dayjs
+    .duration(Math.round(totalDuration / actsWithDuration.length), "minutes")
+    .toISOString();
+}
