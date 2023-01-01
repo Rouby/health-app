@@ -82,9 +82,7 @@ function WeeklyStats() {
     day: "2-digit",
   });
 
-  console.log(stats, dayjs().weekday(0).format("dddd"));
-
-  if (!stats) {
+  if (!stats || !stats.weeklyStats.length) {
     return null;
   }
 
