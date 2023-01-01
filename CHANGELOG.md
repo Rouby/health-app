@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.15.0](///compare/v1.14.0...v1.15.0) (2023-01-01)
+
+
+### Features
+
+* add first-day-of-week user setting 0580b0d
+* show basic week-stats in overview 60b046b
+* show common interests 7d573f6
+
 ## [1.14.0](///compare/v1.13.1...v1.14.0) (2022-12-27)
 
 
