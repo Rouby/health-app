@@ -22,7 +22,8 @@ model User {
 
   password Password?
 
-  name String
+  name           String
+  firstDayOfWeek Int    @default(1) // 0 = Sunday, 1 = Monday
 
   sexActs        SexAct[]
   daysWithoutSex DayWithoutSex[]
