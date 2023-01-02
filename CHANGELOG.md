@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.16.0](///compare/v1.15.1...v1.16.0) (2023-01-02)
+
+
+### Features
+
+* add images to sw cache 1b45d9f
+
 ### [1.15.1](///compare/v1.15.0...v1.15.1) (2023-01-01)
 
 
