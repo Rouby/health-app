@@ -78,6 +78,13 @@ export default defineConfig(({ mode }) => ({
               url.pathname.includes("lang/"),
             handler: "StaleWhileRevalidate",
           },
+          {
+            urlPattern: ({ url }) =>
+              url.origin === self.location.origin &&
+              (url.pathname.includes("positions/") ||
+                url.pathname.includes("interests/")),
+            handler: "CacheFirst",
+          },
         ],
       },
     }),
