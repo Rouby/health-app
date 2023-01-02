@@ -111,11 +111,18 @@ function WeeklyStats() {
             display: "grid",
             gridTemplateColumns: "auto 1fr",
             gridTemplateAreas: `
-            "next week"
-            "prev week"
-          `,
+              "week next"
+              "week prev"
+            `,
             columnGap: theme.spacing.md,
             alignContent: "center",
+
+            [theme.fn.smallerThan("xs")]: {
+              gridTemplateAreas: `
+                "next week"
+                "prev week"
+              `,
+            },
           })}
         >
           <UnstyledButton
@@ -153,8 +160,10 @@ function WeeklyStats() {
           >
             <Text>
               {dateTimeFormat.formatRange(
-                new Date(stats.weeklyStats.at(-week)!.week),
-                new Date(stats.weeklyStats.at(-week - 1)!.week)
+                new Date(stats.weeklyStats.at(-(week + 1))!.week),
+                dayjs(stats.weeklyStats.at(-(week + 1))!.week)
+                  .add(1, "week")
+                  .toDate()
               )}
             </Text>
           </Box>
@@ -191,10 +200,22 @@ function WeeklyStats() {
           />
           <StatCard
             label={<FormattedMessage defaultMessage="Average duration" />}
-            value={dayjs
-              .duration(stats.weeklyStats.at(-week - 1)!.averageDuration)
-              .humanize()}
-            size={30}
+            value={
+              dayjs
+                .duration(stats.weeklyStats.at(-week - 1)!.averageDuration)
+                .asMilliseconds() === 0
+                ? "/"
+                : dayjs
+                    .duration(stats.weeklyStats.at(-week - 1)!.averageDuration)
+                    .humanize()
+            }
+            size={
+              dayjs
+                .duration(stats.weeklyStats.at(-week - 1)!.averageDuration)
+                .asMilliseconds() === 0
+                ? 50
+                : 30
+            }
           />
         </Group>
       </Box>

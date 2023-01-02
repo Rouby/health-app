@@ -25,6 +25,7 @@ export const trackerRouter = router({
 
     const sexActs = await prisma.sexAct.findMany({
       where: accessibleBy(req.ctx.ability).SexAct,
+      orderBy: { dateTime: "asc" },
     });
 
     // group sexActs by week
@@ -42,6 +43,25 @@ export const trackerRouter = router({
 
       return acc;
     }, new Map<string, typeof sexActs>());
+
+    if (sexActs.length > 0) {
+      // fill in missing weeks
+      const firstWeek = dayjs(sexActs.at(0)!.dateTime)
+        .startOf("week")
+        .add(firstDayOfWeek, "days");
+      const lastWeek = dayjs()
+        .startOf("week")
+        .add(firstDayOfWeek, "days")
+        .add(1, "week");
+
+      let currentWeek = firstWeek;
+      while (currentWeek.isBefore(lastWeek)) {
+        if (!groupedByWeek.has(currentWeek.toISOString())) {
+          groupedByWeek.set(currentWeek.toISOString(), []);
+        }
+        currentWeek = currentWeek.add(1, "week");
+      }
+    }
 
     const weeklyStats = Array.from(groupedByWeek.entries())
       .map(([week, acts]) => {
