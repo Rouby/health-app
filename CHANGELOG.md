@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.16.2](///compare/v1.16.1...v1.16.2) (2023-01-05)
+
+
+### Bug Fixes
+
+* round average acts per week 3d4ff8d
+
 ### [1.16.1](///compare/v1.16.0...v1.16.1) (2023-01-02)
 
 
