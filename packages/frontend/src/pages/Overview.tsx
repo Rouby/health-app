@@ -228,7 +228,7 @@ function WeeklyStats() {
         <Group>
           <StatCard
             label={<FormattedMessage defaultMessage="Sex acts per week" />}
-            value={stats.totalActs / stats.weeklyStats.length}
+            value={(stats.totalActs / stats.weeklyStats.length).toPrecision(1)}
             size={60}
           />
           <StatCard
