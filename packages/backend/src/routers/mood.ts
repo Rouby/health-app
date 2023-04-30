@@ -58,15 +58,21 @@ export const moodRouter = router({
             });
 
             notifications.forEach((notification) => {
-              sendNotification(notification as any, "https://sexy.aiacta.com", {
-                title: defineMessage({
-                  defaultMessage: "Your partner is in the mood",
-                }),
-                data: {
-                  icon: "/icon-192x192.png",
-                  badge: "/badges/heart.png",
-                },
-              });
+              if (isPushKeys(notification.keys)) {
+                sendNotification(
+                  { endpoint: notification.endpoint, keys: notification.keys },
+                  "https://sexy.aiacta.com",
+                  {
+                    title: defineMessage({
+                      defaultMessage: "Your partner is in the mood",
+                    }),
+                    data: {
+                      icon: "/icon-192x192.png",
+                      badge: "/badges/heart.png",
+                    },
+                  }
+                );
+              }
             });
           }
         }
@@ -77,3 +83,9 @@ export const moodRouter = router({
       }
     }),
 });
+
+function isPushKeys(keys: unknown): keys is { auth: string; p256dh: string } {
+  return (
+    typeof keys === "object" && !!keys && "auth" in keys && "p256dh" in keys
+  );
+}
