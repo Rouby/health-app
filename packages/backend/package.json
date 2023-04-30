@@ -21,6 +21,7 @@
     "jsonwebtoken": "8.5.1",
     "newrelic": "9.7.4",
     "pino": "8.8.0",
+    "recron": "1.1.5",
     "web-push": "3.5.0",
     "zod": "3.20.0-beta.0"
   },

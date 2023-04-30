@@ -7,6 +7,7 @@ import duration from "dayjs/plugin/duration";
 import minMax from "dayjs/plugin/minMax";
 import fastify from "fastify";
 import { createContext } from "./context";
+import { cron } from "./cron";
 import { upsertInterests } from "./data";
 import { logger } from "./logger";
 import {
@@ -46,9 +47,10 @@ server.addHook("onRequest", (request, reply, next) => {
   next();
 });
 
-upsertInterests().then(() =>
-  server.listen({ port: +(process.env.PORT || 5000) })
-);
+upsertInterests().then(async () => {
+  await server.listen({ port: +(process.env.PORT || 5000) });
+  await cron.start().then(() => logger.info("Cron started"));
+});
 
 process.once("SIGINT", gracefulShutdown);
 process.once("SIGTERM", gracefulShutdown);
