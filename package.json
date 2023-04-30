@@ -1,6 +1,6 @@
 {
   "name": "sex-app",
-  "version": "1.17.0",
+  "version": "1.17.1",
   "packageManager": "yarn@3.3.0",
   "scripts": {
     "dev": "nx run-many --target=dev",
