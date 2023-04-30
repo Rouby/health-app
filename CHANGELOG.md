@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.17.0](///compare/v1.16.2...v1.17.0) (2023-04-30)
+
+
+### Features
+
+* implement cron-based daily reminder for untracked days 20eeb27
+
 ### [1.16.2](///compare/v1.16.1...v1.16.2) (2023-01-05)
 
 
