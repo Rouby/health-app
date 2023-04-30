@@ -1,6 +1,7 @@
-import { Button, Checkbox, Group, Stack, Text } from "@mantine/core";
+import { Box, Button, Checkbox, Group, Stack, Text } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
+import dayjs from "dayjs";
 import { FormattedMessage, useIntl } from "react-intl";
 
 export function DayWithoutSexForm({
@@ -35,6 +36,21 @@ export function DayWithoutSexForm({
           label={<FormattedMessage defaultMessage="Date" />}
           {...form.getInputProps("dateTime")}
           excludeDate={excludeDate}
+          renderDay={(date) => {
+            const day = date.getDate();
+            return (
+              <Box
+                sx={{
+                  background: dayjs(date).isSame(new Date(), "day")
+                    ? "rgba(0,0,255,.2)"
+                    : undefined,
+                  borderRadius: "50%",
+                }}
+              >
+                {date.getDate()}
+              </Box>
+            );
+          }}
         />
 
         <Checkbox

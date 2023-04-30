@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Group,
   Input,
@@ -118,6 +119,21 @@ export function SexActForm({
                     .toDate()) as Date
               )
             }
+            renderDay={(date) => {
+              const day = date.getDate();
+              return (
+                <Box
+                  sx={{
+                    background: dayjs(date).isSame(new Date(), "day")
+                      ? "rgba(0,0,255,.2)"
+                      : undefined,
+                    borderRadius: "50%",
+                  }}
+                >
+                  {date.getDate()}
+                </Box>
+              );
+            }}
           />
 
           <TimeInput
