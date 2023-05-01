@@ -65,6 +65,16 @@ cron.schedule("0 12 * * *", async () => {
               data: {
                 icon: "/icon-192x192.png",
                 badge: "/badges/heart.png",
+                actions: [
+                  {
+                    title: defineMessage({
+                      defaultMessage: "Track no sex",
+                    }),
+                    action: `tracker:noSex:${daysWithoutTracking
+                      .map((day) => day.toISOString())
+                      .join(":")}`,
+                  },
+                ],
               },
             }
           );

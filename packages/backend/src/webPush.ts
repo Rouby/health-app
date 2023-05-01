@@ -6,13 +6,20 @@ import { MessageDescriptor } from "./i18n";
 import { logger } from "./logger";
 import { prisma } from "./prisma";
 
+export type NotificationPayload = {
+  title: MessageDescriptor;
+  data: Omit<NotificationOptions, "actions"> & {
+    actions?: { action: string; icon?: string; title: MessageDescriptor }[];
+  };
+};
+
 export const sendNotification = (
   subscription: {
     endpoint: string;
     keys: { p256dh: string; auth: string };
   },
   subject: string,
-  payload?: { title: MessageDescriptor; data: NotificationOptions }
+  payload?: NotificationPayload
 ) =>
   newrelic.startBackgroundTransaction(
     "sendNotification",
@@ -25,7 +32,7 @@ async function sendNotification_(
     keys: { p256dh: string; auth: string };
   },
   subject: string,
-  payload?: { title: MessageDescriptor; data: NotificationOptions }
+  payload?: NotificationPayload
 ) {
   try {
     const result = await webpush.sendNotification(
