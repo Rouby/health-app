@@ -28,6 +28,40 @@ export const trackerRouter = router({
       orderBy: { dateTime: "asc" },
     });
 
+    const daysWithoutSex = await prisma.dayWithoutSex.findMany({
+      where: accessibleBy(req.ctx.ability).DayWithoutSex,
+      orderBy: { dateTime: "asc" },
+    });
+
+    const mostConsecutiveDaysWithoutSex = daysWithoutSex.reduce(
+      (acc, day) => {
+        if (acc.currentStreak === 0) {
+          acc.currentStreak = 1;
+          acc.longestStreak = 1;
+          acc.lastDay = day.dateTime;
+        } else {
+          const lastDay = dayjs(acc.lastDay);
+          const currentDay = dayjs(day.dateTime);
+
+          if (lastDay.add(1, "day").isSame(currentDay, "day")) {
+            acc.currentStreak += 1;
+            acc.longestStreak = Math.max(acc.longestStreak, acc.currentStreak);
+          } else {
+            acc.currentStreak = 1;
+          }
+
+          acc.lastDay = day.dateTime;
+        }
+
+        return acc;
+      },
+      {
+        currentStreak: 0,
+        longestStreak: 0,
+        lastDay: undefined as undefined | Date,
+      }
+    ).longestStreak;
+
     // group sexActs by week
     const groupedByWeek = sexActs.reduce((acc, act) => {
       const week = dayjs(act.dateTime)
@@ -78,6 +112,7 @@ export const trackerRouter = router({
     return {
       weeklyStats,
       totalActs: sexActs.length,
+      mostConsecutiveDaysWithoutSex,
       averageDuration: calculateAverageDuration(sexActs),
       averageActsPerWeek:
         weeklyStats.reduce((acc, stat) => {

@@ -76,6 +76,8 @@ function WeeklyStats() {
 
   const { data: stats } = trpc.tracker.sexStats.useQuery();
 
+  console.log(stats);
+
   const dateTimeFormat = new Intl.DateTimeFormat(undefined, {
     month: "long",
     day: "2-digit",
@@ -234,6 +236,11 @@ function WeeklyStats() {
             label={<FormattedMessage defaultMessage="Average duration" />}
             value={dayjs.duration(stats.averageDuration).humanize()}
             size={30}
+          />
+          <StatCard
+            label={<FormattedMessage defaultMessage="Most days w/o sex" />}
+            value={stats.mostConsecutiveDaysWithoutSex}
+            size={60}
           />
         </Group>
       </Box>
