@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.19.0](///compare/v1.18.0...v1.19.0) (2023-05-01)
+
+
+### Features
+
+* add action to notification fa3b2ca
+
+
+### Bug Fixes
+
+* only count past days for notification b96ee5e
+
 ## [1.18.0](///compare/v1.17.1...v1.18.0) (2023-04-30)
 
 
