@@ -49,7 +49,7 @@ cron.schedule("0 12 * * *", async () => {
       (day) =>
         ![...(sexActs ?? []), ...(daysWithoutSex ?? [])].some((act) =>
           day.isSame(act.dateTime, "day")
-        )
+        ) && !day.isSame(dayjs(), "day")
     );
 
     if (daysWithoutTracking.length > 0) {

@@ -46,14 +46,13 @@ function TrackingSection() {
     (day) =>
       ![...(sexActs ?? []), ...(daysWithoutSex ?? [])].some((act) =>
         day.isSame(act.dateTime, "day")
-      )
+      ) && !day.isSame(dayjs(), "day")
   );
 
   return (
     <>
       <WeeklyStats />
-      {daysWithoutTracking.filter((day) => !day.isSame(dayjs(), "day")).length >
-        0 && (
+      {daysWithoutTracking.length > 0 && (
         <Text>
           <FormattedMessage
             defaultMessage="You have {days, plural, =1 {one day} other {# days}} <a>without tracking</a>."
