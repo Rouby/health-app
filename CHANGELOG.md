@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.20.0](///compare/v1.19.0...v1.20.0) (2023-05-02)
+
+
+### Features
+
+* show most consecutive days without sex e687f76
+
+
+### Bug Fixes
+
+* notifications working a81ad49
+
 ## [1.19.0](///compare/v1.18.0...v1.19.0) (2023-05-01)
 
 
