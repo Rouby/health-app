@@ -1,5 +1,7 @@
 #!/usr/bin/env zx
 
+$.quote = (s) => s;
+
 const revision = await $`git rev-parse --short HEAD`;
 
 const user = await $`git config user.name`;
@@ -11,18 +13,14 @@ const browserAppGUID = "Mzc0MzkxOHxCUk9XU0VSfEFQUExJQ0FUSU9OfDUzNTg5Njk3Mg";
 
 const version = require("../../package.json").version;
 
-await $`curl -X POST https://api.newrelic.com/graphql \
--H 'Content-Type: application/json' \
--H 'API-Key: YOUR_NEW_RELIC_USER_KEY' \
--d '${JSON.stringify({
-  query: `mutation {
+const query = `mutation($serviceGUID: EntityGuid!, $browserAppGUID: EntityGuid!, $version: String!, $user: String!, $revision: String!) {
   createServiceDeployment: changeTrackingCreateDeployment(
     deployment: {
-      entityGuid: "${serviceGUID}"
-      version: "${version}"
-      user: "${user.stdout.trim()}"
-      groupId: "${revision.stdout.trim()}"
-      commit: "${revision.stdout.trim()}"
+      entityGuid: $serviceGUID
+      version: $version
+      user: $user
+      groupId: $revision
+      commit: $revision
       deploymentType: BASIC
     }
   ) {
@@ -31,15 +29,29 @@ await $`curl -X POST https://api.newrelic.com/graphql \
 
   createBrowserDeployment: changeTrackingCreateDeployment(
     deployment: {
-      entityGuid: "${browserAppGUID}"
-      version: "${version}"
-      user: "${user.stdout.trim()}"
-      groupId: "${revision.stdout.trim()}"
-      commit: "${revision.stdout.trim()}"
+      entityGuid: $browserAppGUID
+      version: $version
+      user: $user
+      groupId: $revision
+      commit: $revision
       deploymentType: BASIC
     }
   ) {
     deploymentId
   }
-}`,
+}`;
+
+await $`curl -X POST https://api.eu.newrelic.com/graphql \
+-H 'Accept: application/json' \
+-H 'Content-Type: application/json' \
+-H 'Api-Key: NRAK-QYLB0HYRO56G1WZEHOKNF1VJY19' \
+-d '${JSON.stringify({
+  query,
+  variables: {
+    serviceGUID,
+    browserAppGUID,
+    version,
+    user: user.stdout.trim(),
+    revision: revision.stdout.trim(),
+  },
 })}'`;
