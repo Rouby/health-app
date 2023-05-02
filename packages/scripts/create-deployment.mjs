@@ -6,18 +6,40 @@ const user = await $`git config user.name`;
 
 console.log(revision.stdout.trim(), user.stdout.trim());
 
+const serviceGUID = "Mzc0MzkxOHxBUE18QVBQTElDQVRJT058NDM4NTI3MDU5";
+const browserAppGUID = "Mzc0MzkxOHxCUk9XU0VSfEFQUExJQ0FUSU9OfDUzNTg5Njk3Mg";
+
 const version = require("../../package.json").version;
 
-await $`curl -X 'POST' \
-'https://api.eu.newrelic.com/v2/applications/438527059/deployments.json' \
--H 'accept: application/json' \
+await $`curl -X POST https://api.newrelic.com/graphql \
 -H 'Content-Type: application/json' \
--H "X-Api-Key: NRAK-QYLB0HYRO56G1WZEHOKNF1VJY19" \
--d ${JSON.stringify({
-  deployment: {
-    // changelog: "",
-    // description: "",
-    revision: `v${version} (${revision.stdout.trim()})`,
-    user: user.stdout.trim(),
-  },
-})}`;
+-H 'API-Key: YOUR_NEW_RELIC_USER_KEY' \
+-d '${JSON.stringify({
+  query: `mutation {
+  createServiceDeployment: changeTrackingCreateDeployment(
+    deployment: {
+      entityGuid: "${serviceGUID}"
+      version: "${version}"
+      user: "${user.stdout.trim()}"
+      groupId: "${revision.stdout.trim()}"
+      commit: "${revision.stdout.trim()}"
+      deploymentType: BASIC
+    }
+  ) {
+    deploymentId
+  }
+
+  createBrowserDeployment: changeTrackingCreateDeployment(
+    deployment: {
+      entityGuid: "${browserAppGUID}"
+      version: "${version}"
+      user: "${user.stdout.trim()}"
+      groupId: "${revision.stdout.trim()}"
+      commit: "${revision.stdout.trim()}"
+      deploymentType: BASIC
+    }
+  ) {
+    deploymentId
+  }
+}`,
+})}'`;
