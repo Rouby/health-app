@@ -76,8 +76,6 @@ function WeeklyStats() {
 
   const { data: stats } = trpc.tracker.sexStats.useQuery();
 
-  console.log(stats);
-
   const dateTimeFormat = new Intl.DateTimeFormat(undefined, {
     month: "long",
     day: "2-digit",
