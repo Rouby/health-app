@@ -62,21 +62,23 @@ sw.addEventListener("notificationclick", (event) => {
   clickedNotification.close();
 
   if (event.action) {
-    const [topic, action, ...params] = event.action.split(":");
+    const [topic, action, ...params] = event.action.split("_$_");
 
     if (topic === "tracker") {
       if (action === "noSex") {
         event.waitUntil(
-          getClient().then((client) =>
-            Promise.all(
-              params.map((dateTime) =>
-                client.tracker.addDayWithoutSex.mutate({
-                  dateTime,
-                  onPeriod: false,
-                })
+          getClient()
+            .then((client) =>
+              Promise.all(
+                params.map((dateTime) =>
+                  client.tracker.addDayWithoutSex.mutate({
+                    dateTime,
+                    onPeriod: false,
+                  })
+                )
               )
             )
-          )
+            .finally(() => sw.clients.openWindow("/tracking"))
         );
       }
     }
@@ -129,13 +131,20 @@ sw.addEventListener("message", (event) => {
 });
 
 async function getClient() {
-  const auth = await Promise.race([
-    new Promise<string>((resolve) => (authResolver = resolve)),
-    new Promise<undefined>((resolve) => {
-      // todo use formatjs to format it?
-      setTimeout(() => resolve(undefined), 1000);
-    }),
-  ]);
+  const [client] = await sw.clients.matchAll();
+
+  const auth = client
+    ? await Promise.race([
+        new Promise<string>((resolve) => {
+          authResolver = resolve;
+          client.postMessage({ type: "auth" });
+        }),
+        new Promise<undefined>((resolve) => {
+          // todo use formatjs to format it?
+          setTimeout(() => resolve(undefined), 1000);
+        }),
+      ])
+    : undefined;
 
   return createTRPCProxyClient<AppRouter>({
     links: [

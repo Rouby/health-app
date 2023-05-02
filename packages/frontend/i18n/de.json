@@ -494,6 +494,9 @@
   "ug01Mk": {
     "defaultMessage": "Zeit"
   },
+  "us0UeF": {
+    "defaultMessage": "Du hast einen Tag ohne Tracking: {day, date, medium}"
+  },
   "vaUuo2": {
     "defaultMessage": "Neuer Inhalt verfübar, lade die Seite neu zum aufrüsten."
   },

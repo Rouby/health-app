@@ -338,9 +338,6 @@
   "Xjib8p": {
     "defaultMessage": "Bottoms Up"
   },
-  "XlNsEr": {
-    "defaultMessage": "You have untracked days"
-  },
   "Yph/2g": {
     "defaultMessage": "Fingering"
   },
@@ -487,6 +484,9 @@
   },
   "ug01Mk": {
     "defaultMessage": "Time"
+  },
+  "us0UeF": {
+    "defaultMessage": "You have an untracked day: {day, date, medium}"
   },
   "vaUuo2": {
     "defaultMessage": "New content available, click on reload button to update."
