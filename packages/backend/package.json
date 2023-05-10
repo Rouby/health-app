@@ -19,7 +19,7 @@
     "dayjs": "1.11.6",
     "fastify": "4.10.2",
     "jsonwebtoken": "8.5.1",
-    "newrelic": "9.7.4",
+    "newrelic": "10.1.0",
     "pino": "8.8.0",
     "recron": "1.1.5",
     "web-push": "3.5.0",

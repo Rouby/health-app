@@ -2098,17 +2098,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@grpc/grpc-js@npm:^1.7.3":
-  version: 1.8.0
-  resolution: "@grpc/grpc-js@npm:1.8.0"
+"@grpc/grpc-js@npm:^1.8.10":
+  version: 1.8.14
+  resolution: "@grpc/grpc-js@npm:1.8.14"
   dependencies:
     "@grpc/proto-loader": ^0.7.0
     "@types/node": ">=12.12.47"
-  checksum: 06afdded775e5b6179c48a447f84d94079d0357a67b2a6c845d08b6de63a6993900bbf56deb077508e10d63f4dca031cd0d2389deab7410f69e17d2553a73698
+  checksum: 7b889ae67cde5eb9b4feb92d54e73945d881309b9b879a2dde478fa7850b99835efa7592a8154a0f923851d7a18a177c106f5f52b45061180bb04aef7783c1c9
   languageName: node
   linkType: hard
 
-"@grpc/proto-loader@npm:^0.7.0, @grpc/proto-loader@npm:^0.7.3":
+"@grpc/proto-loader@npm:^0.7.0":
   version: 0.7.4
   resolution: "@grpc/proto-loader@npm:0.7.4"
   dependencies:
@@ -2120,6 +2120,21 @@ __metadata:
   bin:
     proto-loader-gen-types: build/bin/proto-loader-gen-types.js
   checksum: 7789a959060535287a74cef8e13783e9a1506ae22365a48e0cfb29f48697ac946b461fe12ee711d280c4690a333c705f504076303a806f2fef81cc3e532637ac
+  languageName: node
+  linkType: hard
+
+"@grpc/proto-loader@npm:^0.7.5":
+  version: 0.7.7
+  resolution: "@grpc/proto-loader@npm:0.7.7"
+  dependencies:
+    "@types/long": ^4.0.1
+    lodash.camelcase: ^4.3.0
+    long: ^4.0.0
+    protobufjs: ^7.0.0
+    yargs: ^17.7.2
+  bin:
+    proto-loader-gen-types: build/bin/proto-loader-gen-types.js
+  checksum: 6015d99d36d0451075a53e5c5842e8912235973a515677afca038269969ad84f22a4c9fbc9badf52f034736b3f1bf864739f7c4238ba8a7e6fd3bba75cfce0ee
   languageName: node
   linkType: hard
 
@@ -2360,21 +2375,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@newrelic/aws-sdk@npm:^5.0.0":
-  version: 5.0.2
-  resolution: "@newrelic/aws-sdk@npm:5.0.2"
+"@newrelic/aws-sdk@npm:^5.0.2":
+  version: 5.0.5
+  resolution: "@newrelic/aws-sdk@npm:5.0.5"
   peerDependencies:
     newrelic: ">=8.7.0"
-  checksum: 640956a9c6861a48da9d4ee6c222d68f5cda5e039f021119ac29eebfdea63799319d4aedac5d17dded5b7ac6b988f58f05829a2bd83bbef4a36f7dbea7547511
+  checksum: 4cff052a5b67b7c32f23a73898e4b3806835bafa1bae0180fd1458c6ec1abfaf92906fa369879c03864b7554e25f99893d676f61480f70fdcce7d3209d28bc45
   languageName: node
   linkType: hard
 
-"@newrelic/koa@npm:^7.0.0":
-  version: 7.1.1
-  resolution: "@newrelic/koa@npm:7.1.1"
+"@newrelic/koa@npm:^7.1.1":
+  version: 7.2.0
+  resolution: "@newrelic/koa@npm:7.2.0"
   peerDependencies:
     newrelic: ">=6.11.0"
-  checksum: 73366b07f89de4978d74376c9107021f0be3fe0f22e42b4e751c793c468f9f39578093b5a7c6fca76d028cb22951d596422bab452aea69c6a67321e26bbb3d52
+  checksum: fb06ea751254fc0e369bdfd0ce94dffc00d82e7e34f1e920ef676e278ae4604a9c10be9e24f4aa16275803cd86aef4bfffb3dada3333699c1d0dc74946cd0844
   languageName: node
   linkType: hard
 
@@ -2868,7 +2883,7 @@ __metadata:
     esbuild: 0.16.1
     fastify: 4.10.2
     jsonwebtoken: 8.5.1
-    newrelic: 9.7.4
+    newrelic: 10.1.0
     pino: 8.8.0
     pino-pretty: 9.1.1
     prisma: 4.7.1
@@ -4058,6 +4073,13 @@ __metadata:
   version: 2.4.3
   resolution: "bcryptjs@npm:2.4.3"
   checksum: 0e80ed852a41f5dfb1853f53ee14a7390b0ef263ce05dba6e2ef3cd919dfad025a7c21ebcfe5bc7fa04b100990edf90c7a877ff7fe623d3e479753253131b629
+  languageName: node
+  linkType: hard
+
+"bignumber.js@npm:^9.0.0":
+  version: 9.1.1
+  resolution: "bignumber.js@npm:9.1.1"
+  checksum: ad243b7e2f9120b112d670bb3d674128f0bd2ca1745b0a6c9df0433bd2c0252c43e6315d944c2ac07b4c639e7496b425e46842773cf89c6a2dcd4f31e5c4b11e
   languageName: node
   linkType: hard
 
@@ -7265,6 +7287,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"json-bigint@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "json-bigint@npm:1.0.0"
+  dependencies:
+    bignumber.js: ^9.0.0
+  checksum: c67bb93ccb3c291e60eb4b62931403e378906aab113ec1c2a8dd0f9a7f065ad6fd9713d627b732abefae2e244ac9ce1721c7a3142b2979532f12b258634ce6f6
+  languageName: node
+  linkType: hard
+
 "json-buffer@npm:3.0.1":
   version: 3.0.1
   resolution: "json-buffer@npm:3.0.1"
@@ -8055,22 +8086,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"newrelic@npm:9.7.4":
-  version: 9.7.4
-  resolution: "newrelic@npm:9.7.4"
+"newrelic@npm:10.1.0":
+  version: 10.1.0
+  resolution: "newrelic@npm:10.1.0"
   dependencies:
     "@contrast/fn-inspect": ^3.3.0
-    "@grpc/grpc-js": ^1.7.3
-    "@grpc/proto-loader": ^0.7.3
-    "@newrelic/aws-sdk": ^5.0.0
-    "@newrelic/koa": ^7.0.0
+    "@grpc/grpc-js": ^1.8.10
+    "@grpc/proto-loader": ^0.7.5
+    "@newrelic/aws-sdk": ^5.0.2
+    "@newrelic/koa": ^7.1.1
     "@newrelic/native-metrics": ^9.0.0
     "@newrelic/superagent": ^6.0.0
     "@tyriar/fibonacci-heap": ^2.0.7
     concat-stream: ^2.0.0
     https-proxy-agent: ^5.0.0
+    json-bigint: ^1.0.0
     json-stringify-safe: ^5.0.0
-    readable-stream: ^3.6.0
+    readable-stream: ^3.6.1
     semver: ^5.3.0
     winston-transport: ^4.5.0
   dependenciesMeta:
@@ -8080,7 +8112,7 @@ __metadata:
       optional: true
   bin:
     newrelic-naming-rules: bin/test-naming-rules.js
-  checksum: fc2766879d75507156725e11ddaed0e7609af7fd1bc415cff52111aee3e5aa19b6b2df98ea06fdaaf70b2801e2e6b468c825ffe05c1b0ffa7c0c5929a3ee0706
+  checksum: 7f5ac1fb26d1f8e36c5fdf935b80166fe2a4e39b3476de2e9a8878292883e78ed5aa5da8c936191aa3089497587f814cdf53ad5273e3cadcd131ffb2ec9786f7
   languageName: node
   linkType: hard
 
@@ -9009,6 +9041,17 @@ __metadata:
     string_decoder: ^1.1.1
     util-deprecate: ^1.0.1
   checksum: d4ea81502d3799439bb955a3a5d1d808592cf3133350ed352aeaa499647858b27b1c4013984900238b0873ec8d0d8defce72469fb7a83e61d53f5ad61cb80dc8
+  languageName: node
+  linkType: hard
+
+"readable-stream@npm:^3.6.1":
+  version: 3.6.2
+  resolution: "readable-stream@npm:3.6.2"
+  dependencies:
+    inherits: ^2.0.3
+    string_decoder: ^1.1.1
+    util-deprecate: ^1.0.1
+  checksum: bdcbe6c22e846b6af075e32cf8f4751c2576238c5043169a1c221c92ee2878458a816a4ea33f4c67623c0b6827c8a400409bfb3cf0bf3381392d0b1dfb52ac8d
   languageName: node
   linkType: hard
 
@@ -10875,6 +10918,21 @@ __metadata:
     y18n: ^5.0.5
     yargs-parser: ^21.1.1
   checksum: 47da1b0d854fa16d45a3ded57b716b013b2179022352a5f7467409da5a04a1eef5b3b3d97a2dfc13e8bbe5f2ffc0afe3bc6a4a72f8254e60f5a4bd7947138643
+  languageName: node
+  linkType: hard
+
+"yargs@npm:^17.7.2":
+  version: 17.7.2
+  resolution: "yargs@npm:17.7.2"
+  dependencies:
+    cliui: ^8.0.1
+    escalade: ^3.1.1
+    get-caller-file: ^2.0.5
+    require-directory: ^2.1.1
+    string-width: ^4.2.3
+    y18n: ^5.0.5
+    yargs-parser: ^21.1.1
+  checksum: 73b572e863aa4a8cbef323dd911d79d193b772defd5a51aab0aca2d446655216f5002c42c5306033968193bdbf892a7a4c110b0d77954a7fdf563e653967b56a
   languageName: node
   linkType: hard
 
