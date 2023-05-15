@@ -1,7 +1,6 @@
-import { User } from "@prisma/client";
 import { compare, hash } from "bcryptjs";
-import { sign } from "jsonwebtoken";
 import { z } from "zod";
+import { signToken } from "../auth";
 import { prisma } from "../prisma";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 
@@ -34,11 +33,7 @@ export const authRouter = router({
         throw new Error("Invalid login");
       }
 
-      return sign(payload(userWithPassword), process.env.SESSION_SECRET!, {
-        algorithm: "HS256",
-        subject: userWithPassword.id,
-        expiresIn: "1y",
-      });
+      return signToken(userWithPassword);
     }),
 
   register: publicProcedure
@@ -64,25 +59,10 @@ export const authRouter = router({
         },
       });
 
-      return sign(payload(user), process.env.SESSION_SECRET!, {
-        algorithm: "HS256",
-        subject: user.id,
-        expiresIn: "1y",
-      });
+      return signToken(user);
     }),
 
   validate: protectedProcedure.mutation(async (req) => {
     return true;
   }),
 });
-
-function payload(user: User) {
-  return {
-    user: {
-      id: user.id,
-      email: user.email,
-      name: user.name,
-      firstDayOfWeek: user.firstDayOfWeek,
-    },
-  };
-}

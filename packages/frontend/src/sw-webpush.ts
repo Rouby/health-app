@@ -12,13 +12,12 @@ sw.addEventListener("pushsubscriptionchange", (event: any) => {
 
   const subscription = sw.registration.pushManager
     .subscribe(event.oldSubscription.options)
-    .then(async (subscription) => {
-      const client = await getClient();
-      client.notification.register.mutate({
+    .then((subscription) =>
+      getClient().notification.register.mutate({
         endpoint: subscription.endpoint,
         keys: subscription.toJSON().keys,
-      });
-    });
+      })
+    );
 
   event.waitUntil(subscription);
 });
@@ -62,25 +61,17 @@ sw.addEventListener("notificationclick", (event) => {
   clickedNotification.close();
 
   if (event.action) {
-    const [topic, action, ...params] = event.action.split("_$_");
+    const { type, ...params } = JSON.parse(event.action);
 
-    if (topic === "tracker") {
-      if (action === "noSex") {
-        event.waitUntil(
-          getClient()
-            .then((client) =>
-              Promise.all(
-                params.map((dateTime) =>
-                  client.tracker.addDayWithoutSex.mutate({
-                    dateTime,
-                    onPeriod: false,
-                  })
-                )
-              )
-            )
-            .finally(() => sw.clients.openWindow("/tracking"))
-        );
-      }
+    if (type === "trackNoSex") {
+      const { auth, dateTime } = params;
+
+      event.waitUntil(
+        getClient(auth).tracker.addDayWithoutSex.mutate({
+          dateTime,
+          onPeriod: false,
+        })
+      );
     }
   }
 });
@@ -130,22 +121,7 @@ sw.addEventListener("message", (event) => {
   }
 });
 
-async function getClient() {
-  const [client] = await sw.clients.matchAll();
-
-  const auth = client
-    ? await Promise.race([
-        new Promise<string>((resolve) => {
-          authResolver = resolve;
-          client.postMessage({ type: "auth" });
-        }),
-        new Promise<undefined>((resolve) => {
-          // todo use formatjs to format it?
-          setTimeout(() => resolve(undefined), 1000);
-        }),
-      ])
-    : undefined;
-
+function getClient(auth?: string) {
   return createTRPCProxyClient<AppRouter>({
     links: [
       httpBatchLink({

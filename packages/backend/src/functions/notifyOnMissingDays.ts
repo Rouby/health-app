@@ -1,6 +1,7 @@
 import { accessibleBy } from "@casl/prisma";
 import dayjs from "dayjs";
 import { createAbility } from "../ability";
+import { signToken } from "../auth";
 import { defineMessage } from "../i18n";
 import { prisma } from "../prisma";
 import { sendNotification } from "../webPush";
@@ -65,7 +66,11 @@ export async function notifyOnMissingDays() {
                       title: defineMessage({
                         defaultMessage: "Track no sex",
                       }),
-                      action: `tracker_$_noSex_$_${day.toISOString()}`,
+                      action: JSON.stringify({
+                        type: "trackNoSex",
+                        auth: signToken(user),
+                        dateTime: day.toISOString(),
+                      }),
                     },
                   ],
                   tag: `tracker:noSex:${day.toISOString()}`,
