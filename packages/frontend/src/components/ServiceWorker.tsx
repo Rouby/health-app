@@ -153,7 +153,7 @@ function useNotifications() {
                 id: event.data.id,
                 defaultMessage: event.data.defaultMessage,
               },
-              event.data.values
+              restoreDates(event.data.values)
             ),
           })
         );
@@ -169,4 +169,20 @@ function useNotifications() {
       }
     }
   }, []);
+}
+
+function restoreDates(
+  obj: Record<string, string | number | boolean>
+): Record<string, string | number | boolean | Date> {
+  return Object.fromEntries(
+    Object.entries(obj).map(([key, value]) => {
+      if (typeof value === "string") {
+        const date = new Date(value);
+        if (!isNaN(date.getTime())) {
+          return [key, date];
+        }
+      }
+      return [key, value];
+    })
+  );
 }
