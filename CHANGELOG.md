@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.21.1](///compare/v1.21.0...v1.21.1) (2023-05-15)
+
+
+### Bug Fixes
+
+* correctly translate messages with dates (restoring Date objects) e6d7e6b
+* send own auth token with nofitication actions to ensure they can send requests 81bf070
+
 ## [1.21.0](///compare/v1.20.0...v1.21.0) (2023-05-02)
 
 
