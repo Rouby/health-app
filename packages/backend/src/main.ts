@@ -18,6 +18,7 @@ import {
   notificationRouter,
   trackerRouter,
 } from "./routers";
+import { unleash } from "./unleash";
 
 dayjs.extend(duration);
 dayjs.extend(minMax);
@@ -48,8 +49,9 @@ server.addHook("onRequest", (request, reply, next) => {
 });
 
 upsertInterests().then(async () => {
-  await server.listen({ port: +(process.env.PORT || 5000) });
+  await unleash.start().then(() => logger.info("Unleash started"));
   await cron.start().then(() => logger.info("Cron started"));
+  await server.listen({ port: +(process.env.PORT || 5000) });
 });
 
 process.once("SIGINT", gracefulShutdown);

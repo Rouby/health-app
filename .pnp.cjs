@@ -2871,7 +2871,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],\
       [\
         "node-fetch",\
-        "npm:3.2.10"\
+        "npm:3.3.1"\
       ],\
       [\
         "node-gyp",\
@@ -8341,11 +8341,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["fastify", "npm:4.10.2"],\
             ["jsonwebtoken", "npm:8.5.1"],\
             ["newrelic", "npm:10.1.0"],\
+            ["node-fetch", "npm:3.3.1"],\
             ["pino", "npm:8.8.0"],\
             ["pino-pretty", "npm:9.1.1"],\
             ["prisma", "npm:4.7.1"],\
             ["recron", "npm:1.1.5"],\
             ["typescript", "patch:typescript@npm%3A4.9.3#~builtin<compat/typescript>::version=4.9.3&hash=d73830"],\
+            ["unleash-proxy-client", "npm:2.4.0"],\
             ["vite-plugin-pwa", "virtual:a25082ae04d3845aadef42450863459e93a372e99634d68ab96996e90be4305ce3539bb00a7eb2867ee0f55d9a997de2d21e54f2122ee66d6da356edb798f18b#npm:0.14.0"],\
             ["wds", "npm:0.13.2"],\
             ["web-push", "npm:3.5.0"],\
@@ -14196,6 +14198,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/node-fetch-npm-3.2.10-b87c28708a-e65322431f.zip/node_modules/node-fetch/",\
           "packageDependencies": [\
             ["node-fetch", "npm:3.2.10"],\
+            ["data-uri-to-buffer", "npm:4.0.0"],\
+            ["fetch-blob", "npm:3.2.0"],\
+            ["formdata-polyfill", "npm:4.0.10"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:3.3.1", {\
+          "packageLocation": "./.yarn/cache/node-fetch-npm-3.3.1-576511fc5a-62145fd3ba.zip/node_modules/node-fetch/",\
+          "packageDependencies": [\
+            ["node-fetch", "npm:3.3.1"],\
             ["data-uri-to-buffer", "npm:4.0.0"],\
             ["fetch-blob", "npm:3.2.0"],\
             ["formdata-polyfill", "npm:4.0.10"]\

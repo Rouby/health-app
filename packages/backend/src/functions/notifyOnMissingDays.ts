@@ -4,6 +4,7 @@ import { createAbility } from "../ability";
 import { signToken } from "../auth";
 import { defineMessage } from "../i18n";
 import { prisma } from "../prisma";
+import { unleash } from "../unleash";
 import { sendNotification } from "../webPush";
 
 export async function notifyOnMissingDays() {
@@ -12,76 +13,84 @@ export async function notifyOnMissingDays() {
     include: { pushNotifications: true },
   });
 
-  usersWithNotifications.map(async (user) => {
-    const ability = await createAbility(user);
+  await Promise.allSettled(
+    usersWithNotifications.map(async (user) => {
+      const ability = await createAbility(user);
 
-    const sexActs = await prisma.sexAct.findMany({
-      where: accessibleBy(ability).SexAct,
-      orderBy: { dateTime: "asc" },
-    });
-    const daysWithoutSex = await prisma.dayWithoutSex.findMany({
-      where: accessibleBy(ability).DayWithoutSex,
-      orderBy: { dateTime: "asc" },
-    });
+      unleash.updateContext({ userId: user.id, userEmail: user.email } as any);
 
-    const firstTrackedDay = dayjs
-      .min(
-        dayjs(sexActs?.at(0)?.dateTime),
-        dayjs(daysWithoutSex?.at(0)?.dateTime)
-      )
-      .startOf("day");
-    const days = Array.from(
-      {
-        length: Math.ceil(
-          dayjs().endOf("day").diff(firstTrackedDay, "day", true)
-        ),
-      },
-      (_, idx) => firstTrackedDay.add(idx, "day")
-    );
-    const daysWithoutTracking = days.filter(
-      (day) =>
-        ![...(sexActs ?? []), ...(daysWithoutSex ?? [])].some((act) =>
-          day.isSame(act.dateTime, "day")
-        ) && !day.isSame(dayjs(), "day")
-    );
+      if (!unleash.isEnabled("Tracking")) {
+        return;
+      }
 
-    if (daysWithoutTracking.length > 0) {
-      user.pushNotifications.forEach((notification) => {
-        daysWithoutTracking.forEach((day) => {
-          if (isPushKeys(notification.keys)) {
-            sendNotification(
-              { endpoint: notification.endpoint, keys: notification.keys },
-              "https://sexy.aiacta.com",
-              {
-                title: defineMessage({
-                  defaultMessage:
-                    "You have an untracked day: {day, date, medium}",
-                  values: { day: day.toISOString() },
-                }),
-                data: {
-                  icon: "/icon-192x192.png",
-                  badge: "/badges/heart.png",
-                  actions: [
-                    {
-                      title: defineMessage({
-                        defaultMessage: "Track no sex",
-                      }),
-                      action: JSON.stringify({
-                        type: "trackNoSex",
-                        auth: signToken(user),
-                        dateTime: day.toISOString(),
-                      }),
-                    },
-                  ],
-                  tag: `tracker:noSex:${day.toISOString()}`,
-                },
-              }
-            );
-          }
-        });
+      const sexActs = await prisma.sexAct.findMany({
+        where: accessibleBy(ability).SexAct,
+        orderBy: { dateTime: "asc" },
       });
-    }
-  });
+      const daysWithoutSex = await prisma.dayWithoutSex.findMany({
+        where: accessibleBy(ability).DayWithoutSex,
+        orderBy: { dateTime: "asc" },
+      });
+
+      const firstTrackedDay = dayjs
+        .min(
+          dayjs(sexActs?.at(0)?.dateTime),
+          dayjs(daysWithoutSex?.at(0)?.dateTime)
+        )
+        .startOf("day");
+      const days = Array.from(
+        {
+          length: Math.ceil(
+            dayjs().endOf("day").diff(firstTrackedDay, "day", true)
+          ),
+        },
+        (_, idx) => firstTrackedDay.add(idx, "day")
+      );
+      const daysWithoutTracking = days.filter(
+        (day) =>
+          ![...(sexActs ?? []), ...(daysWithoutSex ?? [])].some((act) =>
+            day.isSame(act.dateTime, "day")
+          ) && !day.isSame(dayjs(), "day")
+      );
+
+      if (daysWithoutTracking.length > 0) {
+        user.pushNotifications.forEach((notification) => {
+          daysWithoutTracking.forEach((day) => {
+            if (isPushKeys(notification.keys)) {
+              sendNotification(
+                { endpoint: notification.endpoint, keys: notification.keys },
+                "https://sexy.aiacta.com",
+                {
+                  title: defineMessage({
+                    defaultMessage:
+                      "You have an untracked day: {day, date, medium}",
+                    values: { day: day.toISOString() },
+                  }),
+                  data: {
+                    icon: "/icon-192x192.png",
+                    badge: "/badges/heart.png",
+                    actions: [
+                      {
+                        title: defineMessage({
+                          defaultMessage: "Track no sex",
+                        }),
+                        action: JSON.stringify({
+                          type: "trackNoSex",
+                          auth: signToken(user),
+                          dateTime: day.toISOString(),
+                        }),
+                      },
+                    ],
+                    tag: `tracker:noSex:${day.toISOString()}`,
+                  },
+                }
+              );
+            }
+          });
+        });
+      }
+    })
+  );
 }
 
 function isPushKeys(keys: unknown): keys is { auth: string; p256dh: string } {
