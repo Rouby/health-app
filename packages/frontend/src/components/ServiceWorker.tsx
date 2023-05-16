@@ -11,7 +11,6 @@ import { useMediaQuery } from "@mantine/hooks";
 import { useEffect } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useRegisterSW } from "virtual:pwa-register/react";
-import { useAuth } from "../state";
 import { trpc } from "../utils";
 
 export function ServiceWorker() {
@@ -136,7 +135,6 @@ function useNotifications() {
   }, []);
 
   const { formatMessage: fmt } = useIntl();
-  const [auth] = useAuth();
   useEffect(() => {
     navigator.serviceWorker.addEventListener("message", handler);
 
@@ -145,26 +143,14 @@ function useNotifications() {
 
     function handler(event: MessageEvent) {
       if (event.data.type === "translate") {
-        navigator.serviceWorker.ready.then((registration) =>
-          registration.active?.postMessage({
-            type: "translate",
-            translation: fmt(
-              {
-                id: event.data.id,
-                defaultMessage: event.data.defaultMessage,
-              },
-              restoreDates(event.data.values)
-            ),
-          })
-        );
-      }
-
-      if (event.data.type === "auth") {
-        navigator.serviceWorker.ready.then((registration) =>
-          registration.active?.postMessage({
-            type: "auth",
-            payload: auth,
-          })
+        event.ports[0].postMessage(
+          fmt(
+            {
+              id: event.data.id,
+              defaultMessage: event.data.defaultMessage,
+            },
+            restoreDates(event.data.values)
+          )
         );
       }
     }

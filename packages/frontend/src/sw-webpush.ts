@@ -76,17 +76,6 @@ sw.addEventListener("notificationclick", (event) => {
   }
 });
 
-const translationQueue = new Map<
-  string,
-  { resolve: (translation: string) => void }
->();
-sw.addEventListener("message", (event) => {
-  if (event.data.type === "translate") {
-    translationQueue.get(event.data.id)?.resolve(event.data.translation);
-    translationQueue.delete(event.data.id);
-  }
-});
-
 async function translateDescriptor({
   id,
   defaultMessage,
@@ -101,11 +90,19 @@ async function translateDescriptor({
   if (client) {
     return Promise.race([
       new Promise<string>((resolve) => {
-        translationQueue.set(id, { resolve });
-        client.postMessage({ type: "translate", id, values });
+        const translation = new MessageChannel();
+        sw.clients
+          .matchAll({ type: "window" })
+          .then((clients) =>
+            clients[0].postMessage({ type: "translate", id, values }, [
+              translation.port2,
+            ])
+          );
+        translation.port1.onmessage = (event) => {
+          resolve(event.data);
+        };
       }),
       new Promise<string>((resolve) => {
-        // todo use formatjs to format it?
         setTimeout(() => resolve(defaultMessage), 1000);
       }),
     ]);
@@ -113,13 +110,6 @@ async function translateDescriptor({
 
   return defaultMessage;
 }
-
-let authResolver: undefined | ((auth: string) => void) = undefined;
-sw.addEventListener("message", (event) => {
-  if (event.data.type === "auth") {
-    authResolver?.(event.data.payload);
-  }
-});
 
 function getClient(auth?: string) {
   return createTRPCProxyClient<AppRouter>({
