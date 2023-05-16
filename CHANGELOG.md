@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.22.0](///compare/v1.21.1...v1.22.0) (2023-05-16)
+
+
+### Features
+
+* check feature flag before sending notifications about untracked days 9427be5
+
+
+### Bug Fixes
+
+* use MessageChannels to correctly "answer" on messages from service-worker e638486
+
 ### [1.21.1](///compare/v1.21.0...v1.21.1) (2023-05-15)
 
 
