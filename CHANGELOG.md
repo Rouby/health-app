@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.23.0](///compare/v1.22.0...v1.23.0) (2023-05-18)
+
+
+### Features
+
+* instrument pino and prisma after-the-fact 7299a3f
+
 ## [1.22.0](///compare/v1.21.1...v1.22.0) (2023-05-16)
 
 
