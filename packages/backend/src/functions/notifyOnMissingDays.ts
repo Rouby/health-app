@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { createAbility } from "../ability";
 import { signToken } from "../auth";
 import { defineMessage } from "../i18n";
+import { logger } from "../logger";
 import { prisma } from "../prisma";
 import { unleash } from "../unleash";
 import { sendNotification } from "../webPush";
@@ -17,9 +18,22 @@ export async function notifyOnMissingDays() {
     usersWithNotifications.map(async (user) => {
       const ability = await createAbility(user);
 
-      unleash.updateContext({ userId: user.id, userEmail: user.email } as any);
+      await unleash.updateContext({
+        userId: user.id,
+        userEmail: user.email,
+      } as any);
 
       if (!unleash.isEnabled("Tracking")) {
+        logger.debug(
+          {
+            user: {
+              id: user.id,
+              email: user.email,
+              toggles: unleash.getAllToggles(),
+            },
+          },
+          'Feature "Tracking" is disabled - Not sending message'
+        );
         return;
       }
 

@@ -2,4 +2,4 @@ import nrPino from "@newrelic/pino-enricher";
 import pino from "pino";
 
 export const logger = pino(nrPino());
-logger.level = "info";
+logger.level = process.env.LOG_LEVEL || "info";
