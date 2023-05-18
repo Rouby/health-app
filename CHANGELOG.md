@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.23.2](///compare/v1.23.1...v1.23.2) (2023-05-18)
+
+
+### Bug Fixes
+
+* increase timeout 0986f9f
+
 ### [1.23.1](///compare/v1.23.0...v1.23.1) (2023-05-18)
 
 ## [1.23.0](///compare/v1.22.0...v1.23.0) (2023-05-18)
