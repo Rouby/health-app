@@ -31,6 +31,7 @@ export async function notifyOnMissingDays() {
               email: user.email,
               toggles: unleash.getAllToggles(),
             },
+            unleash: unleash.getContext(),
           },
           'Feature "Tracking" is disabled - Not sending message'
         );
