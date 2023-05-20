@@ -16,6 +16,7 @@ import {
   ReactLocation,
   Router,
   stringifySearchWith,
+  useLocation,
 } from "@tanstack/react-location";
 import {
   QueryClient,
@@ -146,6 +147,7 @@ export function App() {
                   <Outlet />
                   <ServiceWorker />
                   <FeatureFlagContext />
+                  <PageContext />
                 </AppShell>
               </Router>
             </trpc.Provider>
@@ -337,4 +339,13 @@ function getUnleashContext(token: string | null) {
     return { userId: user.id, userEmail: user.email };
   }
   return { userId: undefined, userEmail: undefined };
+}
+
+function PageContext() {
+  const location = useLocation();
+  useEffect(() => {
+    window.newrelic?.setPageViewName(location.current.pathname);
+  }, [location.current]);
+
+  return null;
 }

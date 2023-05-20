@@ -21,6 +21,7 @@ declare global {
   interface Window {
     newrelic?: {
       addRelease(releaseName: string, releaseId: string): void;
+      setPageViewName(name: string): void;
       interaction(): {
         actionText(value: string): void;
         setName(name: string, trigger: string): void;
