@@ -8386,6 +8386,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["framer-motion", "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:7.10.3"],\
             ["jotai", "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:1.11.0"],\
             ["jwt-decode", "npm:3.1.2"],\
+            ["pino", "npm:8.8.0"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:18.2.0"],\
             ["react-intl", "virtual:8a9b2d7b72e52ff0797d2d4f165c1bbbec46dd19db904011f5f977727f2ff94e74cc5d0304e9d61633b599969d9e3ae9516e972ffb7395a789bb8e6c02b29e34#npm:6.2.5"],\

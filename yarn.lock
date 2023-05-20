@@ -2927,6 +2927,7 @@ __metadata:
     framer-motion: 7.10.3
     jotai: 1.11.0
     jwt-decode: 3.1.2
+    pino: 8.8.0
     react: 18.2.0
     react-dom: 18.2.0
     react-intl: 6.2.5

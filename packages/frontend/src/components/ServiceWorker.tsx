@@ -11,6 +11,7 @@ import { useMediaQuery } from "@mantine/hooks";
 import { useEffect } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useRegisterSW } from "virtual:pwa-register/react";
+import { logger } from "../logger";
 import { trpc } from "../utils";
 
 export function ServiceWorker() {
@@ -119,7 +120,7 @@ function useNotifications() {
               if (window.Notification.permission === "denied") {
                 return "denied" as const;
               } else {
-                console.error("Unable to subscribe to push.", err);
+                logger.error("Unable to subscribe to push.", err);
                 registration.pushManager
                   .getSubscription()
                   .then((sub) => sub?.unsubscribe());
@@ -150,13 +151,7 @@ function useNotifications() {
         interaction?.setAttribute("values", JSON.stringify(event.data.values));
 
         event.ports[0].postMessage(
-          fmt(
-            {
-              id: event.data.id,
-              defaultMessage: event.data.defaultMessage,
-            },
-            restoreDates(event.data.values)
-          )
+          fmt({ id: event.data.id }, restoreDates(event.data.values))
         );
       }
 
@@ -167,17 +162,20 @@ function useNotifications() {
 }
 
 function restoreDates(
-  obj: Record<string, string | number | boolean>
+  obj?: Record<string, string | number | boolean> | null
 ): Record<string, string | number | boolean | Date> {
-  return Object.fromEntries(
-    Object.entries(obj).map(([key, value]) => {
-      if (typeof value === "string") {
-        const date = new Date(value);
-        if (!isNaN(date.getTime())) {
-          return [key, date];
+  return (
+    obj &&
+    Object.fromEntries(
+      Object.entries(obj).map(([key, value]) => {
+        if (typeof value === "string") {
+          const date = new Date(value);
+          if (!isNaN(date.getTime())) {
+            return [key, date];
+          }
         }
-      }
-      return [key, value];
-    })
+        return [key, value];
+      })
+    )
   );
 }

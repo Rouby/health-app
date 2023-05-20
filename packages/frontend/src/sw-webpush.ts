@@ -4,11 +4,12 @@
 import type { AppRouter } from "@rouby/sex-app-backend/src/main";
 import type { NotificationPayload } from "@rouby/sex-app-backend/src/webPush";
 import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
+import { logger } from "./logger";
 
 const sw: ServiceWorkerGlobalScope = self as any;
 
 sw.addEventListener("pushsubscriptionchange", (event: any) => {
-  console.log("[Service Worker]: 'pushsubscriptionchange' event fired.");
+  logger.debug("[Service Worker]: 'pushsubscriptionchange' event fired.");
 
   const subscription = sw.registration.pushManager
     .subscribe(event.oldSubscription.options)
@@ -40,6 +41,11 @@ sw.addEventListener("push", (event) => {
       event.waitUntil(
         Promise.all([translateDescriptor(title), translatedActions]).then(
           ([translation, actions]) => {
+            logger.debug(
+              "[Service Worker]: Showing notification with title '%s' and actions %o.",
+              translation,
+              actions
+            );
             sw.registration.showNotification(translation, {
               ...options,
               actions: actions,
@@ -48,7 +54,7 @@ sw.addEventListener("push", (event) => {
         )
       );
     } catch (err) {
-      console.error(
+      logger.error(
         "[Service Worker]: malformed push data '%s'.",
         event.data.text()
       );
@@ -85,30 +91,26 @@ async function translateDescriptor({
   defaultMessage: string;
   values?: any;
 }) {
-  const [client] = await sw.clients.matchAll();
-
-  if (client) {
-    return Promise.race([
-      new Promise<string>((resolve) => {
-        const translation = new MessageChannel();
-        sw.clients
-          .matchAll({ type: "window" })
-          .then((clients) =>
-            clients[0].postMessage({ type: "translate", id, values }, [
-              translation.port2,
-            ])
-          );
-        translation.port1.onmessage = (event) => {
-          resolve(event.data);
-        };
-      }),
-      new Promise<string>((resolve) => {
-        setTimeout(() => resolve("ERR " + defaultMessage), 5000);
-      }),
-    ]);
-  }
-
-  return defaultMessage;
+  return Promise.race([
+    new Promise<string>(async (resolve) => {
+      const translation = new MessageChannel();
+      translation.port1.onmessage = (event) => {
+        logger.debug(
+          '[Service Worker]: Translated "%s" to "%s"',
+          id,
+          event.data
+        );
+        resolve(event.data);
+      };
+      const [client] = await sw.clients.matchAll({ type: "window" });
+      client?.postMessage({ type: "translate", id, values }, [
+        translation.port2,
+      ]);
+    }),
+    new Promise<string>((resolve) => {
+      setTimeout(() => resolve("ERR " + defaultMessage), 5000);
+    }),
+  ]);
 }
 
 function getClient(auth?: string) {
