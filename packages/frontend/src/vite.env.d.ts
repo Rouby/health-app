@@ -16,3 +16,18 @@ module "unleash-proxy-client" {
     userEmail?: string;
   }
 }
+
+declare global {
+  interface Window {
+    newrelic?: {
+      addRelease(releaseName: string, releaseId: string): void;
+      interaction(): {
+        actionText(value: string): void;
+        setName(name: string, trigger: string): void;
+        setAttribute(key: string, value: string): void;
+        save(): void;
+        end(): void;
+      };
+    };
+  }
+}

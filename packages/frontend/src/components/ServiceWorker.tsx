@@ -142,7 +142,13 @@ function useNotifications() {
       navigator.serviceWorker.removeEventListener("message", handler);
 
     function handler(event: MessageEvent) {
+      const interaction = window.newrelic?.interaction();
+      interaction?.setName(event.data.type, "service-worker");
+
       if (event.data.type === "translate") {
+        interaction?.setAttribute("id", event.data.id);
+        interaction?.setAttribute("values", JSON.stringify(event.data.values));
+
         event.ports[0].postMessage(
           fmt(
             {
@@ -153,6 +159,9 @@ function useNotifications() {
           )
         );
       }
+
+      interaction?.save();
+      interaction?.end();
     }
   }, []);
 }

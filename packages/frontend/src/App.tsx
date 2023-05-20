@@ -75,6 +75,13 @@ export function App() {
       })
   );
 
+  useEffect(() => {
+    window.newrelic?.addRelease(
+      "sex-app",
+      import.meta.env.VITE_APP_VERSION.replace("v", "")
+    );
+  }, []);
+
   return (
     <FlagProvider
       config={{

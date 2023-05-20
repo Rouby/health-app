@@ -103,7 +103,7 @@ async function translateDescriptor({
         };
       }),
       new Promise<string>((resolve) => {
-        setTimeout(() => resolve(defaultMessage), 5000);
+        setTimeout(() => resolve("ERR " + defaultMessage), 5000);
       }),
     ]);
   }
