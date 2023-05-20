@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.25.0](///compare/v1.24.0...v1.25.0) (2023-05-20)
+
+
+### Features
+
+* add newrelic page name 875b9a0
+
 ## [1.24.0](///compare/v1.23.2...v1.24.0) (2023-05-20)
 
 
