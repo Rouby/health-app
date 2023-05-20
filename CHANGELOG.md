@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.25.1](///compare/v1.25.0...v1.25.1) (2023-05-20)
+
+
+### Bug Fixes
+
+* correctly translate things and log debug messages 70ee677
+
 ## [1.25.0](///compare/v1.24.0...v1.25.0) (2023-05-20)
 
 
