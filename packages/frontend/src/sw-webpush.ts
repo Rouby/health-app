@@ -115,35 +115,9 @@ async function translateDescriptor({
   defaultMessage: string;
   values?: any;
 }) {
-  const clients = await sw.clients.matchAll({ type: "window" });
-  return Promise.race([
-    promisedIntl.then((intl) =>
-      intl.formatMessage({ id, defaultMessage }, values)
-    ),
-    ...clients.map(
-      (client) =>
-        new Promise<string>(async (resolve) => {
-          const translation = new MessageChannel();
-          translation.port1.onmessage = (event) => {
-            logger.debug(
-              '[Service Worker]: Translated "%s" to "%s"',
-              id,
-              event.data
-            );
-            resolve(event.data);
-          };
-          client?.postMessage({ type: "translate", id, values }, [
-            translation.port2,
-          ]);
-        })
-    ),
-    new Promise<string>((resolve) => {
-      setTimeout(() => {
-        logger.debug('[Service Worker]: Could not translate "%s"', id);
-        resolve("ERR " + defaultMessage);
-      }, 5000);
-    }),
-  ]);
+  return promisedIntl.then((intl) =>
+    intl.formatMessage({ id, defaultMessage }, restoreDates(values))
+  );
 }
 
 function getClient(auth?: string) {
@@ -159,4 +133,23 @@ function getClient(auth?: string) {
       }),
     ],
   });
+}
+
+function restoreDates(
+  obj?: Record<string, string | number | boolean> | null
+): Record<string, string | number | boolean | Date> {
+  return (
+    obj &&
+    Object.fromEntries(
+      Object.entries(obj).map(([key, value]) => {
+        if (typeof value === "string") {
+          const date = new Date(value);
+          if (!isNaN(date.getTime())) {
+            return [key, date];
+          }
+        }
+        return [key, value];
+      })
+    )
+  );
 }
