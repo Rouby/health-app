@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.26.0](///compare/v1.25.1...v1.26.0) (2023-05-28)
+
+
+### Features
+
+* add intl to serviceworker 46d7d97
+
 ### [1.25.1](///compare/v1.25.0...v1.25.1) (2023-05-20)
 
 
