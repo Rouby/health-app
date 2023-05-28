@@ -1,12 +1,36 @@
 /// <reference lib="esNext" />
 /// <reference lib="webworker" />
 
+import { createIntl, createIntlCache } from "@formatjs/intl";
 import type { AppRouter } from "@rouby/sex-app-backend/src/main";
 import type { NotificationPayload } from "@rouby/sex-app-backend/src/webPush";
 import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
 import { logger } from "./logger";
 
 const sw: ServiceWorkerGlobalScope = self as any;
+
+const cache = createIntlCache();
+
+const locale = "en";
+
+const promisedIntl = fetch(`lang/${locale}.json`)
+  .then((res) => {
+    if (!res.ok) {
+      if (import.meta.env.DEV) return {};
+
+      throw new Error("Failed to fetch locale");
+    }
+    return res.json();
+  })
+  .then((messages) =>
+    createIntl(
+      {
+        locale,
+        messages,
+      },
+      cache
+    )
+  );
 
 sw.addEventListener("pushsubscriptionchange", (event: any) => {
   logger.debug("[Service Worker]: 'pushsubscriptionchange' event fired.");
@@ -91,24 +115,33 @@ async function translateDescriptor({
   defaultMessage: string;
   values?: any;
 }) {
+  const clients = await sw.clients.matchAll({ type: "window" });
   return Promise.race([
-    new Promise<string>(async (resolve) => {
-      const translation = new MessageChannel();
-      translation.port1.onmessage = (event) => {
-        logger.debug(
-          '[Service Worker]: Translated "%s" to "%s"',
-          id,
-          event.data
-        );
-        resolve(event.data);
-      };
-      const [client] = await sw.clients.matchAll({ type: "window" });
-      client?.postMessage({ type: "translate", id, values }, [
-        translation.port2,
-      ]);
-    }),
+    promisedIntl.then((intl) =>
+      intl.formatMessage({ id, defaultMessage }, values)
+    ),
+    ...clients.map(
+      (client) =>
+        new Promise<string>(async (resolve) => {
+          const translation = new MessageChannel();
+          translation.port1.onmessage = (event) => {
+            logger.debug(
+              '[Service Worker]: Translated "%s" to "%s"',
+              id,
+              event.data
+            );
+            resolve(event.data);
+          };
+          client?.postMessage({ type: "translate", id, values }, [
+            translation.port2,
+          ]);
+        })
+    ),
     new Promise<string>((resolve) => {
-      setTimeout(() => resolve("ERR " + defaultMessage), 5000);
+      setTimeout(() => {
+        logger.debug('[Service Worker]: Could not translate "%s"', id);
+        resolve("ERR " + defaultMessage);
+      }, 5000);
     }),
   ]);
 }
