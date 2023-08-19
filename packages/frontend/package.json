@@ -1,10 +1,10 @@
 {
-  "name": "@rouby/sex-app-frontend",
+  "name": "@rouby/health-app-frontend",
   "scripts": {
     "dev": "vite",
     "test": "vitest",
     "build": "yarn i18n:compile && vite build",
-    "deploy": "rsync -avz --delete -e \"ssh -i ~/.ssh/id_ed25519\" ./dist/ pi@192.168.178.40:/home/pi/sex-app/frontend/",
+    "deploy": "rsync -avz --delete -e \"ssh -i ~/.ssh/id_ed25519\" ./dist/ pi@192.168.178.40:/home/pi/health-app/frontend/",
     "i18n:extract": "formatjs extract \"./src/**/*.{ts,tsx}\" \"../backend/src/**/*.{ts,tsx}\" --ignore \"**/*.d.ts\" --ignore \"../backend/**/*.d.ts\" --flatten --out-file i18n/en.json",
     "i18n:compile": "formatjs compile-folder i18n --ast public/lang"
   },
@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@formatjs/cli": "5.1.10",
-    "@rouby/sex-app-backend": "workspace:*",
+    "@rouby/health-app-backend": "workspace:*",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "esbuild": "0.16.8",

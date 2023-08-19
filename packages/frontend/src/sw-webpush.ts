@@ -2,8 +2,8 @@
 /// <reference lib="webworker" />
 
 import { createIntl, createIntlCache } from "@formatjs/intl";
-import type { AppRouter } from "@rouby/sex-app-backend/src/main";
-import type { NotificationPayload } from "@rouby/sex-app-backend/src/webPush";
+import type { AppRouter } from "@rouby/health-app-backend/src/main";
+import type { NotificationPayload } from "@rouby/health-app-backend/src/webPush";
 import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
 import { logger } from "./logger";
 

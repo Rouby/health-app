@@ -5,9 +5,9 @@ __metadata:
   version: 6
   cacheKey: 8
 
-".prisma@link:/home/rouby/sex-app/.yarn/unplugged/@prisma-client-virtual-d7481467dc/node_modules/.prisma::locator=%40prisma%2Fclient%40npm%3A4.7.1":
+".prisma@link:/home/rouby/health-app/.yarn/unplugged/@prisma-client-virtual-d7481467dc/node_modules/.prisma::locator=%40prisma%2Fclient%40npm%3A4.7.1":
   version: 0.0.0-use.local
-  resolution: ".prisma@link:/home/rouby/sex-app/.yarn/unplugged/@prisma-client-virtual-d7481467dc/node_modules/.prisma::locator=%40prisma%2Fclient%40npm%3A4.7.1"
+  resolution: ".prisma@link:/home/rouby/health-app/.yarn/unplugged/@prisma-client-virtual-d7481467dc/node_modules/.prisma::locator=%40prisma%2Fclient%40npm%3A4.7.1"
   languageName: node
   linkType: soft
 
@@ -2943,9 +2943,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rouby/sex-app-backend@workspace:*, @rouby/sex-app-backend@workspace:packages/backend":
+"@rouby/health-app-backend@workspace:*, @rouby/health-app-backend@workspace:packages/backend":
   version: 0.0.0-use.local
-  resolution: "@rouby/sex-app-backend@workspace:packages/backend"
+  resolution: "@rouby/health-app-backend@workspace:packages/backend"
   dependencies:
     "@casl/ability": 6.3.2
     "@casl/prisma": 1.3.3
@@ -2980,9 +2980,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@rouby/sex-app-frontend@workspace:*, @rouby/sex-app-frontend@workspace:packages/frontend":
+"@rouby/health-app-frontend@workspace:*, @rouby/health-app-frontend@workspace:packages/frontend":
   version: 0.0.0-use.local
-  resolution: "@rouby/sex-app-frontend@workspace:packages/frontend"
+  resolution: "@rouby/health-app-frontend@workspace:packages/frontend"
   dependencies:
     "@emotion/react": 11.10.5
     "@formatjs/cli": 5.1.10
@@ -2993,7 +2993,7 @@ __metadata:
     "@mantine/hooks": 5.9.0
     "@mantine/modals": 5.9.0
     "@mantine/spotlight": 5.9.0
-    "@rouby/sex-app-backend": "workspace:*"
+    "@rouby/health-app-backend": "workspace:*"
     "@tabler/icons": 1.114.0
     "@tanstack/react-location": 3.7.4
     "@tanstack/react-query": 4.19.0
@@ -3023,12 +3023,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@rouby/sex-app-scripts@workspace:packages/scripts":
+"@rouby/health-app-scripts@workspace:packages/scripts":
   version: 0.0.0-use.local
-  resolution: "@rouby/sex-app-scripts@workspace:packages/scripts"
+  resolution: "@rouby/health-app-scripts@workspace:packages/scripts"
   dependencies:
-    "@rouby/sex-app-backend": "workspace:*"
-    "@rouby/sex-app-frontend": "workspace:*"
+    "@rouby/health-app-backend": "workspace:*"
+    "@rouby/health-app-frontend": "workspace:*"
     zx: 7.1.1
   languageName: unknown
   linkType: soft
@@ -6765,6 +6765,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"health-app@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "health-app@workspace:."
+  dependencies:
+    "@nrwl/nx-cloud": latest
+    nx: 15.2.4
+    standard-version: 9.5.0
+    typescript: 4.9.3
+  dependenciesMeta:
+    "@prisma/client@4.7.1":
+      unplugged: true
+    prisma@4.7.1:
+      unplugged: true
+  languageName: unknown
+  linkType: soft
+
 "help-me@npm:^4.0.1":
   version: 4.2.0
   resolution: "help-me@npm:4.2.0"
@@ -9604,22 +9620,6 @@ __metadata:
   checksum: b99c37f976e68ae6eb7c758bf2bbce1e60bb54e3eccedaa25f2da45b77b9cab58d90674cf9edd7aead6fbeac6308f2eb48713320a47ca120d0e838d0194513b6
   languageName: node
   linkType: hard
-
-"sex-app@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "sex-app@workspace:."
-  dependencies:
-    "@nrwl/nx-cloud": latest
-    nx: 15.2.4
-    standard-version: 9.5.0
-    typescript: 4.9.3
-  dependenciesMeta:
-    "@prisma/client@4.7.1":
-      unplugged: true
-    prisma@4.7.1:
-      unplugged: true
-  languageName: unknown
-  linkType: soft
 
 "shebang-command@npm:^2.0.0":
   version: 2.0.0

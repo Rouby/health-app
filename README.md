@@ -1,4 +1,4 @@
-# sex-app
+# health-app
 
 ## Development
 
@@ -33,13 +33,13 @@ $ yarn deploy
 First extract messages
 
 ```bash
-$ yarn workspace @rouby/sex-app-frontend i18n:extract
+$ yarn workspace @rouby/health-app-frontend i18n:extract
 ```
 
 Then translate the messages in `packages/frontend/i18n` and then compile them.
 
 ```bash
-$ yarn workspace @rouby/sex-app-frontend i18n:compile
+$ yarn workspace @rouby/health-app-frontend i18n:compile
 ```
 
 This will generate files in public folder ready to be included in the build.

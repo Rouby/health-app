@@ -12,9 +12,9 @@ import {
 } from "@mantine/core";
 import {
   Outlet,
-  parseSearchWith,
   ReactLocation,
   Router,
+  parseSearchWith,
   stringifySearchWith,
   useLocation,
 } from "@tanstack/react-location";
@@ -78,7 +78,7 @@ export function App() {
 
   useEffect(() => {
     window.newrelic?.addRelease(
-      "sex-app",
+      "health-app",
       import.meta.env.VITE_APP_VERSION.replace("v", "")
     );
   }, []);
@@ -89,7 +89,7 @@ export function App() {
         url: import.meta.env.VITE_UNLEASH_URL,
         clientKey: import.meta.env.VITE_UNLEASH_CLIENT_KEY,
         refreshInterval: 15,
-        appName: "sex-app",
+        appName: "health-app",
         environment: import.meta.env.PROD ? "production" : "development",
         context: getUnleashContext(auth),
       }}

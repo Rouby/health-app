@@ -1,5 +1,5 @@
 {
-  "name": "sex-app",
+  "name": "health-app",
   "version": "1.26.1",
   "packageManager": "yarn@3.3.0",
   "scripts": {
@@ -8,8 +8,8 @@
     "release": "standard-version",
     "deploy": "nx run-many --target=deploy",
     "i18n": "nx run-many --target=i18n:extract",
-    "prisma:push": "yarn workspace @rouby/sex-app-backend pnpify prisma db push",
-    "prisma:studio": "yarn workspace @rouby/sex-app-backend pnpify prisma studio"
+    "prisma:push": "yarn workspace @rouby/health-app-backend pnpify prisma db push",
+    "prisma:studio": "yarn workspace @rouby/health-app-backend pnpify prisma studio"
   },
   "workspaces": [
     "packages/*"

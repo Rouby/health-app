@@ -1,10 +1,10 @@
 {
-  "name": "@rouby/sex-app-backend",
+  "name": "@rouby/health-app-backend",
   "scripts": {
     "dev": "wds --watch --esbuild ./src/main.ts | pino-pretty",
     "test": "echo noop",
     "build": "node ./build.mjs",
-    "deploy": "rsync -avz -e \"ssh -i ~/.ssh/id_ed25519\" ./dist/ pi@192.168.178.40:/home/pi/sex-app/backend/",
+    "deploy": "rsync -avz -e \"ssh -i ~/.ssh/id_ed25519\" ./dist/ pi@192.168.178.40:/home/pi/health-app/backend/",
     "db:reset": "pnpify prisma migrate reset",
     "db:push": "pnpify prisma db push"
   },
