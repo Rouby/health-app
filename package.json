@@ -1,7 +1,7 @@
 {
   "name": "health-app",
   "version": "1.26.1",
-  "packageManager": "yarn@3.3.0",
+  "packageManager": "yarn@4.1.1",
   "scripts": {
     "dev": "nx run-many --target=dev",
     "build": "nx run-many --target=build",
@@ -19,13 +19,5 @@
     "nx": "15.2.4",
     "standard-version": "9.5.0",
     "typescript": "4.9.3"
-  },
-  "dependenciesMeta": {
-    "@prisma/client@4.7.1": {
-      "unplugged": true
-    },
-    "prisma@4.7.1": {
-      "unplugged": true
-    }
   }
 }
