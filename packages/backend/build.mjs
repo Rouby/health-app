@@ -18,7 +18,7 @@ esbuild
         copyFile("prisma/schema.prisma", "dist/schema.prisma"),
         copyFile("newrelic.js", "dist/newrelic.js"),
         copyFile(
-          "../../.yarn/unplugged/prisma-npm-4.7.1-37e177dd48/node_modules/prisma/libquery_engine-linux-arm64-openssl-1.1.x.so.node",
+          "src/__generated__/prisma/libquery_engine-linux-arm64-openssl-1.1.x.so.node",
           "dist/libquery_engine-linux-arm64-openssl-1.1.x.so.node"
         ),
       ]).then(() => process.exit(0));

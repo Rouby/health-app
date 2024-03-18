@@ -4,11 +4,11 @@
 generator client {
   provider      = "prisma-client-js"
   binaryTargets = ["linux-arm64-openssl-1.1.x", "debian-openssl-1.1.x", "native"]
-  output        = "../../../.yarn/unplugged/@prisma-client-virtual-d7481467dc/node_modules/.prisma/client"
+  output        = "../src/__generated__/prisma"
 }
 
 datasource db {
-  provider     = "mysql"
+  provider     = "postgresql"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
@@ -28,7 +28,7 @@ model User {
   sexActs        SexAct[]
   daysWithoutSex DayWithoutSex[]
 
-  partner         User?   @relation("Partner", fields: [partnerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  partner         User?   @relation("Partner", fields: [partnerId], references: [id], onDelete: Restrict, onUpdate: Restrict)
   partnerId       String? @unique
   partnerProposer User?   @relation("Partner") // This is the user that proposed the current user as a partner
 

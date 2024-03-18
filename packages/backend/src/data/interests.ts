@@ -913,5 +913,5 @@ export async function upsertInterests() {
         update: interest,
       })
     )
-  );
+  ).catch(console.error);
 }
