@@ -893,9 +893,7 @@ export async function upsertInterests() {
     translationKey: defineMessage({ defaultMessage: interest.defaultMessage })
       .id,
     descriptionTranslationKey: defineMessage({
-      defaultMessage: defineMessage({
-        defaultMessage: interest.descriptionDefaultMessage,
-      }).defaultMessage,
+      defaultMessage: interest.descriptionDefaultMessage,
     }).id,
     tags: {
       connectOrCreate: tags.map((tag) => ({
