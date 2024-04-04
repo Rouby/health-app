@@ -59,12 +59,14 @@ export function TrackingPage() {
     },
     (_, idx) => firstTrackedDay.add(idx, "day")
   );
-  const daysWithoutTracking = days.filter(
-    (day) =>
-      ![...(sexActs ?? []), ...(daysWithoutSex ?? [])].some((act) =>
-        day.isSame(act.dateTime, "day")
-      )
-  );
+  const daysWithoutTracking = days
+    .filter(
+      (day) =>
+        ![...(sexActs ?? []), ...(daysWithoutSex ?? [])].some((act) =>
+          day.isSame(act.dateTime, "day")
+        )
+    )
+    .filter((day) => !day.isSame(dayjs(), "day"));
 
   const timelineEvents = days.reduce((acc, day) => {
     const sexActsOnDate =
@@ -116,16 +118,7 @@ export function TrackingPage() {
   return (
     <>
       <Container>
-        <SexTimeline
-          items={timelineEvents}
-          onEditAct={(act) => {
-            setInitialFormValues(act);
-            toggleShowSexActForm(true);
-          }}
-        />
-
-        {daysWithoutTracking.filter((day) => !day.isSame(dayjs(), "day"))
-          .length > 0 && (
+        {daysWithoutTracking.length > 0 && (
           <Text>
             <FormattedMessage
               defaultMessage="You have {days, plural, =1 {one day} other {# days}} without tracking:"
@@ -155,7 +148,7 @@ export function TrackingPage() {
           </Text>
         )}
 
-        <Group mt={16}>
+        <Group mt="md">
           <Button
             onClick={() => {
               toggleShowSexActForm();
@@ -174,7 +167,7 @@ export function TrackingPage() {
           </Button>
         </Group>
 
-        <Collapse in={showSexActForm || showNoSexForm} mt={16}>
+        <Collapse in={showSexActForm || showNoSexForm} mt="md">
           <Paper radius="md" p="xl" withBorder>
             {showNoSexForm ? (
               <DayWithoutSexForm
@@ -274,6 +267,14 @@ export function TrackingPage() {
             )}
           </Paper>
         </Collapse>
+
+        <SexTimeline
+          items={timelineEvents}
+          onEditAct={(act) => {
+            setInitialFormValues(act);
+            toggleShowSexActForm(true);
+          }}
+        />
       </Container>
     </>
   );

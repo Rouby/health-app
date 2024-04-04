@@ -30,6 +30,80 @@ async function main() {
       },
     },
   });
+  const jb = await prisma.user.upsert({
+    where: { email: "jonathan.burke.1311@googlemail.com" },
+    update: {},
+    create: {
+      email: "jonathan.burke.1311@googlemail.com",
+      name: "Jonathan Burke",
+      password: {
+        create: {
+          hash: await hash("hallo", 10),
+        },
+      },
+    },
+  });
+
+  await prisma.sexAct.create({
+    data: {
+      userId: jb.id,
+      dateTime: new Date(2024, 1, 1, 12, 0),
+      position: "Missionary",
+      initiator: "USER",
+      userFinished: true,
+      partnerFinished: true,
+    },
+  });
+  await prisma.sexAct.create({
+    data: {
+      userId: jb.id,
+      dateTime: new Date(2024, 1, 2, 12, 0),
+      position: "Missionary",
+      initiator: "USER",
+      userFinished: true,
+      partnerFinished: true,
+    },
+  });
+  await prisma.sexAct.create({
+    data: {
+      userId: jb.id,
+      dateTime: new Date(2024, 1, 4, 12, 0),
+      position: "Missionary",
+      initiator: "USER",
+      userFinished: true,
+      partnerFinished: true,
+    },
+  });
+  await prisma.sexAct.create({
+    data: {
+      userId: jb.id,
+      dateTime: new Date(2024, 1, 10, 12, 0),
+      position: "Missionary",
+      initiator: "USER",
+      userFinished: true,
+      partnerFinished: true,
+    },
+  });
+  await prisma.sexAct.create({
+    data: {
+      userId: jb.id,
+      dateTime: new Date(2024, 1, 11, 12, 0),
+      position: "Missionary",
+      initiator: "USER",
+      userFinished: true,
+      partnerFinished: true,
+    },
+  });
+  await prisma.sexAct.create({
+    data: {
+      userId: jb.id,
+      dateTime: new Date(2024, 1, 12, 12, 0),
+      position: "Missionary",
+      initiator: "USER",
+      userFinished: true,
+      partnerFinished: true,
+    },
+  });
 
   console.log({ alice, bob });
 }

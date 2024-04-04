@@ -29,8 +29,8 @@ export function SexTimeline<
   onEditAct: (act: TItem["acts"][0]) => void;
 }) {
   return (
-    <Timeline>
-      {items.map(({ date, acts, daysOnPeriod }, idx, arr) =>
+    <Timeline mt="md">
+      {[...items].reverse().map(({ date, acts, daysOnPeriod }, idx, arr) =>
         acts.length > 0 ? (
           <Timeline.Item
             key={date.toISOString()}
@@ -52,13 +52,15 @@ export function SexTimeline<
                     .join("")}
               </Box>
             ))}
-            lineVariant={arr[idx + 1]?.acts.length === 0 ? "dashed" : "solid"}
+            lineVariant={
+              (arr[idx + 1]?.acts.length ?? 0) === 0 ? "dashed" : "solid"
+            }
           >
             <Text size="xs" mt={4}>
               {dateTime.format(date.toDate())},{" "}
               {relativeTime.format(
                 Math.round(
-                  dayjs(acts[0].dateTime).diff(undefined, "days", true)
+                  dayjs(acts.at(-1)!.dateTime).diff(undefined, "days", true)
                 ),
                 "days"
               )}
@@ -72,11 +74,11 @@ export function SexTimeline<
                 defaultMessage="No sex for {days, plural, =1 {1 day} other {# days}} :("
                 values={{
                   days: Math.round(
-                    arr[idx + 1]
-                      ? dayjs(arr[idx + 1].date).diff(date, "days", true)
+                    arr[idx - 1]
+                      ? dayjs(arr[idx - 1].date).diff(date, "days", true)
                       : dayjs(date)
                           .subtract(1, "day")
-                          .diff(arr[idx - 1]?.date, "days", true)
+                          .diff(arr[idx + 1]?.date, "days", true)
                   ),
                 }}
               />
