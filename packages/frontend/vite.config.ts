@@ -42,8 +42,8 @@ export default defineConfig(({ mode }) => {
           display: "standalone",
           scope: "/",
           start_url: "/",
-          name: "Sex App",
-          short_name: "Sex App",
+          name: "Health App",
+          short_name: "Health App",
           icons: [
             {
               src: "/icon-192x192.png",
