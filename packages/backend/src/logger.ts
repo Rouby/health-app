@@ -1,4 +1,5 @@
 import nrPino from "@newrelic/pino-enricher";
+import { setLogger } from "@rouby/sheetdb";
 import newrelic from "newrelic";
 import pino from "pino";
 
@@ -23,3 +24,12 @@ export const logger = pino(nrPino(), {
   },
 });
 logger.level = process.env.LOG_LEVEL || "info";
+
+setLogger({
+  debug: logger.debug.bind(logger),
+  info: logger.info.bind(logger),
+  warn: logger.warn.bind(logger),
+  error: logger.error.bind(logger),
+  log: logger.info.bind(logger),
+  trace: logger.trace.bind(logger),
+});

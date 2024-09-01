@@ -10,6 +10,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
+import "@mantine/core/styles.css";
 import {
   Outlet,
   parseSearchWith,
@@ -29,6 +30,7 @@ import dayjs from "dayjs";
 import jwtDecode from "jwt-decode";
 import { useEffect, useMemo, useState } from "react";
 import { IntlProvider } from "react-intl";
+import { useStyles } from "tss-react";
 import { parse, stringify } from "zipson";
 import { LoginForm, Navigation, ServiceWorker } from "./components";
 import { locales } from "./locales";
@@ -42,6 +44,7 @@ import {
   TrackingPage,
 } from "./pages";
 import { useAuth, useIsAuthenticated, useLanguage } from "./state";
+import { mq, theme } from "./theme";
 import { trpc } from "./utils";
 
 export function App() {
@@ -93,11 +96,7 @@ export function App() {
         context: getUnleashContext(auth),
       }}
     >
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{ colorScheme: "dark" }}
-      >
+      <MantineProvider defaultColorScheme="dark" theme={theme}>
         <QueryClientProvider client={queryClient}>
           <Intl>
             <trpc.Provider client={trpcClient} queryClient={queryClient}>
@@ -190,28 +189,24 @@ function Intl({ children }: { children: React.ReactNode }) {
     }
   }, [locale]);
 
+  const { css } = useStyles();
+
   if (messages.isLoading) {
-    return (
-      <LoadingOverlay
-        visible
-        loaderProps={{ variant: "dots" }}
-        overlayBlur={0}
-      />
-    );
+    return <LoadingOverlay visible loaderProps={{ variant: "dots" }} />;
   }
 
   if (messages.isError) {
     return (
       <Container pt="xl">
         <Title
-          sx={(theme) => ({
+          className={css({
             fontFamily: `Greycliff CF, ${theme.fontFamily}`,
             textAlign: "center",
             fontWeight: 900,
             fontSize: 38,
             color: theme.white,
 
-            [theme.fn.smallerThan("sm")]: {
+            [mq.sm]: {
               fontSize: 32,
             },
           })}
@@ -220,12 +215,12 @@ function Intl({ children }: { children: React.ReactNode }) {
         </Title>
         <Text
           size="lg"
-          align="center"
-          sx={(theme) => ({
+          ta="center"
+          className={css({
             maxWidth: 540,
             margin: "auto",
             marginTop: theme.spacing.xl,
-            marginBottom: theme.spacing.xl * 1.5,
+            marginBottom: `calc(${theme.spacing.xl} * 1.5)`,
             color: theme.colors[theme.primaryColor][1],
           })}
         >
@@ -233,7 +228,7 @@ function Intl({ children }: { children: React.ReactNode }) {
           {locale}). Try refreshing the page or continue with the default
           language (en).
         </Text>
-        <Group position="center">
+        <Group align="center">
           <Button
             variant="light"
             size="md"
@@ -284,7 +279,7 @@ function Auth() {
     <>
       <Container size="xs" px="xs">
         <Paper radius="md" p="xl" withBorder>
-          <Text size="lg" weight={500}>
+          <Text size="lg" fw={500}>
             Welcome to Sex App
           </Text>
 

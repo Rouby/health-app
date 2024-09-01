@@ -1,8 +1,7 @@
 import {
+  AppShell,
   Box,
   Center,
-  Global,
-  Navbar,
   Stack,
   Tooltip,
   Transition,
@@ -88,17 +87,17 @@ export function Navigation() {
         timingFunction="ease"
       >
         {(style) => (
-          <Navbar width={{ base: 80 }} p="md" style={style}>
+          <AppShell.Navbar p="md" style={style}>
             <Center>
               <Box component="img" src="/icon-192x192.png" sx={{ width: 50 }} />
             </Center>
-            <Navbar.Section grow mt={50}>
-              <Stack justify="center" spacing={0}>
+            <Box mt={50}>
+              <Stack justify="center" gap={0}>
                 {links}
               </Stack>
-            </Navbar.Section>
-            <Navbar.Section>
-              <Stack justify="center" spacing={0}>
+            </Box>
+            <Box>
+              <Stack justify="center" gap={0}>
                 <NavbarLink
                   to="/"
                   onClick={() => {
@@ -111,8 +110,8 @@ export function Navigation() {
                   label="Logout"
                 />
               </Stack>
-            </Navbar.Section>
-          </Navbar>
+            </Box>
+          </AppShell.Navbar>
         )}
       </Transition>
     );
@@ -120,7 +119,6 @@ export function Navigation() {
 
   return (
     <>
-      <Global styles={{ ":root": { "--mantine-footer-height": "75px" } }} />
       <Transition
         mounted={showNav && isAuthed}
         transition="slide-up"

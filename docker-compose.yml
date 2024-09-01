@@ -2,16 +2,3 @@
 version: "3.9"
 
 services:
-  db:
-    image: postgres
-    restart: always
-    shm_size: 128mb
-    environment:
-      POSTGRES_USER: health-app
-      POSTGRES_PASSWORD: health-pw
-      POSTGRES_DB: health-app
-      PGDATA: /var/lib/postgresql/data/pgdata
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./data.local:/var/lib/postgresql/data

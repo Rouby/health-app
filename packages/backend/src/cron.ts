@@ -11,3 +11,8 @@ cron.schedule("0 12 * * *", async () => {
 
   await notifyOnMissingDays();
 });
+
+// every 10s
+cron.schedule("*/10 * * * * *", async () => {
+  logger.info("Heartbeat");
+});

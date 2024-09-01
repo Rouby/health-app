@@ -1,21 +1,44 @@
 {
-  "name": "health-app",
-  "version": "1.27.0",
-  "packageManager": "yarn@4.1.1",
-  "scripts": {
-    "dev": "nx run-many --target=dev",
-    "build": "nx run-many --target=build",
-    "release": "standard-version",
-    "deploy": "nx run-many --target=deploy",
-    "i18n": "nx run-many --target=i18n:extract"
-  },
-  "workspaces": [
-    "packages/*"
-  ],
-  "devDependencies": {
-    "@nrwl/nx-cloud": "latest",
-    "nx": "15.2.4",
-    "standard-version": "9.5.0",
-    "typescript": "4.9.3"
-  }
+	"name": "health-app",
+	"version": "1.27.0",
+	"packageManager": "yarn@4.1.1",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"@casl/ability": "6.7.1",
+		"@emotion/react": "11.13.3",
+		"@mantine/charts": "7.12.2",
+		"@mantine/core": "7.12.2",
+		"@mantine/dates": "7.12.2",
+		"@mantine/hooks": "7.12.2",
+		"@mantine/notifications": "7.12.2",
+		"@mantine/vanilla-extract": "7.12.2",
+		"@rouby/sheetdb": "0.9.0",
+		"@tabler/icons-react": "3.14.0",
+		"bcryptjs": "2.4.3",
+		"dayjs": "1.11.13",
+		"jose": "5.8.0",
+		"next": "15.0.0-rc.0",
+		"react": "19.0.0-rc-e56f4ae3-20240830",
+		"react-dom": "19.0.0-rc-e56f4ae3-20240830",
+		"recharts": "2",
+		"tss-react": "4.9.12",
+		"zod": "3.23.8"
+	},
+	"devDependencies": {
+		"@types/bcryptjs": "^2",
+		"@types/node": "^20",
+		"@types/react": "^18",
+		"@types/react-dom": "^18",
+		"autoprefixer": "10.4.20",
+		"postcss": "8.4.43",
+		"postcss-preset-mantine": "1.17.0",
+		"tailwindcss": "3.4.10",
+		"typescript": "^5"
+	}
 }
