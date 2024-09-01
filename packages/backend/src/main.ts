@@ -9,6 +9,7 @@ import minMax from "dayjs/plugin/minMax";
 import fastify from "fastify";
 import { createContext } from "./context";
 import { cron } from "./cron";
+import { DayWithoutSex } from "./data/daysWithoutSex";
 import { SexAct } from "./data/sexActs";
 import { logger } from "./logger";
 import { prisma } from "./prisma";
@@ -76,6 +77,22 @@ upsertInterests().then(async () => {
           position: sexAct.position,
           userFinished: sexAct.userFinished,
           partnerFinished: sexAct.partnerFinished,
+        }).save();
+      }
+    }
+  });
+
+  await prisma.dayWithoutSex.findMany().then(async (noSexs) => {
+    for (const dayWithoutSex of noSexs) {
+      const existing = await DayWithoutSex.findByUserAndDateTime(
+        dayWithoutSex.userId,
+        dayWithoutSex.dateTime.toISOString()
+      );
+      if (!existing) {
+        await new DayWithoutSex({
+          userId: dayWithoutSex.userId,
+          dateTime: dayWithoutSex.dateTime.toISOString(),
+          onPeriod: dayWithoutSex.onPeriod,
         }).save();
       }
     }

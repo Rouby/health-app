@@ -5,7 +5,7 @@ export const prisma = new PrismaClient();
 
 prisma.$use(async (params, next) => {
   return newrelic.startSegment(`${params.model}.${params.action}`, true, () => {
-    Object.entries(params.args).forEach(([key, value]) => {
+    Object.entries(params.args ?? {}).forEach(([key, value]) => {
       switch (typeof value) {
         case "string":
         case "number":
