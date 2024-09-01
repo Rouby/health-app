@@ -1,5 +1,4 @@
 import { defineMessage } from "../i18n";
-import { prisma } from "../prisma";
 import { tags } from "./tags";
 
 export async function upsertInterests() {
@@ -903,13 +902,5 @@ export async function upsertInterests() {
     },
   }));
 
-  await Promise.all(
-    interests.map((interest) =>
-      prisma.sexInterest.upsert({
-        where: { translationKey: interest.translationKey },
-        create: interest,
-        update: interest,
-      })
-    )
-  ).catch(console.error);
+  return interests;
 }

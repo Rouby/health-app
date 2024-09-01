@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { prisma } from "../prisma";
 import { protectedProcedure, router } from "../trpc";
 
 export const notificationRouter = router({
@@ -11,12 +10,11 @@ export const notificationRouter = router({
       })
     )
     .mutation(async (req) => {
-      await prisma.pushNotification.create({
-        data: {
-          user: { connect: { id: req.ctx.user.id } },
-          endpoint: req.input.endpoint,
-          keys: req.input.keys,
-        },
+      req.ctx.user.pushNotifications.push({
+        endpoint: req.input.endpoint,
+        keys: req.input.keys,
       });
+
+      await req.ctx.user.save();
     }),
 });

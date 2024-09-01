@@ -1,29 +1,11 @@
 import { ForbiddenError, subject } from "@casl/ability";
 import { z } from "zod";
-import { prisma } from "../prisma";
+import { User } from "../data/users";
 import { protectedProcedure, router } from "../trpc";
 
 export const accountRouter = router({
   get: protectedProcedure.input(z.string().nullish()).query(async (req) => {
-    const user = await prisma.user.findUnique({
-      where: {
-        id: req.input ?? req.ctx.user.id,
-      },
-      include: {
-        partner: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-        partnerProposer: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-      },
-    });
+    const user = await User.findById(req.input ?? req.ctx.user.id);
 
     if (!user) {
       return null;
@@ -34,7 +16,7 @@ export const accountRouter = router({
       subject("User", user)
     );
 
-    return user;
+    return user.toJSON();
   }),
 
   findPartner: protectedProcedure
@@ -44,24 +26,23 @@ export const accountRouter = router({
       })
     )
     .query(async (req) => {
-      const users = await prisma.user.findMany({
-        where: {
-          ...(req.input.name && {
-            name: {
-              contains: req.input.name,
-            },
-          }),
-          partnerId: null,
-          id: { not: req.ctx.user.id },
-        },
-        take: 10,
-        select: {
-          id: true,
-          name: true,
-        },
+      const users = await User.filter((u) => {
+        if (req.input.name && !u.name.includes(req.input.name)) {
+          return false;
+        }
+
+        if (u.partnerId) {
+          return false;
+        }
+
+        if (u.id === req.ctx.user.id) {
+          return false;
+        }
+
+        return true;
       });
 
-      return users;
+      return users.map((user) => user.toJSON());
     }),
 
   update: protectedProcedure
@@ -73,42 +54,22 @@ export const accountRouter = router({
     )
     .mutation(async (req) => {
       if (req.input.partnerId) {
-        const partner = await prisma.user.findUnique({
-          where: { id: req.input.partnerId },
-        });
+        const partner = await User.findById(req.input.partnerId);
 
         if (partner?.partnerId && partner?.partnerId !== req.ctx.user.id) {
           throw new Error("User already has a partner");
         }
       }
 
-      return await prisma.user.update({
-        where: { id: req.ctx.user.id },
-        data: {
-          ...(req.input.name && {
-            name: req.input.name,
-          }),
-          ...(req.input.partnerId && {
-            partner: { connect: { id: req.input.partnerId } },
-          }),
-          ...(req.input.partnerId === null && {
-            partner: { disconnect: true },
-          }),
-        },
-        include: {
-          partner: {
-            select: {
-              id: true,
-              name: true,
-            },
-          },
-          partnerProposer: {
-            select: {
-              id: true,
-              name: true,
-            },
-          },
-        },
-      });
+      if (req.input.name) {
+        req.ctx.user.name = req.input.name;
+      }
+      if ("partnerId" in req.input) {
+        req.ctx.user.partnerId = req.input.partnerId ?? "";
+      }
+
+      await req.ctx.user.save();
+
+      return req.ctx.user.toJSON();
     }),
 });

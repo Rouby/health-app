@@ -1,9 +1,8 @@
-import { User } from "@prisma/client";
 import { inferAsyncReturnType, TRPCError } from "@trpc/server";
 import { CreateFastifyContextOptions } from "@trpc/server/adapters/fastify";
 import { decode, JwtPayload, verify } from "jsonwebtoken";
 import { createAbility } from "./ability";
-import { prisma } from "./prisma";
+import { User } from "./data/users";
 
 export async function createContext({ req, res }: CreateFastifyContextOptions) {
   let token: string | undefined;
@@ -29,9 +28,7 @@ export async function createContext({ req, res }: CreateFastifyContextOptions) {
 
     // TODO check if token was revoked
 
-    user = await prisma.user.findUnique({
-      where: { id: decodedToken?.payload.user.id },
-    });
+    user = await User.findById(decodedToken?.payload.user.id);
   }
 
   const ability = await createAbility(user);

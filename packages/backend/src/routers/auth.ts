@@ -1,7 +1,7 @@
 import { compare, hash } from "bcryptjs";
 import { z } from "zod";
 import { signToken } from "../auth";
-import { prisma } from "../prisma";
+import { User } from "../data/users";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 export const authRouter = router({
@@ -13,12 +13,7 @@ export const authRouter = router({
       })
     )
     .mutation(async (req) => {
-      const userWithPassword = await prisma.user.findUnique({
-        where: { email: req.input.email },
-        include: {
-          password: true,
-        },
-      });
+      const userWithPassword = await User.findByEmail(req.input.email);
 
       if (!userWithPassword?.password) {
         throw new Error("Invalid login");
@@ -26,7 +21,7 @@ export const authRouter = router({
 
       const isValid = await compare(
         req.input.password,
-        userWithPassword.password.hash
+        userWithPassword.password
       );
 
       if (!isValid) {
@@ -47,17 +42,13 @@ export const authRouter = router({
     .mutation(async (req) => {
       const hashedPassword = await hash(req.input.password, 10);
 
-      const user = await prisma.user.create({
-        data: {
-          name: req.input.name,
-          email: req.input.email,
-          password: {
-            create: {
-              hash: hashedPassword,
-            },
-          },
-        },
+      const user = new User({
+        email: req.input.email,
+        name: req.input.name,
+        password: hashedPassword,
       });
+
+      await user.save();
 
       return signToken(user);
     }),

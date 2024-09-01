@@ -2,7 +2,6 @@ import {
   Box,
   Collapse,
   Container,
-  Image,
   Overlay,
   Text,
   useMantineTheme,
@@ -12,8 +11,6 @@ import { useMatchRoute, useNavigate } from "@tanstack/react-location";
 import { motion } from "framer-motion";
 import { useIntl } from "react-intl";
 import { trpc } from "../../utils";
-
-const MotionImage = motion(Image);
 
 export function PositionsPage() {
   const { formatMessage: fmt } = useIntl();

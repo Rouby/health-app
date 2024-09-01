@@ -1,44 +1,40 @@
 import { ForbiddenError, subject } from "@casl/ability";
-import { accessibleBy } from "@casl/prisma";
 import dayjs from "dayjs";
 import { z } from "zod";
-import { prisma } from "../prisma";
+import { DayWithoutSex } from "../data/daysWithoutSex";
+import { SexAct } from "../data/sexActs";
 import { protectedProcedure, router } from "../trpc";
 
 export const trackerRouter = router({
   sexActs: protectedProcedure.input(z.object({})).query(async (req) => {
-    return prisma.sexAct.findMany({
-      where: accessibleBy(req.ctx.ability).SexAct,
-      orderBy: { dateTime: "asc" },
-    });
+    return (
+      await SexAct.filter((act) => req.ctx.ability.can("read", act))
+    ).sort((a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)));
   }),
 
   daysWithoutSex: protectedProcedure.input(z.object({})).query(async (req) => {
-    return prisma.dayWithoutSex.findMany({
-      where: accessibleBy(req.ctx.ability).DayWithoutSex,
-      orderBy: { dateTime: "asc" },
-    });
+    return (
+      await DayWithoutSex.filter((d) => req.ctx.ability.can("read", d))
+    ).sort((a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)));
   }),
 
   sexStats: protectedProcedure.query(async (req) => {
     const firstDayOfWeek = req.ctx.user.firstDayOfWeek;
 
-    const sexActs = await prisma.sexAct.findMany({
-      where: accessibleBy(req.ctx.ability).SexAct,
-      orderBy: { dateTime: "asc" },
-    });
+    const sexActs = (
+      await SexAct.filter((act) => req.ctx.ability.can("read", act))
+    ).sort((a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)));
 
-    const daysWithoutSex = await prisma.dayWithoutSex.findMany({
-      where: accessibleBy(req.ctx.ability).DayWithoutSex,
-      orderBy: { dateTime: "asc" },
-    });
+    const daysWithoutSex = (
+      await DayWithoutSex.filter((d) => req.ctx.ability.can("read", d))
+    ).sort((a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)));
 
     const mostConsecutiveDaysWithoutSex = daysWithoutSex.reduce(
       (acc, day) => {
         if (acc.currentStreak === 0) {
           acc.currentStreak = 1;
           acc.longestStreak = 1;
-          acc.lastDay = day.dateTime;
+          acc.lastDay = new Date(day.dateTime);
         } else {
           const lastDay = dayjs(acc.lastDay);
           const currentDay = dayjs(day.dateTime);
@@ -50,7 +46,7 @@ export const trackerRouter = router({
             acc.currentStreak = 1;
           }
 
-          acc.lastDay = day.dateTime;
+          acc.lastDay = new Date(day.dateTime);
         }
 
         return acc;
@@ -125,17 +121,14 @@ export const trackerRouter = router({
     .input(
       z.object({
         dateTime: z.string().datetime(),
-        duration: z
-          .string()
-          .regex(
-            // ISO Duration regex
-            /^P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+(?:\.\d+)?)S)?)?$/
-          )
-          .nullish(),
-        location: z.string().nullish(),
+        duration: z.string().regex(
+          // ISO Duration regex
+          /^P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+(?:\.\d+)?)S)?)?$/
+        ),
+        location: z.string(),
         initiator: z.enum(["USER", "PARTNER"]),
-        foreplayOnUser: z.string().nullish(),
-        foreplayOnPartner: z.string().nullish(),
+        foreplayOnUser: z.string(),
+        foreplayOnPartner: z.string(),
         position: z.string(),
         userFinished: z.boolean(),
         partnerFinished: z.boolean(),
@@ -144,9 +137,14 @@ export const trackerRouter = router({
     .mutation(async (req) => {
       ForbiddenError.from(req.ctx.ability).throwUnlessCan("create", "SexAct");
 
-      return prisma.sexAct.create({
-        data: { ...req.input, user: { connect: { id: req.ctx.user.id } } },
+      const sexAct = new SexAct({
+        ...req.input,
+        userId: req.ctx.user.id,
       });
+
+      await sexAct.save();
+
+      return sexAct.toJSON();
     }),
 
   addDayWithoutSex: protectedProcedure
@@ -162,13 +160,14 @@ export const trackerRouter = router({
         "DayWithoutSex"
       );
 
-      return prisma.dayWithoutSex.create({
-        data: {
-          dateTime: dayjs(req.input.dateTime).startOf("day").toDate(),
-          onPeriod: req.input.onPeriod,
-          user: { connect: { id: req.ctx.user.id } },
-        },
+      const dayWithoutSex = new DayWithoutSex({
+        ...req.input,
+        userId: req.ctx.user.id,
       });
+
+      await dayWithoutSex.save();
+
+      return dayWithoutSex.toJSON();
     }),
 
   update: protectedProcedure
@@ -176,26 +175,21 @@ export const trackerRouter = router({
       z.object({
         id: z.string(),
         dateTime: z.string().datetime(),
-        duration: z
-          .string()
-          .regex(
-            // ISO Duration regex
-            /^P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+(?:\.\d+)?)S)?)?$/
-          )
-          .nullish(),
-        location: z.string().nullish(),
+        duration: z.string().regex(
+          // ISO Duration regex
+          /^P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+(?:\.\d+)?)S)?)?$/
+        ),
+        location: z.string(),
         initiator: z.enum(["USER", "PARTNER"]),
-        foreplayOnUser: z.string().nullish(),
-        foreplayOnPartner: z.string().nullish(),
+        foreplayOnUser: z.string(),
+        foreplayOnPartner: z.string(),
         position: z.string(),
         userFinished: z.boolean(),
         partnerFinished: z.boolean(),
       })
     )
     .mutation(async (req) => {
-      const act = await prisma.sexAct.findUnique({
-        where: { id: req.input.id },
-      });
+      const act = await SexAct.findById(req.input.id);
 
       if (!act) {
         throw new Error("Act not found.");
@@ -208,10 +202,11 @@ export const trackerRouter = router({
 
       const { id, ...data } = req.input;
 
-      return prisma.sexAct.update({
-        where: { id },
-        data,
+      Object.entries(data).forEach(([key, value]) => {
+        (act as any)[key] = value;
       });
+
+      return act.toJSON();
     }),
 });
 

@@ -1,5 +1,5 @@
-import { User } from "@prisma/client";
 import { sign } from "jsonwebtoken";
+import { User } from "../data/users";
 
 export function signToken(user: User) {
   return sign(payload(user), process.env.SESSION_SECRET!, {

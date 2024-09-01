@@ -1,18 +1,18 @@
-import { accessibleBy } from "@casl/prisma";
 import dayjs from "dayjs";
 import { createAbility } from "../ability";
 import { signToken } from "../auth";
+import { DayWithoutSex } from "../data/daysWithoutSex";
+import { SexAct } from "../data/sexActs";
+import { User } from "../data/users";
 import { defineMessage } from "../i18n";
 import { logger } from "../logger";
-import { prisma } from "../prisma";
 import { unleash } from "../unleash";
 import { sendNotification } from "../webPush";
 
 export async function notifyOnMissingDays() {
-  const usersWithNotifications = await prisma.user.findMany({
-    where: { pushNotifications: { some: { endpoint: { not: "" } } } },
-    include: { pushNotifications: true },
-  });
+  const usersWithNotifications = await User.filter((u) =>
+    u.pushNotifications.some((p) => p.endpoint !== "")
+  );
 
   await Promise.allSettled(
     usersWithNotifications.map(async (user) => {
@@ -38,14 +38,13 @@ export async function notifyOnMissingDays() {
         return;
       }
 
-      const sexActs = await prisma.sexAct.findMany({
-        where: accessibleBy(ability).SexAct,
-        orderBy: { dateTime: "asc" },
-      });
-      const daysWithoutSex = await prisma.dayWithoutSex.findMany({
-        where: accessibleBy(ability).DayWithoutSex,
-        orderBy: { dateTime: "asc" },
-      });
+      const sexActs = (
+        await SexAct.filter((act) => ability.can("read", act))
+      ).sort((a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)));
+
+      const daysWithoutSex = (
+        await DayWithoutSex.filter((d) => ability.can("read", d))
+      ).sort((a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)));
 
       const firstTrackedDay = dayjs
         .min(

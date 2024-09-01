@@ -4,7 +4,6 @@ import * as newrelic from "newrelic";
 import * as webpush from "web-push";
 import { MessageDescriptor } from "./i18n";
 import { logger } from "./logger";
-import { prisma } from "./prisma";
 
 export type NotificationPayload = {
   title: MessageDescriptor;
@@ -53,13 +52,7 @@ async function sendNotification_(
     logger.info(result, "Sent push notification");
   } catch (error) {
     if (error instanceof webpush.WebPushError && error.statusCode === 410) {
-      await prisma.pushNotification.delete({
-        where: {
-          endpoint: subscription.endpoint,
-        },
-      });
-
-      logger.info(subscription, "Deleted stale subscription");
+      logger.warn(subscription, "Stale subscription");
     } else {
       logger.error(error);
     }

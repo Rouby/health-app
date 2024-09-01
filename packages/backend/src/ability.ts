@@ -1,17 +1,11 @@
-import { AbilityBuilder, PureAbility } from "@casl/ability";
-import { createPrismaAbility, PrismaQuery, Subjects } from "@casl/prisma";
-import { DayWithoutSex, SexAct, User } from "@prisma/client";
+import { AbilityBuilder, MongoAbility } from "@casl/ability";
+import { createPrismaAbility } from "@casl/prisma";
+import { DayWithoutSex } from "./data/daysWithoutSex";
+import { SexAct } from "./data/sexActs";
+import { User } from "./data/users";
 
-type AppAbility = PureAbility<
-  [
-    string,
-    Subjects<{
-      User: User;
-      SexAct: SexAct;
-      DayWithoutSex: DayWithoutSex;
-    }>
-  ],
-  PrismaQuery
+type AppAbility = MongoAbility<
+  [string, User | "User" | SexAct | "SexAct" | DayWithoutSex | "DayWithoutSex"]
 >;
 
 export async function createAbility(user: User | null) {
