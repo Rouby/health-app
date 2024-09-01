@@ -44,8 +44,14 @@ server.addHook("onRequest", (request, reply, next) => {
 });
 
 (async () => {
-  await unleash.start().then(() => logger.info("Unleash started"));
-  await cron.start().then(() => logger.info("Cron started"));
+  await unleash
+    .start()
+    .then(() => logger.info("Unleash started"))
+    .catch((err) => logger.error(err));
+  await cron
+    .start()
+    .then(() => logger.info("Cron started"))
+    .catch((err) => logger.error(err));
   await server.listen({ port: +(process.env.PORT || 5000) });
 })();
 
