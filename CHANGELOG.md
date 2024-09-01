@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.27.0](///compare/v1.26.3...v1.27.0) (2024-09-01)
+
+
+### Features
+
+* replace prisma with sheetdb c9f6dfe
+
+
+### Bug Fixes
+
+* await sex acts 3210809
+
 ### [1.26.3](///compare/v1.26.2...v1.26.3) (2024-09-01)
 
 
