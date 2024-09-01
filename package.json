@@ -1,6 +1,6 @@
 {
   "name": "health-app",
-  "version": "1.26.2",
+  "version": "1.26.3",
   "packageManager": "yarn@4.1.1",
   "scripts": {
     "dev": "nx run-many --target=dev",
