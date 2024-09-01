@@ -1,5 +1,6 @@
 import * as newrelic from "newrelic";
 
+import { syncCache } from "@rouby/sheetdb";
 import { initTRPC } from "@trpc/server";
 import { fastifyTRPCPlugin } from "@trpc/server/adapters/fastify";
 import dayjs from "dayjs";
@@ -8,8 +9,9 @@ import minMax from "dayjs/plugin/minMax";
 import fastify from "fastify";
 import { createContext } from "./context";
 import { cron } from "./cron";
-import { upsertInterests } from "./data";
+import { SexAct } from "./data/sexActs";
 import { logger } from "./logger";
+import { prisma } from "./prisma";
 import {
   accountRouter,
   authRouter,
@@ -18,6 +20,7 @@ import {
   notificationRouter,
   trackerRouter,
 } from "./routers";
+import { upsertInterests } from "./seed";
 import { unleash } from "./unleash";
 
 dayjs.extend(duration);
@@ -53,6 +56,33 @@ upsertInterests().then(async () => {
   await cron.start().then(() => logger.info("Cron started"));
   await server.listen({ port: +(process.env.PORT || 5000) });
 });
+
+(async () => {
+  logger.info("Syncing database to sheets");
+
+  prisma.sexAct.findMany().then(async (sexActs) => {
+    for (const sexAct of sexActs) {
+      const existing = await SexAct.findById(sexAct.id);
+      if (!existing) {
+        await new SexAct({
+          id: sexAct.id,
+          userId: sexAct.userId,
+          dateTime: sexAct.dateTime.toISOString(),
+          duration: sexAct.duration ?? "",
+          location: sexAct.location ?? "",
+          initiator: sexAct.initiator,
+          foreplayOnUser: sexAct.foreplayOnUser ?? "",
+          foreplayOnPartner: sexAct.foreplayOnPartner ?? "",
+          position: sexAct.position,
+          userFinished: sexAct.userFinished,
+          partnerFinished: sexAct.partnerFinished,
+        }).save();
+      }
+    }
+  });
+
+  await syncCache();
+})();
 
 process.once("SIGINT", gracefulShutdown);
 process.once("SIGTERM", gracefulShutdown);

@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { tags } from "../data/tags";
 import { prisma } from "../prisma";
+import { tags } from "../seed/tags";
 import { protectedProcedure, router } from "../trpc";
 7;
 export const interestRouter = router({
