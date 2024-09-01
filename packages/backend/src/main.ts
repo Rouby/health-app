@@ -60,7 +60,7 @@ upsertInterests().then(async () => {
 (async () => {
   logger.info("Syncing database to sheets");
 
-  prisma.sexAct.findMany().then(async (sexActs) => {
+  await prisma.sexAct.findMany().then(async (sexActs) => {
     for (const sexAct of sexActs) {
       const existing = await SexAct.findById(sexAct.id);
       if (!existing) {
