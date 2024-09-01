@@ -7,9 +7,7 @@
     "build": "nx run-many --target=build",
     "release": "standard-version",
     "deploy": "nx run-many --target=deploy",
-    "i18n": "nx run-many --target=i18n:extract",
-    "prisma:push": "yarn workspace @rouby/health-app-backend pnpify prisma db push",
-    "prisma:studio": "yarn workspace @rouby/health-app-backend pnpify prisma studio"
+    "i18n": "nx run-many --target=i18n:extract"
   },
   "workspaces": [
     "packages/*"

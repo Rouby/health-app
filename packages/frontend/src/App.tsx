@@ -12,9 +12,9 @@ import {
 } from "@mantine/core";
 import {
   Outlet,
+  parseSearchWith,
   ReactLocation,
   Router,
-  parseSearchWith,
   stringifySearchWith,
   useLocation,
 } from "@tanstack/react-location";
@@ -37,7 +37,6 @@ import {
   CommonInterestsWithPartnerPage,
   ExplorePage,
   InterestsPage,
-  MoodPage,
   OverviewPage,
   PositionsPage,
   TrackingPage,
@@ -111,10 +110,6 @@ export function App() {
                       {
                         path: "tracking",
                         element: <TrackingPage />,
-                      },
-                      {
-                        path: "mood",
-                        element: <MoodPage />,
                       },
                       {
                         path: "explore/interests/common",

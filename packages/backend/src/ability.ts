@@ -1,5 +1,8 @@
-import { AbilityBuilder, MongoAbility } from "@casl/ability";
-import { createPrismaAbility } from "@casl/prisma";
+import {
+  AbilityBuilder,
+  createMongoAbility,
+  MongoAbility,
+} from "@casl/ability";
 import { DayWithoutSex } from "./data/daysWithoutSex";
 import { SexAct } from "./data/sexActs";
 import { User } from "./data/users";
@@ -10,7 +13,7 @@ type AppAbility = MongoAbility<
 
 export async function createAbility(user: User | null) {
   const { can, cannot, build } = new AbilityBuilder<AppAbility>(
-    createPrismaAbility
+    createMongoAbility
   );
 
   if (user) {

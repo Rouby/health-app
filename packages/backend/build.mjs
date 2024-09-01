@@ -15,12 +15,7 @@ esbuild
   .then(
     () => {
       return Promise.all([
-        copyFile("prisma/schema.prisma", "dist/schema.prisma"),
         copyFile("newrelic.js", "dist/newrelic.js"),
-        copyFile(
-          "src/__generated__/prisma/libquery_engine-linux-arm64-openssl-1.1.x.so.node",
-          "dist/libquery_engine-linux-arm64-openssl-1.1.x.so.node"
-        ),
       ]).then(() => process.exit(0));
     },
     (err) => {
