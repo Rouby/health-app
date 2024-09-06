@@ -1,4 +1,5 @@
 import withSerwistInit from "@serwist/next";
+import nrExternals from "newrelic/load-externals.js";
 
 const withSerwist = withSerwistInit({
 	swSrc: "app/sw.ts",
@@ -11,6 +12,11 @@ const nextConfig = withSerwist({
 	experimental: {
 		optimizePackageImports: ["@mantine/core", "@mantine/hooks"],
 		swcPlugins: [["@lingui/swc-plugin", {}]],
+	},
+	serverExternalPackages: ["newrelic"],
+	webpack: (config) => {
+		nrExternals(config);
+		return config;
 	},
 });
 
