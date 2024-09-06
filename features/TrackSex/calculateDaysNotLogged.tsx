@@ -25,5 +25,5 @@ export function calculateDaysNotLogged(
 	return days
 		.filter((day) => !daysLogged.some((d) => day.isSame(d, "day")))
 		.filter((day) => !day.isSame(until, "day"))
-		.map((day) => day.format("YYYY-MM-DD"));
+		.map((day) => day.toDate());
 }
