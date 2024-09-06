@@ -1,46 +1,13 @@
-import { DayWithoutSex } from "@/data/daysWithoutSex";
-import { SexAct } from "@/data/sexActs";
-import { getAbility, verifySession } from "@/lib/ability";
+import { getUserDaysWithoutSex } from "@/cached/getUserDaysWithoutSex";
+import { getUserSexActs } from "@/cached/getUserSexActs";
+import { verifySession } from "@/lib/ability";
 import { dayjs } from "@/lib/dayjs";
-import { logger } from "@/lib/logger";
-import { unstable_cache } from "next/cache";
-import type { UUID } from "node:crypto";
 import { WeeklyStats } from "./WeeklyStats";
-
-const getUserSexActs = unstable_cache(
-	async (userId: UUID) => {
-		const ability = getAbility(userId);
-		const firstDayOfWeek = 1; //getUser.firstDayOfWeek;
-
-		logger.info({ ability }, "get cache");
-
-		return (await SexAct.filter((act) => ability.can("read", act))).sort(
-			(a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)),
-		);
-	},
-	[],
-	{ tags: ["sexActs"] },
-);
-
-const getUserDaysWithoutSex = unstable_cache(
-	async (userId: UUID) => {
-		const ability = getAbility(userId);
-		const firstDayOfWeek = 1; //getUser.firstDayOfWeek;
-
-		return (await DayWithoutSex.filter((d) => ability.can("read", d))).sort(
-			(a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)),
-		);
-	},
-	[],
-	{ tags: ["daysWithoutSex"] },
-);
 
 export async function WeeklyStatsServer() {
 	const { userId } = await verifySession();
 
 	const sexActs = await getUserSexActs(userId);
-
-	logger.info({ sexActs }, "get sexacts");
 
 	const daysWithoutSex = await getUserDaysWithoutSex(userId);
 
