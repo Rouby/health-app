@@ -1,6 +1,9 @@
 import { dayjs } from "@/lib/dayjs";
 
-export function calculateDaysNotLogged(daysLogged: (Date | string)[]) {
+export function calculateDaysNotLogged(
+	daysLogged: (Date | string)[],
+	until = new Date(),
+) {
 	if (daysLogged.length === 0) {
 		return [];
 	}
@@ -13,7 +16,7 @@ export function calculateDaysNotLogged(daysLogged: (Date | string)[]) {
 	const days = Array.from(
 		{
 			length: Math.ceil(
-				dayjs().endOf("day").diff(firstTrackedDay, "day", true),
+				dayjs(until).endOf("day").diff(firstTrackedDay, "day", true),
 			),
 		},
 		(_, idx) => firstTrackedDay.add(idx, "day"),
@@ -21,6 +24,6 @@ export function calculateDaysNotLogged(daysLogged: (Date | string)[]) {
 
 	return days
 		.filter((day) => !daysLogged.some((d) => day.isSame(d, "day")))
-		.filter((day) => !day.isSame(dayjs(), "day"))
-		.map((day) => day.toDate());
+		.filter((day) => !day.isSame(until, "day"))
+		.map((day) => day.format("YYYY-MM-DD"));
 }
