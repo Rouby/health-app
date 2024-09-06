@@ -14,7 +14,7 @@ export async function trackDayWithoutSex(
 ) {
 	const validatedFields = z
 		.object({
-			dateTime: z.date({ coerce: true }),
+			date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
 			onPeriod: z
 				.enum(["on", "off"])
 				.default("off")
@@ -31,10 +31,7 @@ export async function trackDayWithoutSex(
 	const { userId } = await verifySession();
 
 	if (
-		await DayWithoutSex.findByUserAndDateTime(
-			userId,
-			validatedFields.data.dateTime.toISOString(),
-		)
+		await DayWithoutSex.findByUserAndDateTime(userId, validatedFields.data.date)
 	) {
 		return {
 			success: false,
@@ -43,7 +40,7 @@ export async function trackDayWithoutSex(
 
 	await new DayWithoutSex({
 		userId,
-		dateTime: validatedFields.data.dateTime.toISOString(),
+		date: validatedFields.data.date,
 		onPeriod: validatedFields.data.onPeriod,
 	}).save();
 

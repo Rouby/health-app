@@ -13,7 +13,7 @@ export const getUserDaysWithoutSex = unstable_cache(
 		logger.info({ userId }, "Retrieve days without sex");
 
 		return (await DayWithoutSex.filter((d) => ability.can("read", d))).sort(
-			(a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)),
+			(a, b) => dayjs(a.date).diff(dayjs(b.date)),
 		);
 	},
 	[],

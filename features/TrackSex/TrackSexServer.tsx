@@ -1,8 +1,8 @@
 import { getUserDaysWithoutSex } from "@/cached/getUserDaysWithoutSex";
 import { getUserSexActs } from "@/cached/getUserSexActs";
 import { verifySession } from "@/lib/ability";
-import { dayjs } from "@/lib/dayjs";
 import { TrackSex } from "./TrackSex";
+import { calculateDaysNotLogged } from "./calculateDaysNotLogged";
 
 export async function TrackSexServer() {
 	const { userId } = await verifySession();
@@ -11,27 +11,9 @@ export async function TrackSexServer() {
 
 	const daysWithoutSex = await getUserDaysWithoutSex(userId);
 
-	const firstTrackedDay = dayjs
-		.min(
-			dayjs(sexActs?.at(0)?.dateTime),
-			dayjs(daysWithoutSex?.at(0)?.dateTime),
-		)
-		.startOf("day");
-
-	const days = Array.from(
-		{
-			length: Math.ceil(
-				dayjs().endOf("day").diff(firstTrackedDay, "day", true),
-			),
-		},
-		(_, idx) => firstTrackedDay.add(idx, "day"),
+	const daysNotLogged = calculateDaysNotLogged(
+		[...sexActs, ...daysWithoutSex].map((d) => d.dateTime),
 	);
-
-	const daysLogged = [...sexActs, ...daysWithoutSex];
-	const daysNotLogged = days
-		.filter((day) => !daysLogged.some((d) => day.isSame(d.dateTime, "day")))
-		.filter((day) => !day.isSame(dayjs(), "day"))
-		.map((day) => day.toDate());
 
 	return (
 		<TrackSex

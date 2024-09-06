@@ -14,7 +14,7 @@ export class DayWithoutSex extends Base {
 
 	public userId = "";
 
-	public dateTime = dayjs().toISOString();
+	public date = dayjs().format("YYYY-MM-DD");
 
 	public onPeriod = false;
 
@@ -23,11 +23,11 @@ export class DayWithoutSex extends Base {
 		if (props) Object.assign(this, props);
 	}
 
-	public static findByUserAndDateTime(userId: UUID, dateTime: string) {
+	public static findByUserAndDateTime(userId: UUID, date: string) {
 		return this.find((dayWithoutSex) => {
 			return (
 				dayWithoutSex.userId === userId &&
-				dayjs(dayWithoutSex.dateTime).isSame(dateTime, "day")
+				dayjs(dayWithoutSex.date).isSame(date, "day")
 			);
 		});
 	}

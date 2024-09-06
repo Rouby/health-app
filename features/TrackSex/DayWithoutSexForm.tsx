@@ -24,6 +24,10 @@ export function DayWithoutSexForm({
 			onSubmit={(evt) => {
 				evt.preventDefault();
 				const formData = new FormData(evt.currentTarget);
+				formData.set(
+					"date",
+					dayjs(formData.get("date") as string).format("YYYY-MM-DD"),
+				);
 				startTransition(() => action(formData));
 			}}
 		>
@@ -31,13 +35,12 @@ export function DayWithoutSexForm({
 				<DatePickerInput
 					required
 					w={150}
-					name="dateTime"
+					name="date"
 					label={<Trans>Date</Trans>}
 					excludeDate={(date) =>
 						!daysNotLogged.some((d) => dayjs(d).isSame(date, "day"))
 					}
 					renderDay={(date) => {
-						const day = date.getDate();
 						return (
 							<Box
 								className={css({
