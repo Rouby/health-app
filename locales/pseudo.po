@@ -6,11 +6,121 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: pseudo\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: features/SexTimeline/SexTimeline.tsx:90
+msgid "{daysOnPeriod, plural, =0 {} one {, one day 🩸} other {, # days 🩸}}"
+msgstr ""
+
+#: features/TrackSex/SexActForm.tsx:92
+msgid "{minutes} minutes"
+msgstr ""
 
 #: features/WeeklyStats/WeeklyStats.tsx:117
 msgid "Average duration"
 msgstr ""
 
+#: features/TrackSex/SexActForm.tsx:118
+msgid "Bedroom, Kitchen, Living room, etc."
+msgstr ""
+
+#: features/TrackSex/DayWithoutSexForm.tsx:61
+#: features/TrackSex/SexActForm.tsx:171
+msgid "Could not track"
+msgstr ""
+
+#: features/Navigation/Navigation.tsx:43
+msgid "Dashboard"
+msgstr ""
+
+#: features/TrackSex/DayWithoutSexForm.tsx:35
+#: features/TrackSex/SexActForm.tsx:66
+msgid "Date"
+msgstr ""
+
+#: features/TrackSex/SexActForm.tsx:86
+msgid "Duration (minutes)"
+msgstr ""
+
+#: features/TrackSex/SexActForm.tsx:140
+msgid "I came"
+msgstr ""
+
+#: features/TrackSex/SexActForm.tsx:98
+msgid "Initiated by"
+msgstr ""
+
+#: features/TrackSex/SexActForm.tsx:117
+msgid "Location"
+msgstr ""
+
+#: features/TrackSex/SexActForm.tsx:104
+msgid "Me"
+msgstr ""
+
+#: features/TrackSex/SexActForm.tsx:54
+msgid "Missionary, Doggy, Cowgirl, Reverse Cowgirl, 69, Spooning, etc."
+msgstr ""
+
+#: features/SexTimeline/SexTimeline.tsx:70
+msgid "No sex for {0, plural, one {one day} other {# days}} :("
+msgstr ""
+
+#: features/TrackSex/DayWithoutSexForm.tsx:56
+msgid "On Period?"
+msgstr ""
+
+#: features/TrackSex/SexActForm.tsx:129
+#: features/TrackSex/SexActForm.tsx:152
+msgid "Oral, fingering, etc."
+msgstr ""
+
+#: features/TrackSex/SexActForm.tsx:108
+msgid "Partner"
+msgstr ""
+
+#: features/TrackSex/SexActForm.tsx:163
+msgid "Partner came"
+msgstr ""
+
+#: features/TrackSex/SexActForm.tsx:53
+msgid "Positions"
+msgstr ""
+
+#: features/TrackSex/SexActForm.tsx:128
+msgid "Received foreplay by me"
+msgstr ""
+
+#: features/TrackSex/SexActForm.tsx:151
+msgid "Received foreplay by partner"
+msgstr ""
+
+#: features/TrackSex/DayWithoutSexForm.tsx:64
+#: features/TrackSex/SexActForm.tsx:174
+msgid "Save"
+msgstr ""
+
 #: features/WeeklyStats/WeeklyStats.tsx:112
 msgid "Sex acts"
+msgstr ""
+
+#: features/TrackSex/TrackSex.tsx:61
+msgid "Track day without sex"
+msgstr ""
+
+#: features/TrackSex/TrackSex.tsx:54
+msgid "Track sex act"
+msgstr ""
+
+#: features/Navigation/Navigation.tsx:51
+msgid "Tracking"
+msgstr ""
+
+#: features/TrackSex/TrackSex.tsx:29
+msgid "You have {0} days not logged."
 msgstr ""
