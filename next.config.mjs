@@ -2,6 +2,7 @@ import withSerwistInit from "@serwist/next";
 import nrExternals from "newrelic/load-externals.js";
 
 const withSerwist = withSerwistInit({
+	disable: process.env.NODE_ENV === "development",
 	swSrc: "app/sw.ts",
 	swDest: "public/sw.js",
 });
@@ -16,6 +17,9 @@ const nextConfig = withSerwist({
 	serverExternalPackages: ["newrelic"],
 	webpack: (config) => {
 		nrExternals(config);
+		if (config.target.includes("node")) {
+			config.externals.push("pino");
+		}
 		return config;
 	},
 });
