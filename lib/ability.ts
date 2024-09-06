@@ -8,6 +8,7 @@ import {
 } from "@casl/ability";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import type { UUID } from "node:crypto";
 import { cache } from "react";
 import { decrypt } from "./session";
 
@@ -15,22 +16,19 @@ type AppAbility = MongoAbility<
 	[string, User | "User" | SexAct | "SexAct" | DayWithoutSex | "DayWithoutSex"]
 >;
 
-export const getAbility = cache(async () => {
-	const cookie = cookies().get("session")?.value;
-	const session = (await decrypt(cookie)) as SessionPayload;
-
+export const getAbility = (userId: UUID) => {
 	const { can, cannot, build } = new AbilityBuilder<AppAbility>(
 		createMongoAbility,
 	);
 
-	if (session) {
-		can("manage", "User", { id: session.userId });
-		can("manage", "SexAct", { userId: session.userId });
-		can("manage", "DayWithoutSex", { userId: session.userId });
+	if (userId) {
+		can("manage", "User", { id: userId });
+		can("manage", "SexAct", { userId });
+		can("manage", "DayWithoutSex", { userId });
 	}
 
 	return build();
-});
+};
 
 export const verifySession = cache(async () => {
 	const cookie = cookies().get("session")?.value;

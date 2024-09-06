@@ -2,40 +2,45 @@ import { DayWithoutSex } from "@/data/daysWithoutSex";
 import { SexAct } from "@/data/sexActs";
 import { getAbility, verifySession } from "@/lib/ability";
 import { dayjs } from "@/lib/dayjs";
+import { logger } from "@/lib/logger";
 import { unstable_cache } from "next/cache";
+import type { UUID } from "node:crypto";
 import { SexTimeline } from "./SexTimeline";
+
+const getUserSexActs = unstable_cache(
+	async (userId: UUID) => {
+		const ability = getAbility(userId);
+		const firstDayOfWeek = 1; //getUser.firstDayOfWeek;
+
+		logger.info({ ability }, "get cache 2");
+
+		return (await SexAct.filter((act) => ability.can("read", act))).sort(
+			(a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)),
+		);
+	},
+	[],
+	{ tags: ["sexActs"] },
+);
+
+const getUserDaysWithoutSex = unstable_cache(
+	async (userId: UUID) => {
+		const ability = getAbility(userId);
+		const firstDayOfWeek = 1; //getUser.firstDayOfWeek;
+
+		return (await DayWithoutSex.filter((d) => ability.can("read", d))).sort(
+			(a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)),
+		);
+	},
+	[],
+	{ tags: ["daysWithoutSex"] },
+);
 
 export async function SexTimelineServer() {
 	const { userId } = await verifySession();
 
-	const getUserSexActs = unstable_cache(
-		async () => {
-			const ability = await getAbility();
-			const firstDayOfWeek = 1; //getUser.firstDayOfWeek;
+	const sexActs = await getUserSexActs(userId);
 
-			return (await SexAct.filter((act) => ability.can("read", act))).sort(
-				(a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)),
-			);
-		},
-		[userId],
-		{ tags: ["sexActs"] },
-	);
-	const getUserDaysWithoutSex = unstable_cache(
-		async () => {
-			const ability = await getAbility();
-			const firstDayOfWeek = 1; //getUser.firstDayOfWeek;
-
-			return (await DayWithoutSex.filter((d) => ability.can("read", d))).sort(
-				(a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)),
-			);
-		},
-		[userId],
-		{ tags: ["daysWithoutSex"] },
-	);
-
-	const sexActs = await getUserSexActs();
-
-	const daysWithoutSex = await getUserDaysWithoutSex();
+	const daysWithoutSex = await getUserDaysWithoutSex(userId);
 
 	const firstTrackedDay = dayjs
 		.min(

@@ -4,43 +4,45 @@ import { getAbility, verifySession } from "@/lib/ability";
 import { dayjs } from "@/lib/dayjs";
 import { logger } from "@/lib/logger";
 import { unstable_cache } from "next/cache";
+import type { UUID } from "node:crypto";
 import { WeeklyStats } from "./WeeklyStats";
+
+const getUserSexActs = unstable_cache(
+	async (userId: UUID) => {
+		const ability = getAbility(userId);
+		const firstDayOfWeek = 1; //getUser.firstDayOfWeek;
+
+		logger.info({ ability }, "get cache");
+
+		return (await SexAct.filter((act) => ability.can("read", act))).sort(
+			(a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)),
+		);
+	},
+	[],
+	{ tags: ["sexActs"] },
+);
+
+const getUserDaysWithoutSex = unstable_cache(
+	async (userId: UUID) => {
+		const ability = getAbility(userId);
+		const firstDayOfWeek = 1; //getUser.firstDayOfWeek;
+
+		return (await DayWithoutSex.filter((d) => ability.can("read", d))).sort(
+			(a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)),
+		);
+	},
+	[],
+	{ tags: ["daysWithoutSex"] },
+);
 
 export async function WeeklyStatsServer() {
 	const { userId } = await verifySession();
 
-	const getUserSexActs = unstable_cache(
-		async () => {
-			const ability = await getAbility();
-			const firstDayOfWeek = 1; //getUser.firstDayOfWeek;
-
-			logger.info({ ability }, "get cache");
-
-			return (await SexAct.filter((act) => ability.can("read", act))).sort(
-				(a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)),
-			);
-		},
-		[userId],
-		{ tags: ["sexActs"] },
-	);
-	const getUserDaysWithoutSex = unstable_cache(
-		async () => {
-			const ability = await getAbility();
-			const firstDayOfWeek = 1; //getUser.firstDayOfWeek;
-
-			return (await DayWithoutSex.filter((d) => ability.can("read", d))).sort(
-				(a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)),
-			);
-		},
-		[userId],
-		{ tags: ["daysWithoutSex"] },
-	);
-
-	const sexActs = await getUserSexActs();
+	const sexActs = await getUserSexActs(userId);
 
 	logger.info({ sexActs }, "get sexacts");
 
-	const daysWithoutSex = await getUserDaysWithoutSex();
+	const daysWithoutSex = await getUserDaysWithoutSex(userId);
 
 	const firstDayOfWeek = 1;
 
