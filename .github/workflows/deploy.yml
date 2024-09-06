@@ -68,7 +68,7 @@ jobs:
 
     environment:
       name: production
-      url: "https://sexy.aiacta.com"
+      url: "https://health.aiacta.com"
 
     steps:
       - name: ⬇️ Checkout repo
