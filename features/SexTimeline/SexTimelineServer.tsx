@@ -13,10 +13,7 @@ export async function SexTimelineServer() {
 	const daysWithoutSex = await getUserDaysWithoutSex(userId);
 
 	const firstTrackedDay = dayjs
-		.min(
-			dayjs(sexActs?.at(0)?.dateTime),
-			dayjs(daysWithoutSex?.at(0)?.dateTime),
-		)
+		.min(dayjs(sexActs?.at(0)?.dateTime), dayjs(daysWithoutSex?.at(0)?.date))
 		.startOf("day");
 
 	const days = Array.from(
@@ -43,7 +40,7 @@ export async function SexTimelineServer() {
 				});
 			} else {
 				const onPeriod =
-					daysWithoutSex?.find((wo) => dayjs(wo.dateTime).isSame(day, "day"))
+					daysWithoutSex?.find((wo) => dayjs(wo.date).isSame(day, "day"))
 						?.onPeriod ?? false;
 				if (acc.length === 0) {
 					acc.push({

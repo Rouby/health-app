@@ -18,10 +18,10 @@ export async function WeeklyStatsServer() {
 			if (acc.currentStreak === 0) {
 				acc.currentStreak = 1;
 				acc.longestStreak = 1;
-				acc.lastDay = new Date(day.dateTime);
+				acc.lastDay = new Date(day.date);
 			} else {
 				const lastDay = dayjs(acc.lastDay);
-				const currentDay = dayjs(day.dateTime);
+				const currentDay = dayjs(day.date);
 
 				if (lastDay.add(1, "day").isSame(currentDay, "day")) {
 					acc.currentStreak += 1;
@@ -30,7 +30,7 @@ export async function WeeklyStatsServer() {
 					acc.currentStreak = 1;
 				}
 
-				acc.lastDay = new Date(day.dateTime);
+				acc.lastDay = new Date(day.date);
 			}
 
 			return acc;

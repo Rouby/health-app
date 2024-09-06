@@ -11,9 +11,10 @@ export async function TrackSexServer() {
 
 	const daysWithoutSex = await getUserDaysWithoutSex(userId);
 
-	const daysNotLogged = calculateDaysNotLogged(
-		[...sexActs, ...daysWithoutSex].map((d) => d.dateTime),
-	);
+	const daysNotLogged = calculateDaysNotLogged([
+		...sexActs.map((d) => d.dateTime),
+		...daysWithoutSex.map((d) => d.date),
+	]);
 
 	return (
 		<TrackSex
