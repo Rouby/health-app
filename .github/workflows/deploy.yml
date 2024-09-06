@@ -1,0 +1,114 @@
+name: 🚀 Deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request: {}
+
+jobs:
+  build:
+    name: 🏗️ Build
+    runs-on: ubuntu-latest
+
+    concurrency:
+      group: build-${{ github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ⚡️ Cache Docker layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: 🐳 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 🐳 Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🐳 Docker build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ghcr.io/rouby/health-app:latest
+            ghcr.io/rouby/health-app:${{ github.ref_name }}-${{ github.sha }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+      - # Temp fix
+        # https://github.com/docker/build-push-action/issues/252
+        # https://github.com/moby/buildkit/issues/1896
+        name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+  deploy:
+    name: 🚀 Deploy
+    runs-on: self-hosted
+    needs: [build]
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+
+    environment:
+      name: production
+      url: "https://sexy.aiacta.com"
+
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: 📥 Setup kubeconfig
+        run: |
+          New-Item -ItemType Directory -Path "$HOME\.kube" -Force
+          $env:KUBECONFIG_CONTENT = "${{ secrets.KUBECONFIG }}"
+          $env:KUBECONFIG_CONTENT | Out-File -FilePath "$HOME\.kube\config" -Force -Encoding UTF8
+      - name: 🚀 Deploy
+        run: |
+          $env:SESSION_SECRET = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes('${{ secrets.SESSION_SECRET }}'))
+          $env:GOOGLE_SHEET_ID = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes('${{ vars.GOOGLE_SHEET_ID }}'))
+          $env:GOOGLE_SERVICE_ACCOUNT_EMAIL = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes('${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}'))
+          $env:GOOGLE_PRIVATE_KEY = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes('${{ secrets.GOOGLE_PRIVATE_KEY }}'))$env:NEW_RELIC_LICENSE_KEY = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes('${{ secrets.NEW_RELIC_LICENSE_KEY }}'))
+          $env:NEW_RELIC_APP_NAME = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("health-app"))
+          $env:NEW_RELIC_LOADER_CONFIG = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes('${{ secrets.NEW_RELIC_LOADER_CONFIG }}'))
+          $env:NEW_RELIC_INFO = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes('${{ secrets.NEW_RELIC_INFO }}'))
+
+          helm upgrade health -n "health-app" --install --create-namespace `
+              --set image.repository=ghcr.io/rouby/health-app `
+              --set image.tag="${{ github.ref_name }}-${{ github.sha }}" `
+              --set-string secrets.SESSION_SECRET="$env:SESSION_SECRET" `
+              --set-string secrets.GOOGLE_SHEET_ID="$env:GOOGLE_SHEET_ID" `
+              --set-string secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL="$env:GOOGLE_SERVICE_ACCOUNT_EMAIL" `
+              --set-string secrets.GOOGLE_PRIVATE_KEY="$env:GOOGLE_PRIVATE_KEY" `
+              --set-string secrets.NEW_RELIC_LICENSE_KEY="$env:NEW_RELIC_LICENSE_KEY" `
+              --set-string secrets.NEW_RELIC_APP_NAME="$env:NEW_RELIC_APP_NAME" `
+              --set-string secrets.NEW_RELIC_LOADER_CONFIG="$env:NEW_RELIC_LOADER_CONFIG" `
+              --set-string secrets.NEW_RELIC_INFO="$env:NEW_RELIC_INFO" `
+              ./helm
+
+      - name: 🏷️ New Relic Application Deployment Marker
+        env:
+          NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
+          NEW_RELIC_REGION: EU
+        run: |
+          newrelic entity deployment create `
+            --guid ${{ secrets.NEW_RELIC_DEPLOYMENT_ENTITY_GUID_SERVER }} `
+            --version "${{ github.sha }}" `
+            --commit "${{ github.sha }}" `
+            --user "${{ github.actor }}"

@@ -7,11 +7,14 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"i18n:extract": "lingui extract --clean",
+		"i18n:compile": "lingui compile --typescript"
 	},
 	"dependencies": {
 		"@casl/ability": "6.7.1",
 		"@emotion/react": "11.13.3",
+		"@lingui/react": "4.11.4",
 		"@mantine/charts": "7.12.2",
 		"@mantine/core": "7.12.2",
 		"@mantine/dates": "7.12.2",
@@ -19,7 +22,9 @@
 		"@mantine/notifications": "7.12.2",
 		"@mantine/vanilla-extract": "7.12.2",
 		"@rouby/sheetdb": "0.9.0",
+		"@serwist/next": "9.0.7",
 		"@tabler/icons-react": "3.14.0",
+		"@tanstack/react-query": "5.54.1",
 		"bcryptjs": "2.4.3",
 		"dayjs": "1.11.13",
 		"jose": "5.8.0",
@@ -31,13 +36,22 @@
 		"zod": "3.23.8"
 	},
 	"devDependencies": {
+		"@babel/core": "7.25.2",
+		"@biomejs/biome": "1.8.3",
+		"@lingui/cli": "4.11.4",
+		"@lingui/macro": "4.11.4",
+		"@lingui/swc-plugin": "4.0.8",
+		"@types/babel-plugin-macros": "^3",
+		"@types/babel__core": "^7",
 		"@types/bcryptjs": "^2",
 		"@types/node": "^20",
 		"@types/react": "^18",
 		"@types/react-dom": "^18",
 		"autoprefixer": "10.4.20",
+		"babel-plugin-macros": "3.1.0",
 		"postcss": "8.4.43",
 		"postcss-preset-mantine": "1.17.0",
+		"serwist": "9.0.7",
 		"tailwindcss": "3.4.10",
 		"typescript": "^5"
 	}

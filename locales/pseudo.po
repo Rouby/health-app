@@ -1,0 +1,16 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2024-09-05 22:32+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: pseudo\n"
+
+#: features/WeeklyStats/WeeklyStats.tsx:117
+msgid "Average duration"
+msgstr ""
+
+#: features/WeeklyStats/WeeklyStats.tsx:112
+msgid "Sex acts"
+msgstr ""

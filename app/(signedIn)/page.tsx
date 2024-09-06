@@ -1,18 +1,15 @@
-import { SexAct } from "@/data/sexActs";
-import { getAbility, verifySession } from "@/lib/ability";
+import { WeeklyStats } from "@/features/WeeklyStats";
+import { verifySession } from "@/lib/ability";
+import { Suspense } from "react";
 
-export default async function Home() {
-  await verifySession();
+export default async function DashboardPage() {
+	await verifySession();
 
-  const ability = await getAbility();
-
-  const acts = await SexAct.filter((act) => ability.can("read", act));
-
-  return (
-    <>
-      {acts.map((act) => (
-        <div key={act.id}>{act.dateTime}</div>
-      ))}
-    </>
-  );
+	return (
+		<>
+			<Suspense fallback="Loading weekly...">
+				<WeeklyStats />
+			</Suspense>
+		</>
+	);
 }
