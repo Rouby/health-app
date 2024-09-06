@@ -27,7 +27,11 @@ export const getAbility = (userId: UUID) => {
 		can("manage", "DayWithoutSex", { userId });
 	}
 
-	return build();
+	return build({
+		detectSubjectType(subject) {
+			return subject.kind;
+		},
+	});
 };
 
 export const verifySession = cache(async () => {
