@@ -11,7 +11,13 @@ const withSerwist = withSerwistInit({
 const nextConfig = withSerwist({
 	output: "standalone",
 	experimental: {
-		optimizePackageImports: ["@mantine/core", "@mantine/hooks"],
+		optimizePackageImports: [
+			"@mantine/core",
+			"@mantine/hooks",
+			"@mantine/notifications",
+			"@mantine/dates",
+			"@mantine/charts",
+		],
 		swcPlugins: [["@lingui/swc-plugin", {}]],
 	},
 	serverExternalPackages: ["newrelic"],

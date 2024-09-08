@@ -1,5 +1,6 @@
 import { theme } from "@/theme";
 import { setI18n } from "@lingui/react/server";
+import "@mantine/charts/styles.css";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 // @ts-ignore

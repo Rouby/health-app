@@ -1,3 +1,4 @@
+import { StatCharts } from "@/features/StatCharts";
 import { WeeklyStats } from "@/features/WeeklyStats";
 import { verifySession } from "@/lib/ability";
 import { Suspense } from "react";
@@ -12,6 +13,9 @@ export default async function DashboardPage() {
 		<>
 			<Suspense fallback="Loading weekly...">
 				<WeeklyStats />
+			</Suspense>
+			<Suspense fallback="Loading charts...">
+				<StatCharts />
 			</Suspense>
 		</>
 	);
