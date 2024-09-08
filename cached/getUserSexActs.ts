@@ -12,9 +12,9 @@ export const getUserSexActs = unstable_cache(
 
 		logger.info({ userId }, "Retrieve sex acts");
 
-		return (await SexAct.filter((act) => ability.can("read", act))).sort(
-			(a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)),
-		);
+		return (await SexAct.filter((act) => ability.can("read", act)))
+			.sort((a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)))
+			.map((d) => d.toJSON());
 	},
 	[],
 	{ tags: ["sexActs"], revalidate: 3600 },

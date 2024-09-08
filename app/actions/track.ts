@@ -105,11 +105,11 @@ export async function trackSexAct(
 
 	await dayWithoutSex?.delete();
 
-	new SexAct({
+	await new SexAct({
 		userId,
 		dateTime: validatedFields.data.dateTime.toISOString(),
 		duration: validatedFields.data.duration
-			? dayjs.duration(validatedFields.data.duration).toISOString()
+			? dayjs.duration(validatedFields.data.duration, "minutes").toISOString()
 			: "",
 		location: validatedFields.data.location ?? "",
 		initiator: validatedFields.data.initiator === "me" ? "USER" : "PARTNER",
@@ -118,7 +118,7 @@ export async function trackSexAct(
 		positions: validatedFields.data.positions,
 		userFinished: validatedFields.data.userFinished,
 		partnerFinished: validatedFields.data.partnerFinished,
-	});
+	}).save();
 
 	await syncCache();
 
