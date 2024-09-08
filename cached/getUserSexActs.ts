@@ -17,5 +17,5 @@ export const getUserSexActs = unstable_cache(
 		);
 	},
 	[],
-	{ tags: ["sexActs"] },
+	{ tags: ["sexActs"], revalidate: 3600 },
 );

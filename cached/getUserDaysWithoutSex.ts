@@ -17,5 +17,5 @@ export const getUserDaysWithoutSex = unstable_cache(
 		);
 	},
 	[],
-	{ tags: ["daysWithoutSex"] },
+	{ tags: ["daysWithoutSex"], revalidate: 3600 },
 );

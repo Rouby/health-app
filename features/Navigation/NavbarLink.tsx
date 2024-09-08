@@ -1,6 +1,6 @@
 "use client";
 
-import { vars } from "@/theme";
+import { mq, vars } from "@/theme";
 import { Tooltip, UnstyledButton, rem } from "@mantine/core";
 import type { IconHome2 } from "@tabler/icons-react";
 import Link from "next/link";
@@ -51,6 +51,12 @@ export function NavbarLink({
 							backgroundColor: vars.colors.blue.light,
 							color: vars.colors.blue.lightColor,
 						},
+					},
+
+					[mq.sm]: {
+						width: rem(50),
+						height: rem(50),
+						backgroundColor: `light-dark(${vars.colors.gray[0]}, ${vars.colors.dark[5]})`,
 					},
 				})}
 			>

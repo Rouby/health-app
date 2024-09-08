@@ -1,4 +1,4 @@
-import { Navigation } from "@/features/Navigation";
+import { Navigation, NavigationBar } from "@/features/Navigation";
 import {
 	AppShell,
 	AppShellMain,
@@ -24,9 +24,10 @@ export default function SignedInLayout({
 			}}
 			padding="md"
 		>
-			<AppShellNavbar>
+			<AppShellNavbar component="div">
 				<Navigation />
 			</AppShellNavbar>
+			<NavigationBar />
 
 			<AppShellMain>
 				<Container>{children}</Container>
