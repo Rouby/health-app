@@ -4,7 +4,6 @@ import { DayWithoutSex } from "@/data/daysWithoutSex";
 import { SexAct } from "@/data/sexActs";
 import { verifySession } from "@/lib/ability";
 import { dayjs } from "@/lib/dayjs";
-import { syncCache } from "@rouby/sheetdb";
 import { revalidateTag } from "next/cache";
 import { z } from "zod";
 
@@ -43,8 +42,6 @@ export async function trackDayWithoutSex(
 		date: validatedFields.data.date,
 		onPeriod: validatedFields.data.onPeriod,
 	}).save();
-
-	await syncCache();
 
 	revalidateTag("daysWithoutSex");
 }
@@ -119,8 +116,6 @@ export async function trackSexAct(
 		userFinished: validatedFields.data.userFinished,
 		partnerFinished: validatedFields.data.partnerFinished,
 	}).save();
-
-	await syncCache();
 
 	revalidateTag("sexActs");
 }

@@ -2,7 +2,6 @@
 
 import { User } from "@/data/users";
 import { createSession, deleteSession } from "@/lib/session";
-import { syncCache } from "@rouby/sheetdb";
 import { compare, hash } from "bcryptjs";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -52,8 +51,6 @@ export async function signup(
 		email: validatedFields.data.email,
 		password: hashedPassword,
 	}).save();
-
-	await syncCache();
 
 	await createSession(user.id);
 
