@@ -1820,14 +1820,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rouby/sheetdb@npm:0.10.0":
-  version: 0.10.0
-  resolution: "@rouby/sheetdb@npm:0.10.0"
+"@rouby/sheetdb@npm:0.11.0":
+  version: 0.11.0
+  resolution: "@rouby/sheetdb@npm:0.11.0"
   dependencies:
     fast-json-patch: "npm:^3.1.1"
     google-auth-library: "npm:^9.13.0"
     google-spreadsheet: "npm:^4.1.2"
-  checksum: 10/b1f26a1da559b590f878e57022571d84e96d89badbec8055a0f0d2ce5d0d7f10c7df2cbe84bb58b29ce81b90a9ed93bd20bac13f37413971a2107baa0ea03d67
+  checksum: 10/cce8b630a8ebc228cb90a659c4bcf976f2097eeee899dc9cf4be77af6ce9aae0eeb918080ca00cf6f096aa80acf6cf6b142700e0653245eed28020ecf8d83bd6
   languageName: node
   linkType: hard
 
@@ -4240,7 +4240,7 @@ __metadata:
     "@mantine/hooks": "npm:7.12.2"
     "@mantine/notifications": "npm:7.12.2"
     "@mantine/vanilla-extract": "npm:7.12.2"
-    "@rouby/sheetdb": "npm:0.10.0"
+    "@rouby/sheetdb": "npm:0.11.0"
     "@serwist/next": "npm:9.0.7"
     "@tabler/icons-react": "npm:3.14.0"
     "@tanstack/react-query": "npm:5.54.1"

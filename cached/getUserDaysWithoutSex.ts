@@ -8,11 +8,14 @@ import type { UUID } from "node:crypto";
 export const getUserDaysWithoutSex = unstable_cache(
 	async (userId: UUID) => {
 		const ability = getAbility(userId);
-		const firstDayOfWeek = 1; //getUser.firstDayOfWeek;
 
-		logger.info({ userId }, "Retrieve days without sex");
+		const daysWithoutSex = await DayWithoutSex.filter((dayWithoutSex) =>
+			ability.can("read", dayWithoutSex),
+		);
 
-		return (await DayWithoutSex.filter((d) => ability.can("read", d)))
+		logger.info({ daysWithoutSex }, "Retrieved days without sex");
+
+		return daysWithoutSex
 			.sort((a, b) => dayjs(a.date).diff(dayjs(b.date)))
 			.map((d) => d.toJSON());
 	},

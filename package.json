@@ -21,7 +21,7 @@
 		"@mantine/hooks": "7.12.2",
 		"@mantine/notifications": "7.12.2",
 		"@mantine/vanilla-extract": "7.12.2",
-		"@rouby/sheetdb": "0.10.0",
+		"@rouby/sheetdb": "0.11.0",
 		"@serwist/next": "9.0.7",
 		"@tabler/icons-react": "3.14.0",
 		"@tanstack/react-query": "5.54.1",
