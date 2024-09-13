@@ -1820,14 +1820,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rouby/sheetdb@npm:0.9.0":
-  version: 0.9.0
-  resolution: "@rouby/sheetdb@npm:0.9.0"
+"@rouby/sheetdb@npm:0.10.0":
+  version: 0.10.0
+  resolution: "@rouby/sheetdb@npm:0.10.0"
   dependencies:
     fast-json-patch: "npm:^3.1.1"
     google-auth-library: "npm:^9.13.0"
     google-spreadsheet: "npm:^4.1.2"
-  checksum: 10/52770dae34c45ed492a73ffc5a04fd5e88d5c130fe5f57142dbedb55843331d552e9576f004754d1ec772d8a016744ac8b01471db723512ea43af3e210c7187d
+  checksum: 10/b1f26a1da559b590f878e57022571d84e96d89badbec8055a0f0d2ce5d0d7f10c7df2cbe84bb58b29ce81b90a9ed93bd20bac13f37413971a2107baa0ea03d67
   languageName: node
   linkType: hard
 
@@ -4240,7 +4240,7 @@ __metadata:
     "@mantine/hooks": "npm:7.12.2"
     "@mantine/notifications": "npm:7.12.2"
     "@mantine/vanilla-extract": "npm:7.12.2"
-    "@rouby/sheetdb": "npm:0.9.0"
+    "@rouby/sheetdb": "npm:0.10.0"
     "@serwist/next": "npm:9.0.7"
     "@tabler/icons-react": "npm:3.14.0"
     "@tanstack/react-query": "npm:5.54.1"
@@ -4263,7 +4263,7 @@ __metadata:
     postcss-preset-mantine: "npm:1.17.0"
     react: "npm:19.0.0-rc-e56f4ae3-20240830"
     react-dom: "npm:19.0.0-rc-e56f4ae3-20240830"
-    recharts: "npm:2"
+    recharts: "npm:alpha"
     serwist: "npm:9.0.7"
     tailwindcss: "npm:3.4.10"
     tss-react: "npm:4.9.12"
@@ -6042,14 +6042,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^16.10.2, react-is@npm:^16.13.1, react-is@npm:^16.7.0":
+"react-is@npm:^16.13.1, react-is@npm:^16.7.0":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 10/5aa564a1cde7d391ac980bedee21202fc90bdea3b399952117f54fb71a932af1e5902020144fb354b4690b2414a0c7aafe798eb617b76a3d441d956db7726fdf
   languageName: node
   linkType: hard
 
-"react-is@npm:^18.0.0":
+"react-is@npm:^18.0.0, react-is@npm:^18.3.1":
   version: 18.3.1
   resolution: "react-is@npm:18.3.1"
   checksum: 10/d5f60c87d285af24b1e1e7eaeb123ec256c3c8bdea7061ab3932e3e14685708221bf234ec50b21e10dd07f008f1b966a2730a0ce4ff67905b3872ff2042aec22
@@ -6249,14 +6249,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recharts@npm:2":
-  version: 2.12.7
-  resolution: "recharts@npm:2.12.7"
+"recharts@npm:alpha":
+  version: 2.13.0-alpha.5
+  resolution: "recharts@npm:2.13.0-alpha.5"
   dependencies:
     clsx: "npm:^2.0.0"
     eventemitter3: "npm:^4.0.1"
     lodash: "npm:^4.17.21"
-    react-is: "npm:^16.10.2"
+    react-is: "npm:^18.3.1"
     react-smooth: "npm:^4.0.0"
     recharts-scale: "npm:^0.4.4"
     tiny-invariant: "npm:^1.3.1"
@@ -6264,7 +6264,7 @@ __metadata:
   peerDependencies:
     react: ^16.0.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
-  checksum: 10/dd2806978d025abf37ba6eda36fad9361968257c5224286f2881a9f79b18b6045bab520c9c44fd1dc5bb7e35e7ab51d5cde1669e44cb32610e7cb9c49fdd490f
+  checksum: 10/2c634f262798c0ba8e9a7121018075b4c4edc662fc08d78e418865e6ac04435f4115ca7e1e75fc2e7408376aab6e6b5901a677e854b6dd3215d9db6b8ac9be02
   languageName: node
   linkType: hard
 
