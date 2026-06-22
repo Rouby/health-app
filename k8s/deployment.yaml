@@ -59,3 +59,6 @@ spec:
         - name: db-storage
           persistentVolumeClaim:
             claimName: healthsync-db-pvc
+      # Uncomment and configure if keeping the GHCR package private:
+      # imagePullSecrets:
+      #   - name: ghcr-io-secret
