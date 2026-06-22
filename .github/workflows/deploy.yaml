@@ -48,6 +48,8 @@ jobs:
     name: Deploy to Kubernetes Cluster
     needs: build-and-push
     runs-on: arc-runner-set-health-app
+    container:
+      image: node:20
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
