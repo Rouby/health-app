@@ -23,8 +23,8 @@ COPY --from=builder /app/dist ./dist
 RUN mkdir -p /data && chown -R node:node /data
 VOLUME /data
 
-EXPOSE 3000
-ENV PORT=3000
+EXPOSE 8080
+ENV PORT=8080
 ENV DATABASE_URL=/data/healthsync.db
 
 USER node

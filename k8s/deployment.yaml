@@ -22,13 +22,13 @@ spec:
           image: ghcr.io/jonat/health-app/healthsync:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 3000
+            - containerPort: 8080
               name: http
           env:
             - name: NODE_ENV
               value: "production"
             - name: PORT
-              value: "3000"
+              value: "8080"
             - name: DATABASE_URL
               value: "/data/healthsync.db"
             - name: MAX_ITEMS
@@ -39,13 +39,13 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: 3000
+              port: 8080
             initialDelaySeconds: 15
             periodSeconds: 20
           readinessProbe:
             httpGet:
               path: /
-              port: 3000
+              port: 8080
             initialDelaySeconds: 10
             periodSeconds: 10
           resources:
