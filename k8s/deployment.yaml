@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: healthsync-deployment
+  namespace: health-app
+  labels:
+    app: healthsync
+spec:
+  replicas: 1 # SQLite requires a single writer node, perfect for this personal app scale
+  strategy:
+    type: Recreate # Ensures the old pod releases the PVC before the new pod starts
+  selector:
+    matchLabels:
+      app: healthsync
+  template:
+    metadata:
+      labels:
+        app: healthsync
+    spec:
+      containers:
+        - name: healthsync
+          image: ghcr.io/jonat/health-app/healthsync:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+              name: http
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: PORT
+              value: "3000"
+            - name: DATABASE_URL
+              value: "/data/healthsync.db"
+            - name: MAX_ITEMS
+              value: "8"
+          volumeMounts:
+            - name: db-storage
+              mountPath: /data
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+      volumes:
+        - name: db-storage
+          persistentVolumeClaim:
+            claimName: healthsync-db-pvc

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: healthsync-service
+  namespace: health-app
+  labels:
+    app: healthsync
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 3000
+      protocol: TCP
+      name: http
+  selector:
+    app: healthsync
