@@ -95,8 +95,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ steps.repo-name.outputs.name }}/healthsync:${{ needs.version-or-release.outputs.version }}
-            ghcr.io/${{ steps.repo-name.outputs.name }}/healthsync:latest
+            ghcr.io/${{ steps.repo-name.outputs.name }}:${{ needs.version-or-release.outputs.version }}
+            ghcr.io/${{ steps.repo-name.outputs.name }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -121,7 +121,7 @@ jobs:
 
       - name: Replace Deployment Image Tag
         run: |
-          sed -i "s|image: ghcr.io/jonat/health-app/healthsync:latest|image: ghcr.io/${{ steps.repo-name.outputs.name }}/healthsync:${{ needs.version-or-release.outputs.version }}|g" k8s/deployment.yaml
+          sed -i "s|image: ghcr.io/jonat/health-app/healthsync:latest|image: ghcr.io/${{ steps.repo-name.outputs.name }}:${{ needs.version-or-release.outputs.version }}|g" k8s/deployment.yaml
 
       - name: Create Namespace if not exists
         run: |
