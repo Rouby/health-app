@@ -7,12 +7,68 @@ on:
       - master
 
 permissions:
-  contents: read
+  contents: write
   packages: write
+  pull-requests: write
 
 jobs:
+  version-or-release:
+    name: Run Changesets & Determine Version
+    runs-on: ubuntu-latest
+    outputs:
+      should_deploy: ${{ steps.release-status.outputs.should_deploy }}
+      version: ${{ steps.release-status.outputs.version }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Corepack Enable
+        run: |
+          corepack enable
+          corepack prepare yarn@4.13.0 --activate
+
+      - name: Install Dependencies
+        run: yarn install --immutable
+
+      - name: Run Changesets Action
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: yarn version-packages
+          publish: yarn release
+          createGithubReleases: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set Release Status
+        id: release-status
+        run: |
+          if [ "${{ steps.changesets.outputs.hasPublished }}" = "true" ]; then
+            echo "should_deploy=true" >> $GITHUB_OUTPUT
+            # Extract version from first published package JSON payload
+            VERSION=$(echo '${{ steps.changesets.outputs.publishedPackages }}' | jq -r '.[0].version')
+            echo "version=v$VERSION" >> $GITHUB_OUTPUT
+          else
+            COMMIT_MSG=$(git log -1 --pretty=%B)
+            if [[ "$COMMIT_MSG" == "Version Packages"* ]]; then
+              echo "should_deploy=false" >> $GITHUB_OUTPUT
+            else
+              echo "should_deploy=true" >> $GITHUB_OUTPUT
+              echo "version=latest" >> $GITHUB_OUTPUT
+            fi
+          fi
+
   build-and-push:
-    name: Build Docker Image & Push to GHCR
+    name: Build & Push Docker Image
+    needs: version-or-release
+    if: needs.version-or-release.outputs.should_deploy == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -39,14 +95,14 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
+            ghcr.io/${{ steps.repo-name.outputs.name }}/healthsync:${{ needs.version-or-release.outputs.version }}
             ghcr.io/${{ steps.repo-name.outputs.name }}/healthsync:latest
-            ghcr.io/${{ steps.repo-name.outputs.name }}/healthsync:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
   deploy-to-kubernetes:
     name: Deploy to Kubernetes Cluster
-    needs: build-and-push
+    needs: [version-or-release, build-and-push]
     runs-on: arc-runner-set-health-app
     container:
       image: node:20
@@ -65,8 +121,7 @@ jobs:
 
       - name: Replace Deployment Image Tag
         run: |
-          # Replace placeholder image with the newly built image tag
-          sed -i "s|image: ghcr.io/jonat/health-app/healthsync:latest|image: ghcr.io/${{ steps.repo-name.outputs.name }}/healthsync:${{ github.sha }}|g" k8s/deployment.yaml
+          sed -i "s|image: ghcr.io/jonat/health-app/healthsync:latest|image: ghcr.io/${{ steps.repo-name.outputs.name }}/healthsync:${{ needs.version-or-release.outputs.version }}|g" k8s/deployment.yaml
 
       - name: Create Namespace if not exists
         run: |

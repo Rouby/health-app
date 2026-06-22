@@ -7,7 +7,9 @@
     "dev": "waku dev",
     "build": "waku build",
     "start": "waku start",
-    "typegen": "waku router typegen"
+    "typegen": "waku router typegen",
+    "version-packages": "changeset version",
+    "release": "echo 'Release complete'"
   },
   "dependencies": {
     "@mantine/core": "^9.4.0",
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "@babel/core": "^8.0.1",
+    "@changesets/cli": "^2.31.0",
     "@cloudflare/vite-plugin": "^1.39.1",
     "@rolldown/plugin-babel": "^0.2.3",
     "@tailwindcss/vite": "4.3.0",
